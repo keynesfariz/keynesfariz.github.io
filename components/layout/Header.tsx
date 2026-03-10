@@ -38,13 +38,14 @@ export function Header() {
       <nav className="flex items-center gap-6 text-sm font-medium">
         {links.map((link) => (
           <Link
+            key={link.path}
             href={link.path}
             className={cn(
               'hover:text-primary underline-offset-4 transition-colors hover:underline',
               (link.exact
                 ? pathname === link.path
                 : pathname.startsWith(link.path)) &&
-                'text-primary underline underline-offset-4',
+              'text-primary underline underline-offset-4',
             )}>
             {link.label}
           </Link>
