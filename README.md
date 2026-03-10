@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# fariz.me - Personal Portfolio
 
-## Getting Started
+Welcome to the source code for my personal portfolio website, built with modern web technologies to showcase my work, experience, and writings.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **Icons**: [Lucide React](https://lucide.dev/icons/)
+- **Theming**: `next-themes` (Dark/Light mode support)
+- **Package Manager**: [Bun](https://bun.sh/)
+
+## 🏃‍♂️ Getting Started
+
+1. Clone the repository
+2. Install dependencies using Bun:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-## Learn More
+> **Note**: If you are using a different package manager, make sure to update the `deploy.yml` file accordingly.
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 TODO List
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This is a personal checklist of things I need to update before this site is fully ready for production:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Content Updates
 
-## Deploy on Vercel
+- [ ] **Home Page**: Update the hero section text to accurately reflect my current role and company.
+- [ ] **Home Page**: Replace `/placeholder-avatar.png` with a real professional headshot.
+- [ ] **Home Page**: Update the "Experience" section with my actual timeline and responsibilities.
+- [ ] **Home Page**: Update the "Education" section with my actual degrees and universities.
+- [ ] **About Page**: Rewrite the "About Me" paragraphs to be more personal and detailed.
+- [ ] **About Page**: Replace the mock Git contribution graph with an actual integration (e.g., using GitHub API) or remove it if unnecessary.
+- [ ] **Footer**: Update the `href` links for LinkedIn, GitHub, and Resume.
+- [ ] **Resume**: Add my actual `resume.pdf` to the `/public` folder.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Blog / Writing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] **Posts Page**: Remove all mock data from `/app/posts/page.tsx` and implement a real CMS or MDX fetching system.
+- [ ] **Post Detail**: Implement dynamic routing fetching real markdown/MDX content instead of using hardcoded switch statements or mock text.
+
+### Deployment & SEO
+
+- [ ] **Metadata**: Update the `app/layout.tsx` metadata (title, description, open graph images) for SEO.
+- [ ] **Analytics**: Add web analytics (e.g., Vercel Analytics, Plausible, or Google Analytics).
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
