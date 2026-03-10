@@ -25,6 +25,8 @@ const links: NavLink[] = [
   },
 ];
 
+import { ThemeToggle } from '@/components/theme-toggle';
+
 export function Header() {
   const pathname = usePathname();
 
@@ -45,11 +47,12 @@ export function Header() {
               (link.exact
                 ? pathname === link.path
                 : pathname.startsWith(link.path)) &&
-              'text-primary underline underline-offset-4',
+                'text-primary underline underline-offset-4',
             )}>
             {link.label}
           </Link>
         ))}
+        <ThemeToggle />
       </nav>
     </header>
   );
