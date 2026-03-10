@@ -21,12 +21,6 @@ export default function Home() {
     <div className="flex flex-col gap-12">
       {/* Hero Section */}
       <section className="flex flex-col items-start gap-8 md:flex-row md:items-center">
-        <Avatar className="border-border size-24 border-2 sm:size-32">
-          <AvatarImage src="/placeholder-avatar.png" alt="Profile" />
-          <AvatarFallback className="bg-primary/10 text-primary text-3xl font-bold">
-            FR
-          </AvatarFallback>
-        </Avatar>
         <div className="flex flex-col gap-4">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
             Hi, I'm Fariz 👋
@@ -45,6 +39,12 @@ export default function Home() {
             <span>Jakarta, Indonesia</span>
           </div>
         </div>
+        <Avatar className="border-border size-32 border-2 sm:size-40">
+          <AvatarImage src="/placeholder-avatar.png" alt="Profile" />
+          <AvatarFallback className="bg-primary/10 text-primary text-3xl font-bold">
+            FK
+          </AvatarFallback>
+        </Avatar>
       </section>
 
       <Separator />
@@ -58,7 +58,7 @@ export default function Home() {
               <BriefcaseIcon className="text-primary size-5" />
               <h3 className="text-xl font-bold">Experience</h3>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 space-y-6">
               <div className="flex flex-col">
                 <div className="mb-1 flex items-baseline justify-between">
                   <h4 className="text-base font-semibold">Software Engineer</h4>
@@ -74,7 +74,7 @@ export default function Home() {
                   product dashboard using Next.js and React.
                 </p>
               </div>
-              <div className="mt-2 flex flex-col">
+              <div className="flex flex-col">
                 <div className="mb-1 flex items-baseline justify-between">
                   <h4 className="text-base font-semibold">
                     Frontend Developer
