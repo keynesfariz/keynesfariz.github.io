@@ -1,3 +1,5 @@
+import { Footer } from '@/components/layout/Footer';
+import { Header } from '@/components/layout/Header';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -17,7 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn('font-sans', 'antialiased', inter.variable)}>
-      <body>{children}</body>
+      <body className="min-h-screen flex flex-col bg-background text-foreground">
+        <Header />
+        <main className="flex-1 w-full max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }
