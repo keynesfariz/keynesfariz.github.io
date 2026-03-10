@@ -152,8 +152,8 @@ export default function Home() {
             View all posts &rarr;
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((post) => (
+        <div className="grid gap-4 sm:grid-cols-2 ">
+          {[1, 2].map((post) => (
             <Link
               key={post}
               href={`/posts/mock-post-${post}`}
@@ -173,14 +173,6 @@ export default function Home() {
                     think about building React applications and managing state
                     across the network boundary.
                   </CardDescription>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs font-normal">
-                      React
-                    </Badge>
-                    <Badge variant="outline" className="text-xs font-normal">
-                      Next.js
-                    </Badge>
-                  </div>
                 </CardContent>
               </Card>
             </Link>
