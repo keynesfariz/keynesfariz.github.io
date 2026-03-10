@@ -2,7 +2,7 @@ import { Card } from '@/components/ui/card';
 
 export default function About() {
   return (
-    <div className="flex max-w-2xl flex-col gap-12">
+    <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-4">
         <h1 className="text-4xl font-bold tracking-tight">About Me</h1>
         <div className="text-muted-foreground mt-2 flex flex-col gap-4 text-lg leading-relaxed">
