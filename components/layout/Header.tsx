@@ -1,22 +1,55 @@
+'use client';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+type NavLink = {
+  label: string;
+  path: string;
+  exact?: boolean;
+};
+
+const links: NavLink[] = [
+  {
+    label: 'Home',
+    path: '/',
+    exact: true,
+  },
+  {
+    label: 'About',
+    path: '/about',
+  },
+  {
+    label: 'Posts',
+    path: '/posts',
+  },
+];
 
 export function Header() {
-    return (
-        <header className="flex items-center justify-between py-6 px-4 md:px-6 lg:px-8 max-w-4xl mx-auto w-full">
-            <Link href="/" className="font-bold text-xl tracking-tighter hover:opacity-80 transition-opacity">
-                fariz.me
-            </Link>
-            <nav className="flex items-center gap-6 text-sm font-medium">
-                <Link href="/" className="hover:text-primary transition-colors">
-                    Home
-                </Link>
-                <Link href="/about" className="hover:text-primary transition-colors">
-                    About
-                </Link>
-                <Link href="/posts" className="hover:text-primary transition-colors">
-                    Posts
-                </Link>
-            </nav>
-        </header>
-    );
+  const pathname = usePathname();
+
+  return (
+    <header className="mx-auto flex w-full max-w-4xl items-center justify-between px-4 py-6 md:px-6 lg:px-8">
+      <Link
+        href="/"
+        className="text-xl font-bold tracking-tighter transition-opacity hover:opacity-80">
+        fariz.me
+      </Link>
+      <nav className="flex items-center gap-6 text-sm font-medium">
+        {links.map((link) => (
+          <Link
+            href={link.path}
+            className={cn(
+              'hover:text-primary underline-offset-4 transition-colors hover:underline',
+              (link.exact
+                ? pathname === link.path
+                : pathname.startsWith(link.path)) &&
+                'text-primary underline underline-offset-4',
+            )}>
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+    </header>
+  );
 }
