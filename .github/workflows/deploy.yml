@@ -4,7 +4,7 @@ env:
   NEXT_GITHUB_USERNAME: ${{ vars.NEXT_GITHUB_USERNAME }}
   NEXT_GIST_ID: ${{ vars.NEXT_GIST_ID }}
   NEXT_PHOTO_URL: ${{ vars.NEXT_PHOTO_URL }}
-  NEXT_GOOGLE_GA_ID: ${{ vars.NEXT_PHOTO_URL }}
+  NEXT_GOOGLE_GA_ID: ${{ vars.NEXT_GOOGLE_GA_ID }}
 
 on:
   # Runs on pushes targeting the default branch
