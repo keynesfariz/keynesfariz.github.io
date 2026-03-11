@@ -37,18 +37,18 @@ This is a personal checklist of things I need to update before this site is full
 ### Content Updates
 
 - [ ] **Home Page**: Update the hero section text to accurately reflect my current role and company.
-- [ ] **Home Page**: Replace `/placeholder-avatar.png` with a real professional headshot.
-- [ ] **Home Page**: Update the "Experience" section with my actual timeline and responsibilities.
-- [ ] **Home Page**: Update the "Education" section with my actual degrees and universities.
+- [x] **Home Page**: Replace `/placeholder-avatar.png` with a real professional headshot.
+- [x] **Home Page**: Update the "Experience" section with my actual timeline and responsibilities.
+- [x] **Home Page**: Update the "Education" section with my actual degrees and universities.
 - [ ] **About Page**: Rewrite the "About Me" paragraphs to be more personal and detailed.
-- [ ] **About Page**: Replace the mock Git contribution graph with an actual integration (e.g., using GitHub API) or remove it if unnecessary.
+- [x] **About Page**: Replace the mock Git contribution graph with an actual integration (e.g., using GitHub API) or remove it if unnecessary.
 - [x] **Footer**: Update the `href` links for LinkedIn, GitHub, and Resume.
-- [ ] **Resume**: Add my actual `resume.pdf` to the `/public` folder.
+- [x] **Resume**: Add my actual `resume.pdf` to the `/public` folder.
 
 ### Blog / Writing
 
-- [ ] **Posts Page**: Remove all mock data from `/app/posts/page.tsx` and implement a real CMS or MDX fetching system.
-- [ ] **Post Detail**: Implement dynamic routing fetching real markdown/MDX content instead of using hardcoded switch statements or mock text.
+- [ ] **Writings Page**: Remove all mock data from `/app/writings/page.tsx` and implement a real CMS or MDX fetching system.
+- [ ] **Writing Detail**: Implement dynamic routing fetching real markdown/MDX content instead of using hardcoded switch statements or mock text.
 
 ### Deployment & SEO
 
