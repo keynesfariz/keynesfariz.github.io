@@ -22,7 +22,7 @@ import {
 import Link from 'next/link';
 
 export default async function Home() {
-  const resume = await getResumeSchema(process.env.JSONRESUME_GIST_ID ?? '');
+  const resume = await getResumeSchema(process.env.NEXT_GIST_ID ?? '');
   const profile = getHomepageData(resume);
 
   return (
@@ -58,7 +58,7 @@ export default async function Home() {
         </div>
         <Avatar className="border-border size-32 border-2 sm:size-40">
           <AvatarImage
-            src={process.env.PROFILE_PHOTO_URL}
+            src={process.env.NEXT_PHOTO_URL}
             alt="Headshot of Fariz"
           />
           <AvatarFallback className="bg-primary/10 text-primary text-3xl font-bold">

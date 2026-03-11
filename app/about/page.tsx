@@ -3,7 +3,7 @@ import { getGitContributions } from '@/lib/data';
 
 export default async function About() {
   const contributions = await getGitContributions(
-    process.env.GITHUB_USERNAME ?? '',
+    process.env.NEXT_GITHUB_USERNAME ?? '',
   );
 
   return (
