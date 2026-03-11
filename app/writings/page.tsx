@@ -51,7 +51,7 @@ export default function Posts() {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
-        <h1 className="text-4xl font-bold tracking-tight">Writing</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Writings</h1>
         <p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
           I occasionally write about software engineering, frontend development,
           design systems, and whatever else I'm currently exploring.
@@ -60,7 +60,10 @@ export default function Posts() {
 
       <div className="grid gap-6">
         {mockPosts.map((post) => (
-          <Link key={post.slug} href={`/posts/${post.slug}`} className="group">
+          <Link
+            key={post.slug}
+            href={`/writings/${post.slug}`}
+            className="group">
             <Card className="hover:border-primary/50 bg-card/50 hover:bg-card transition-all duration-200 hover:shadow-md">
               <CardHeader className="pb-3">
                 <div className="mb-2 flex items-center gap-2">

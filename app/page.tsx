@@ -1,3 +1,5 @@
+import { Highlight, HighlightItem } from '@/components/highlights';
+import Skills from '@/components/skill';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -8,6 +10,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { getResumeSchema } from '@/lib/data';
+import { getHomepageData } from '@/lib/transformers';
+import dayjs from 'dayjs';
 import {
   BriefcaseIcon,
   GraduationCapIcon,
@@ -16,7 +21,10 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const resume = await getResumeSchema(process.env.JSONRESUME_GIST_ID ?? '');
+  const profile = getHomepageData(resume);
+
   return (
     <div className="flex flex-col gap-12">
       {/* Hero Section */}
@@ -26,23 +34,35 @@ export default function Home() {
             Hi, I'm Fariz 👋
           </h1>
           <h2 className="text-muted-foreground text-xl font-medium md:text-2xl">
-            Software Engineer at{' '}
-            <span className="text-foreground font-semibold">Acme Corp</span>
+            {profile.title}
+            {profile.company && (
+              <>
+                {' @ '}
+                <span className="text-foreground font-semibold">
+                  {profile.company}
+                </span>
+              </>
+            )}
           </h2>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
             I'm a software engineer specializing in building (and occasionally
             designing) exceptional digital experiences. Currently, I'm focused
             on building accessible, human-centered products at Acme Corp.
           </p>
-          <div className="text-muted-foreground mt-2 flex items-center gap-2 text-sm">
-            <MapPinIcon className="size-4" />
-            <span>Jakarta, Indonesia</span>
-          </div>
+          {profile.location && (
+            <div className="text-muted-foreground mt-2 flex items-center gap-2 text-sm">
+              <MapPinIcon className="size-4" />
+              <span>{profile.location}</span>
+            </div>
+          )}
         </div>
         <Avatar className="border-border size-32 border-2 sm:size-40">
-          <AvatarImage src="/placeholder-avatar.png" alt="Profile" />
+          <AvatarImage
+            src={process.env.PROFILE_PHOTO_URL}
+            alt="Headshot of Fariz"
+          />
           <AvatarFallback className="bg-primary/10 text-primary text-3xl font-bold">
-            FK
+            FM
           </AvatarFallback>
         </Avatar>
       </section>
@@ -50,77 +70,74 @@ export default function Home() {
       <Separator />
 
       {/* Experience, Education & Languages */}
-      <section className="grid gap-8 md:grid-cols-2">
-        <div className="flex flex-col gap-6">
+      <section className="grid gap-8 md:grid-cols-2 md:gap-12">
+        <div className="flex flex-col gap-8">
           {/* Work Experience */}
-          <div>
-            <div className="mb-4 flex items-center gap-2">
-              <BriefcaseIcon className="text-primary size-5" />
-              <h3 className="text-xl font-bold">Experience</h3>
+          <Highlight icon={BriefcaseIcon} title="Experience">
+            <div className="flex flex-col gap-6">
+              {profile.work?.map((work) => (
+                <HighlightItem
+                  key={work.name}
+                  title={work.position ?? ''}
+                  organisation={work.name ?? ''}
+                  date={work.date}
+                  summary={work.summary}
+                />
+              ))}
             </div>
-            <div className="flex flex-col gap-4 space-y-6">
-              <div className="flex flex-col">
-                <div className="mb-1 flex items-baseline justify-between">
-                  <h4 className="text-base font-semibold">Software Engineer</h4>
-                  <span className="text-muted-foreground text-sm">
-                    2022 - Present
-                  </span>
-                </div>
-                <div className="text-muted-foreground mb-2 text-sm font-medium">
-                  Acme Corp
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Led the frontend development team in re-architecting the core
-                  product dashboard using Next.js and React.
-                </p>
-              </div>
-              <div className="flex flex-col">
-                <div className="mb-1 flex items-baseline justify-between">
-                  <h4 className="text-base font-semibold">
-                    Frontend Developer
-                  </h4>
-                  <span className="text-muted-foreground text-sm">
-                    2020 - 2022
-                  </span>
-                </div>
-                <div className="text-muted-foreground mb-2 text-sm font-medium">
-                  Tech Solutions Inc.
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Developed and maintained multiple client-facing web
-                  applications using React and Tailwind CSS.
-                </p>
-              </div>
-            </div>
-          </div>
+          </Highlight>
 
           {/* Education */}
-          <div className="mt-2 md:mt-6">
-            <div className="mb-4 flex items-center gap-2">
-              <GraduationCapIcon className="text-primary size-5" />
-              <h3 className="text-xl font-bold">Education</h3>
+          <Highlight icon={GraduationCapIcon} title="Education">
+            <div className="flex flex-col gap-6">
+              {profile.education?.map((education) => {
+                const title = `${education.studyType ?? ''} of ${education.area ?? ''}`;
+                return (
+                  <HighlightItem
+                    key={title}
+                    title={title}
+                    organisation={education.institution ?? ''}
+                    date={
+                      education.endDate
+                        ? dayjs(education.endDate).format('YYYY')
+                        : ''
+                    }
+                  />
+                );
+              })}
             </div>
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col">
-                <div className="mb-1 flex items-baseline justify-between">
-                  <h4 className="text-base font-semibold">
-                    B.S. Computer Science
-                  </h4>
-                  <span className="text-muted-foreground text-sm">
-                    2016 - 2020
-                  </span>
-                </div>
-                <div className="text-muted-foreground text-sm font-medium">
-                  University of Example
-                </div>
-              </div>
-            </div>
-          </div>
+          </Highlight>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
+          {/* Stack / Skills */}
+          {profile.skills?.length && (
+            <Highlight icon={LanguagesIcon} title="Stack / Skills">
+              <Skills skills={profile.skills} />
+            </Highlight>
+          )}
+
           {/* Languages */}
-          <div>
+          {profile.languages?.length && (
+            <Highlight icon={LanguagesIcon} title="Languages">
+              <div className="flex flex-wrap gap-2">
+                {profile.languages.map((lang) => (
+                  <Badge
+                    key={lang.language}
+                    variant={
+                      ['native', 'fluent', 'intermediate', 'advanced'].includes(
+                        lang.fluency ? lang.fluency.toLowerCase() : '',
+                      )
+                        ? 'secondary'
+                        : 'outline'
+                    }>
+                    {lang.language} ({lang.fluency})
+                  </Badge>
+                ))}
+              </div>
+            </Highlight>
+          )}
+          {/* <div>
             <div className="mb-4 flex items-center gap-2">
               <LanguagesIcon className="text-primary size-5" />
               <h3 className="text-xl font-bold">Languages</h3>
@@ -130,33 +147,32 @@ export default function Home() {
               <Badge variant="secondary">English (Fluent)</Badge>
               <Badge variant="outline">Japanese (Basic)</Badge>
             </div>
-          </div>
+          </div> */}
 
-          {/* Stack / Skills */}
-          <div className="text-muted-foreground bg-muted/50 border-border/50 mt-2 rounded-lg border p-4 text-sm">
+          {/* <div className="text-muted-foreground bg-muted/50 border-border/50 mt-2 rounded-lg border p-4 text-sm">
             <h4 className="text-foreground mb-2 font-semibold">Stack</h4>
             <p>React, Next.js, TypeScript, Tailwind CSS, Node.js, PostgreSQL</p>
-          </div>
+          </div>  */}
         </div>
       </section>
 
       <Separator />
 
-      {/* Recent Posts */}
+      {/* Recent Writings */}
       <section className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-bold tracking-tight">Recent Posts</h3>
+          <h3 className="text-2xl font-bold tracking-tight">Recent writings</h3>
           <Link
-            href="/posts"
+            href="/writings"
             className="text-primary text-sm font-medium underline-offset-4 hover:underline">
-            View all posts &rarr;
+            View all writings &rarr;
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {[1, 2].map((post) => (
             <Link
               key={post}
-              href={`/posts/mock-post-${post}`}
+              href={`/writings/mock-post-${post}`}
               className="group h-full">
               <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
                 <CardHeader>

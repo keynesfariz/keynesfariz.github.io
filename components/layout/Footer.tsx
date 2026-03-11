@@ -8,7 +8,7 @@ export function Footer() {
       <Separator className="mb-8" />
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="text-muted-foreground text-sm">
-          © {new Date().getFullYear()} Fariz. All rights reserved.
+          &copy; {new Date().getFullYear()} Fariz
         </div>
 
         <div className="flex items-center gap-6">

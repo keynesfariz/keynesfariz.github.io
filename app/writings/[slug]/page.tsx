@@ -32,10 +32,10 @@ export default async function PostDetail({
     <article className="mx-auto flex max-w-3xl flex-col gap-8">
       <div className="mb-2">
         <Link
-          href="/posts"
+          href="/writings"
           className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-medium transition-colors">
           <ArrowLeftIcon className="size-4" />
-          Back to posts
+          Back to writings
         </Link>
       </div>
 
