@@ -13,7 +13,7 @@ export function Footer() {
 
         <div className="flex items-center gap-6">
           <Link
-            href="https://linkedin.com"
+            href={`https://linkedin.com/in/${process.env.GITHUB_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors">
@@ -21,7 +21,7 @@ export function Footer() {
             <span className="sr-only">LinkedIn</span>
           </Link>
           <Link
-            href="https://github.com"
+            href={`https://github.com/${process.env.GITHUB_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors">
@@ -29,7 +29,7 @@ export function Footer() {
             <span className="sr-only">GitHub</span>
           </Link>
           <Link
-            href="/resume.pdf"
+            href={`https://registry.jsonresume.org/${process.env.GITHUB_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors">

@@ -42,7 +42,7 @@ This is a personal checklist of things I need to update before this site is full
 - [ ] **Home Page**: Update the "Education" section with my actual degrees and universities.
 - [ ] **About Page**: Rewrite the "About Me" paragraphs to be more personal and detailed.
 - [ ] **About Page**: Replace the mock Git contribution graph with an actual integration (e.g., using GitHub API) or remove it if unnecessary.
-- [ ] **Footer**: Update the `href` links for LinkedIn, GitHub, and Resume.
+- [x] **Footer**: Update the `href` links for LinkedIn, GitHub, and Resume.
 - [ ] **Resume**: Add my actual `resume.pdf` to the `/public` folder.
 
 ### Blog / Writing
