@@ -53,7 +53,7 @@ This is a personal checklist of things I need to update before this site is full
 ### Deployment & SEO
 
 - [ ] **Metadata**: Update the `app/layout.tsx` metadata (title, description, open graph images) for SEO.
-- [ ] **Analytics**: Add web analytics (e.g., Vercel Analytics, Plausible, or Google Analytics).
+- [x] **Analytics**: Add web analytics (e.g., Vercel Analytics, Plausible, or Google Analytics).
 
 ## 📄 License
 
