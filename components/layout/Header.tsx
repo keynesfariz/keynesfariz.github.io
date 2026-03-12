@@ -27,12 +27,17 @@ export function Header() {
 
   return (
     <header className="mx-auto flex w-full max-w-4xl items-center justify-between p-8 md:p-12">
-      <Link href="/" className="group flex items-center space-x-2">
+      <Link
+        href="/"
+        className="group flex items-center space-x-2"
+        aria-label="Logo of Fariz's personal website">
         <div
           className={cn(
             'text-primary flex size-8 items-center justify-center rounded-md',
             'transition-all duration-75 ease-in-out',
-            pathname === '/' ? 'bg-primary text-white' : 'hover:bg-muted',
+            pathname === '/'
+              ? 'bg-primary text-white'
+              : 'bg-muted hover:bg-primary hover:text-white',
           )}>
           <Logo className="size-5" />
         </div>
