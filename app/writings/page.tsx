@@ -6,46 +6,30 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { getPageTitle } from '@/lib/data';
+import { slugToTitle } from '@/lib/transformers';
+import { allWritings } from '@/lib/writings';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 
-const mockPosts = [
-  {
-    slug: 'learning-react-server-components',
-    date: 'Oct 24, 2024',
+export function generateMetadata() {
+  return {
+    title: getPageTitle('Writings'),
+  };
+}
+
+const mockPosts = allWritings.map((slug, i) => {
+  const title = slugToTitle(slug);
+  return {
+    slug,
+    title,
+    date: dayjs().subtract(i, 'w').format('MMMM D, YYYY'),
     readTime: '5 min read',
-    title: 'Understanding React Server Components in Next.js 14',
     description:
       'A deep dive into how Server Components change the way we think about building React applications and managing state across the network boundary.',
     tags: ['React', 'Next.js'],
-  },
-  {
-    slug: 'design-systems-with-tailwind',
-    date: 'Sep 12, 2024',
-    readTime: '6 min read',
-    title: 'Building Scalable Design Systems with Tailwind CSS',
-    description:
-      'How to combine the utility-first approach of Tailwind with structured design tokens to create robust component libraries that scale.',
-    tags: ['CSS', 'Design'],
-  },
-  {
-    slug: 'typescript-advanced-patterns',
-    date: 'Aug 05, 2024',
-    readTime: '8 min read',
-    title: 'Advanced TypeScript Patterns for Modern Frontend',
-    description:
-      'Going beyond basic interfaces to explore utility types, conditional types, and generic constraints that make our code safer and more expressive.',
-    tags: ['TypeScript', 'Frontend'],
-  },
-  {
-    slug: 'animation-in-react',
-    date: 'Jul 21, 2024',
-    readTime: '4 min read',
-    title: 'Creating Fluid Animations in React without complex libraries',
-    description:
-      "Sometimes we don't need Framer Motion. Here is how you can use simple CSS transitions and basic hooks to make UI feel alive.",
-    tags: ['React', 'Animation'],
-  },
-];
+  };
+});
 
 export default function Posts() {
   return (

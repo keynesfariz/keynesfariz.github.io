@@ -6,7 +6,7 @@ interface SkillsProps {
 }
 
 const MAX_SKILLS = 2;
-const MAX_KEYWORDS = 5;
+const MAX_KEYWORDS = 4;
 
 const Skills = ({ skills }: SkillsProps) => (
   <div className="space-y-6">

@@ -36,11 +36,11 @@ This is a personal checklist of things I need to update before this site is full
 
 ### Content Updates
 
-- [ ] **Home Page**: Update the hero section text to accurately reflect my current role and company.
+- [ ] **Home Page**: Update the hero section text to accurately reflect my current role.
+- [ ] **About Page**: Rewrite the "About Me" paragraphs to be more personal and detailed.
 - [x] **Home Page**: Replace `/placeholder-avatar.png` with a real professional headshot.
 - [x] **Home Page**: Update the "Experience" section with my actual timeline and responsibilities.
 - [x] **Home Page**: Update the "Education" section with my actual degrees and universities.
-- [ ] **About Page**: Rewrite the "About Me" paragraphs to be more personal and detailed.
 - [x] **About Page**: Replace the mock Git contribution graph with an actual integration (e.g., using GitHub API) or remove it if unnecessary.
 - [x] **Footer**: Update the `href` links for LinkedIn, GitHub, and Resume.
 - [x] **Resume**: Add my actual `resume.pdf` to the `/public` folder.
@@ -52,7 +52,7 @@ This is a personal checklist of things I need to update before this site is full
 
 ### Deployment & SEO
 
-- [ ] **Metadata**: Update the `app/layout.tsx` metadata (title, description, open graph images) for SEO.
+- [x] **Metadata**: Update the `app/layout.tsx` metadata (title, description, open graph images) for SEO.
 - [x] **Analytics**: Add web analytics (e.g., Vercel Analytics, Plausible, or Google Analytics).
 
 ## 📄 License

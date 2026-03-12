@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
   output: 'export',
   logging: {
     fetches: {
-      fullUrl: process.env.NODE_ENV !== 'production',
-      hmrRefreshes: process.env.NODE_ENV !== 'production',
+      fullUrl: process.env.NODE_ENV === 'development',
+      hmrRefreshes: process.env.NODE_ENV === 'development',
     },
   },
 };

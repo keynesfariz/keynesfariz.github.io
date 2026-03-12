@@ -1,43 +1,44 @@
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { getPageTitle } from '@/lib/data';
+import { slugToTitle } from '@/lib/transformers';
+import { allWritings, featuredRepos } from '@/lib/writings';
 import { ArrowLeftIcon } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 export async function generateStaticParams() {
-  return [
-    { slug: 'learning-react-server-components' },
-    { slug: 'design-systems-with-tailwind' },
-    { slug: 'typescript-advanced-patterns' },
-    { slug: 'animation-in-react' },
-    { slug: 'mock-post-1' },
-    { slug: 'mock-post-2' },
-    { slug: 'mock-post-3' },
-  ];
+  return allWritings.map((slug) => ({
+    slug,
+  }));
 }
 
-export default async function PostDetail({
-  params,
-}: {
+type Props = {
   params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+};
 
-  // Transform slug back to readable mock title
-  const mockTitle = slug
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const title = getPageTitle(slugToTitle(slug));
+  return {
+    title,
+  };
+}
+
+export default async function PostDetail({ params }: Props) {
+  const { slug } = await params;
+  const isFromRepo = featuredRepos.includes(slug);
+  const repoLink = `https://github.com/${process.env.NEXT_USERNAME}/${slug}`;
+  const mockTitle = slugToTitle(slug);
 
   return (
-    <article className="mx-auto flex max-w-3xl flex-col gap-8">
-      <div className="mb-2">
-        <Link
-          href="/writings"
-          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-medium transition-colors">
-          <ArrowLeftIcon className="size-4" />
-          Back to writings
-        </Link>
-      </div>
+    <article className="flex flex-col gap-8">
+      <Link
+        href="/writings"
+        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm font-medium transition-colors">
+        <ArrowLeftIcon className="size-4" />
+        Back to writings
+      </Link>
 
       <header className="flex flex-col gap-4">
         <h1 className="text-4xl leading-tight font-extrabold tracking-tight md:text-5xl">
@@ -70,7 +71,6 @@ export default async function PostDetail({
           performance gains but also requires developers to adapt to new
           paradigms.
         </p>
-
         <h2>The Paradigm Shift</h2>
         <p>
           Traditionally in React, all components were Client Components. This
@@ -110,7 +110,7 @@ export default async function PostDetail({
           without exposing secrets to the client. Here's a quick example:
         </p>
 
-        <pre className="bg-muted overflow-x-auto rounded-md p-4 text-sm">
+        <pre className="overflow-x-auto rounded-md p-4 text-sm">
           <code>{`export default async function ProductPage({ id }) {
   // Direct database query from the component
   const product = await db.product.findUnique({ where: { id } });
@@ -131,6 +131,19 @@ export default async function PostDetail({
           are undeniable.
         </p>
       </div>
+
+      {isFromRepo && (
+        <div>
+          Source code:{' '}
+          <Link
+            href={repoLink}
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary font-medium underline-offset-4 hover:underline">
+            {repoLink}
+          </Link>
+        </div>
+      )}
     </article>
   );
 }

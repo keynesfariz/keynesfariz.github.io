@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="mx-auto mt-12 w-full max-w-4xl px-4 py-8 md:px-6 lg:px-8">
+    <footer className="mx-auto w-full max-w-4xl p-8 md:p-12">
       <Separator className="mb-8" />
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="text-muted-foreground text-sm">
@@ -13,7 +13,7 @@ export function Footer() {
 
         <div className="flex items-center gap-6">
           <Link
-            href={`https://linkedin.com/in/${process.env.NEXT_GITHUB_USERNAME}`}
+            href={`https://linkedin.com/in/${process.env.NEXT_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors">
@@ -21,7 +21,7 @@ export function Footer() {
             <span className="sr-only">LinkedIn</span>
           </Link>
           <Link
-            href={`https://github.com/${process.env.NEXT_GITHUB_USERNAME}`}
+            href={`https://github.com/${process.env.NEXT_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors">
@@ -29,7 +29,7 @@ export function Footer() {
             <span className="sr-only">GitHub</span>
           </Link>
           <Link
-            href={`https://registry.jsonresume.org/${process.env.NEXT_GITHUB_USERNAME}`}
+            href={`https://registry.jsonresume.org/${process.env.NEXT_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors">

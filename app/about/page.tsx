@@ -1,10 +1,14 @@
 import GitContributions from '@/components/git-contributions';
-import { getGitContributions } from '@/lib/data';
+import { getGitContributions, getPageTitle } from '@/lib/data';
+
+export function generateMetadata() {
+  return {
+    title: getPageTitle('About Me'),
+  };
+}
 
 export default async function About() {
-  const contributions = await getGitContributions(
-    process.env.NEXT_GITHUB_USERNAME ?? '',
-  );
+  const contributions = await getGitContributions();
 
   return (
     <div className="flex flex-col gap-12">

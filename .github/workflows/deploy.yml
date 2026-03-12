@@ -1,10 +1,11 @@
 # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 env:
-  NEXT_GITHUB_USERNAME: ${{ vars.NEXT_GITHUB_USERNAME }}
+  NEXT_BASE_URL: ${{ vars.NEXT_BASE_URL }}
+  NEXT_USERNAME: ${{ vars.NEXT_USERNAME }}
   NEXT_GIST_ID: ${{ vars.NEXT_GIST_ID }}
   NEXT_PHOTO_URL: ${{ vars.NEXT_PHOTO_URL }}
-  NEXT_GOOGLE_GA_ID: ${{ vars.NEXT_GOOGLE_GA_ID }}
+  NEXT_GA_ID: ${{ vars.NEXT_GA_ID }}
 
 on:
   # Runs on pushes targeting the default branch

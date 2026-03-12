@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { LucideProps } from 'lucide-react';
 import React from 'react';
 
@@ -5,10 +6,16 @@ interface HighlightProps {
   icon: React.ComponentType<LucideProps>;
   title: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export const Highlight = ({ icon: Icon, title, children }: HighlightProps) => (
-  <div className="space-y-4">
+export const Highlight = ({
+  icon: Icon,
+  title,
+  className,
+  children,
+}: HighlightProps) => (
+  <div className={cn('space-y-4', className)}>
     <div className="flex items-center gap-2">
       <Icon className="text-primary size-5" />
       <h3 className="text-xl font-bold">{title}</h3>

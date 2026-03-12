@@ -1,5 +1,5 @@
-import { ResumeSchema } from "@supastuff/json-resume-types";
-import dayjs from "dayjs";
+import { ResumeSchema } from '@supastuff/json-resume-types';
+import dayjs from 'dayjs';
 
 const getLocation = (location: any): string => {
   return [
@@ -26,18 +26,24 @@ export const getHomepageData = (resume: ResumeSchema) => {
     company,
     location: getLocation(basics?.location),
     work: work?.splice(0, 2).map((item) => {
-      const { position, name } = item
-      const start = dayjs(item.startDate).format('YYYY')
-      const end = item.endDate ? dayjs(item.endDate).format('YYYY') : 'Present'
+      const { position, name } = item;
+      const start = dayjs(item.startDate).format('YYYY');
+      const end = item.endDate ? dayjs(item.endDate).format('YYYY') : 'Present';
       return {
         position,
         name,
         date: `${start} - ${end}`,
-        summary: item.highlights?.length ? item.highlights[0] : undefined
-      }
+        summary: item.highlights?.length ? item.highlights[0] : undefined,
+      };
     }),
     education,
     languages,
     skills,
-  }
-}
+  };
+};
+
+export const slugToTitle = (slug: string): string =>
+  slug
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');

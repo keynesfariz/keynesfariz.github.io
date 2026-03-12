@@ -27,12 +27,12 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="mx-auto flex w-full max-w-4xl items-center justify-between px-4 py-6 md:px-6 lg:px-8">
+    <header className="mx-auto flex w-full max-w-4xl items-center justify-between p-8 md:p-12">
       <Link href="/" className="group flex items-center space-x-2">
         <div
           className={cn(
             'text-primary flex size-8 items-center justify-center rounded-md',
-            pathname === '/' && 'bg-primary text-white',
+            pathname === '/' ? 'bg-primary text-white' : 'hover:bg-muted',
           )}>
           <Logo className="size-5" />
         </div>
