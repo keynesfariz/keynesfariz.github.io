@@ -11,6 +11,7 @@ import { slugToTitle } from '@/lib/transformers';
 import { allWritings } from '@/lib/writings';
 import dayjs from 'dayjs';
 import Link from 'next/link';
+import { ViewTransition } from 'react';
 
 export function generateMetadata() {
   return {
@@ -59,9 +60,11 @@ export default function Posts() {
                     {post.readTime}
                   </span>
                 </div>
-                <CardTitle className="group-hover:text-primary text-2xl transition-colors">
-                  {post.title}
-                </CardTitle>
+                <ViewTransition name={post.slug}>
+                  <CardTitle className="group-hover:text-primary text-2xl transition-colors">
+                    {post.title}
+                  </CardTitle>
+                </ViewTransition>
               </CardHeader>
               <CardContent>
                 <CardDescription className="mb-4 text-base leading-relaxed">

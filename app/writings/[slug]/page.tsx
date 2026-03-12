@@ -6,6 +6,7 @@ import { allWritings, featuredRepos } from '@/lib/writings';
 import { ArrowLeftIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ViewTransition } from 'react';
 
 export async function generateStaticParams() {
   return allWritings.map((slug) => ({
@@ -41,9 +42,11 @@ export default async function PostDetail({ params }: Props) {
       </Link>
 
       <header className="flex flex-col gap-4">
-        <h1 className="text-4xl leading-tight font-extrabold tracking-tight md:text-5xl">
-          {mockTitle || 'Understanding React Server Components in Next.js 14'}
-        </h1>
+        <ViewTransition name={slug}>
+          <h1 className="text-4xl leading-tight font-extrabold tracking-tight md:text-5xl">
+            {mockTitle || 'Understanding React Server Components in Next.js 14'}
+          </h1>
+        </ViewTransition>
 
         <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">

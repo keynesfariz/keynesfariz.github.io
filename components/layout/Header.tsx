@@ -1,5 +1,4 @@
 'use client';
-
 import Logo from '@/components/Logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { cn } from '@/lib/utils';
@@ -32,6 +31,7 @@ export function Header() {
         <div
           className={cn(
             'text-primary flex size-8 items-center justify-center rounded-md',
+            'transition-all duration-75 ease-in-out',
             pathname === '/' ? 'bg-primary text-white' : 'hover:bg-muted',
           )}>
           <Logo className="size-5" />

@@ -5,6 +5,7 @@ import { getPageTitle } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
+import { ViewTransition } from 'react';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
@@ -24,17 +25,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn('font-sans', 'antialiased', inter.variable)}
+      className={cn(inter.variable, 'font-sans', 'antialiased')}
       suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-screen flex-col">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main className="mx-auto w-full max-w-4xl flex-1 p-8 md:px-12 md:pt-12">
-            {children}
+            <ViewTransition>{children}</ViewTransition>
           </main>
           <Footer />
         </ThemeProvider>
