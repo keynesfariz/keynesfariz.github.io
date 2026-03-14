@@ -1,4 +1,6 @@
-import { ResumeSchema } from '@supastuff/json-resume-types';
+import type GitRepoMeta from '@/types/GitRepoMeta';
+import type Writing from '@/types/Writing';
+import type { ResumeSchema } from '@supastuff/json-resume-types';
 import dayjs from 'dayjs';
 
 const getLocation = (location: any): string => {
@@ -41,6 +43,55 @@ export const getHomepageData = (resume: ResumeSchema) => {
     skills,
   };
 };
+
+const getTitle = (md: string) => {
+  if (!md) return '';
+  const EXPR = /^#\s+.+/;
+  const tokens = md.split('\n');
+
+  for (let i = 0; i < tokens.length; i++) {
+    if (EXPR.test(tokens[i])) {
+      return tokens[i];
+    }
+  }
+
+  return '';
+};
+
+const extractTitleAndContent = (md: string) => {
+  const rawTitle = getTitle(md);
+  const content = md.split(rawTitle)[1];
+  const title = rawTitle.split('# ')[1];
+  return [title, content];
+}
+
+export const getWritingFromGit = (
+  meta: GitRepoMeta,
+  rawContent: string,
+): Writing => {
+  const [title, content] = extractTitleAndContent(rawContent);
+
+  const {
+    created_at,
+    updated_at,
+    homepage: url,
+    topics: tags,
+    description,
+  } = meta;
+
+  return {
+    title,
+    created_at,
+    updated_at,
+    url,
+    tags,
+    description,
+    content,
+  };
+};
+
+
+// export const getWritingFromFile = () => { }
 
 export const slugToTitle = (slug: string): string =>
   slug
