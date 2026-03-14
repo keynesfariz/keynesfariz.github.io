@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { getPageTitle } from '@/lib/data';
+import { FULL_DATE } from '@/lib/date-format';
 import { slugToTitle } from '@/lib/transformers';
 import { allWritings } from '@/lib/writings';
 import dayjs from 'dayjs';
@@ -24,7 +25,7 @@ const mockPosts = allWritings.map((slug, i) => {
   return {
     slug,
     title,
-    date: dayjs().subtract(i, 'w').format('MMMM D, YYYY'),
+    date: dayjs().subtract(i, 'w').format(FULL_DATE),
     readTime: '5 min read',
     description:
       'A deep dive into how Server Components change the way we think about building React applications and managing state across the network boundary.',
