@@ -1,9 +1,9 @@
 import { Card } from '@/components/ui/card';
-import { GitResponse } from '@/types/GitContributions';
+import type GitContributionResponse from '@/types/GitContributionResponse';
 import dayjs from 'dayjs';
 
 interface GitContributionsProps {
-  contributions: GitResponse['contributions'];
+  contributions: GitContributionResponse['contributions'];
 }
 
 const months = [
