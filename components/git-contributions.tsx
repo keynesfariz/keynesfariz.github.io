@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card';
-import { FULL_DATE } from '@/lib/date-format';
+import { formatDate } from '@/lib/date-format';
 import type GitContributionResponse from '@/types/GitContributionResponse';
 import dayjs from 'dayjs';
 
@@ -22,6 +22,21 @@ const months = [
   'Dec',
 ];
 
+const getContributionColor = (level: number) => {
+  switch (level) {
+    case 4:
+      return 'bg-primary';
+    case 3:
+      return 'bg-primary/70';
+    case 2:
+      return 'bg-primary/40';
+    case 1:
+      return 'bg-primary/20';
+    default:
+      return 'bg-muted/30';
+  }
+};
+
 const GitContributions = ({ contributions }: GitContributionsProps) => {
   const startDate = dayjs(contributions[0].date);
   const startDay = +startDate.format('D');
@@ -39,13 +54,9 @@ const GitContributions = ({ contributions }: GitContributionsProps) => {
       </div>
       <div className="grid w-full min-w-185 grid-flow-col grid-rows-7 gap-1">
         {contributions.map((contribution) => {
-          let colorClass = 'bg-muted/30';
-          if (contribution.level === 4) colorClass = 'bg-primary';
-          else if (contribution.level === 3) colorClass = 'bg-primary/70';
-          else if (contribution.level === 2) colorClass = 'bg-primary/40';
-          else if (contribution.level === 1) colorClass = 'bg-primary/20';
+          const colorClass = getContributionColor(contribution.level);
 
-          const contributionDate = dayjs(contribution.date).format(FULL_DATE);
+          const contributionDate = formatDate(contribution.date);
           const contributionText =
             contribution.count === 0
               ? `No contributions on ${contributionDate}`

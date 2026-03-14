@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { getGitRepos, getPageTitle } from '@/lib/data';
+import { formatDateTime } from '@/lib/date-format';
 import { getMyWritingItems } from '@/lib/transformers';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
@@ -44,12 +45,8 @@ export default async function Posts() {
             <Card className="hover:border-primary/50 bg-card/50 hover:bg-card transition-all duration-200 hover:shadow-md">
               <CardHeader className="pb-3">
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="text-muted-foreground text-sm font-medium">
-                    {post.created_at}
-                  </span>
-                  <span className="text-muted-foreground/50">•</span>
                   <span className="text-muted-foreground text-sm">
-                    5 mins read
+                    {formatDateTime(post.created_at)}
                   </span>
                 </div>
                 <ViewTransition name={post.slug}>

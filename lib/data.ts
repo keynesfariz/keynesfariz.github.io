@@ -9,6 +9,8 @@ import type { ResumeSchema } from '@supastuff/json-resume-types';
 import { cache } from 'react';
 import { featuredRepos } from './writings';
 
+const USERNAME = process.env.NEXT_USERNAME ?? '';
+
 export const getPageTitle = (title?: string) => {
   const NAME = 'Fariz Muhammad';
   return title ? `${title} | ${NAME}` : `${NAME}, A Senior Software Engineer`;
@@ -31,22 +33,22 @@ export async function getResumeSchema() {
   return JSON.parse(data.files[RESUME_FILE_NAME].content) as ResumeSchema;
 }
 
-export async function getGitContributions(
-  year: string = 'last',
-): Promise<GitContributionResponse> {
-  const data = await cacheFetch<GitContributionResponse>(
-    `https://github-contributions-api.jogruber.de/v4/${process.env.NEXT_USERNAME}?y=${year}`,
-  );
+export const getGitContributions = cache(
+  async (year: string = 'last'): Promise<GitContributionResponse> => {
+    const data = await cacheFetch<GitContributionResponse>(
+      `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=${year}`,
+    );
 
-  return {
-    ...data,
-    updated_at: new Date().toISOString(),
-  };
-}
+    return {
+      ...data,
+      updated_at: new Date().toISOString(),
+    };
+  },
+);
 
 export async function getGitRepos(): Promise<MyWritingItem[]> {
   const data = await cacheFetch<GitRepoMeta[]>(
-    `https://api.github.com/users/${process.env.NEXT_USERNAME}/repos`,
+    `https://api.github.com/users/${USERNAME}/repos`,
   );
 
   return data
@@ -77,7 +79,7 @@ export const getWriting = cache(
     isFromRepo: boolean = false,
   ): Promise<MyWriting | undefined> => {
     if (isFromRepo) {
-      const baseUrl = `https://api.github.com/repos/${process.env.NEXT_USERNAME}/${slug}`;
+      const baseUrl = `https://api.github.com/repos/${USERNAME}/${slug}`;
       const metaData = cacheFetch<GitRepoMeta>(baseUrl);
       const contentData = fetchReadmeContent(baseUrl);
       const [meta, content] = await Promise.all([metaData, contentData]);

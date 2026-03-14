@@ -2,6 +2,7 @@ import { allWritings } from '@/.content-collections/generated';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { getPageTitle, getWriting } from '@/lib/data';
+import { formatDateTime } from '@/lib/date-format';
 import { slugToTitle } from '@/lib/transformers';
 import { featuredRepos } from '@/lib/writings';
 import { ArrowLeftIcon } from 'lucide-react';
@@ -10,6 +11,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Markdown from 'react-markdown';
+
+const USERNAME = process.env.NEXT_USERNAME ?? '';
 
 export async function generateStaticParams() {
   const featured = featuredRepos.map((slug) => ({ slug }));
@@ -21,7 +24,8 @@ export async function generateStaticParams() {
 }
 
 const guessIsFromRepo = (slug: string): boolean => {
-  // using `allWritings` as the comparison to enable dynamic fetching for writings that are not from the repo on development,
+  // using `allWritings` as the comparison to enable dynamic fetching
+  // for writings that are not from the repo on development,
   // while still allowing the ones from the repo to be statically generated
   return allWritings.findIndex((wr) => wr._meta.path === slug) === -1;
 };
@@ -51,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PostDetail({ params }: Props) {
   const { slug } = await params;
   const isFromRepo = guessIsFromRepo(slug);
-  const repoLink = `https://github.com/${process.env.NEXT_USERNAME}/${slug}`;
+  const repoLink = `https://github.com/${USERNAME}/${slug}`;
 
   const writing = await getWriting(slug, isFromRepo);
 
@@ -78,11 +82,9 @@ export default async function PostDetail({ params }: Props) {
         <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
             <time dateTime="2024-10-24" className="font-medium">
-              {writing.created_at}
+              {formatDateTime(writing.created_at)}
             </time>
           </div>
-          <span className="text-muted-foreground/50">•</span>
-          <div className="font-medium">5 min read</div>
         </div>
 
         {writing.url && (

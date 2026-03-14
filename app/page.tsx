@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { getResumeSchema } from '@/lib/data';
+import { formatYear } from '@/lib/date-format';
 import { getHomepageData } from '@/lib/transformers';
-import dayjs from 'dayjs';
 import {
   BriefcaseIcon,
   GraduationCapIcon,
@@ -93,11 +93,7 @@ export default async function Home() {
                   key={title}
                   title={title}
                   organisation={education.institution ?? ''}
-                  date={
-                    education.endDate
-                      ? dayjs(education.endDate).format('YYYY')
-                      : ''
-                  }
+                  date={education.endDate ? formatYear(education.endDate) : ''}
                 />
               );
             })}

@@ -16,5 +16,5 @@ const writings = defineCollection({
 });
 
 export default defineConfig({
-  collections: [writings],
+  content: [writings],
 });
