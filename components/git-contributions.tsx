@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/card';
+import { FULL_DATE } from '@/lib/date-format';
 import type GitContributionResponse from '@/types/GitContributionResponse';
 import dayjs from 'dayjs';
 
@@ -44,9 +45,7 @@ const GitContributions = ({ contributions }: GitContributionsProps) => {
           else if (contribution.level === 2) colorClass = 'bg-primary/40';
           else if (contribution.level === 1) colorClass = 'bg-primary/20';
 
-          const contributionDate = dayjs(contribution.date).format(
-            'MMMM D, YYYY',
-          );
+          const contributionDate = dayjs(contribution.date).format(FULL_DATE);
           const contributionText =
             contribution.count === 0
               ? `No contributions on ${contributionDate}`

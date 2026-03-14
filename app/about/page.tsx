@@ -1,5 +1,7 @@
 import GitContributions from '@/components/git-contributions';
 import { getGitContributions, getPageTitle } from '@/lib/data';
+import { FULL_DATETIME } from '@/lib/date-format';
+import dayjs from 'dayjs';
 
 export function generateMetadata() {
   return {
@@ -36,6 +38,10 @@ export default async function About() {
             Git Contributions
           </h2>
           <GitContributions contributions={contributions.contributions} />
+          <div className="text-muted-foreground text-right text-xs">
+            Last updated:{' '}
+            {dayjs(contributions.updated_at).format(FULL_DATETIME)}
+          </div>
         </section>
       )}
     </div>
