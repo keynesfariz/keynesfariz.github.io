@@ -1,5 +1,7 @@
+import { allWritings } from '@/.content-collections/generated';
 import type GitRepoMeta from '@/types/GitRepoMeta';
-import type Writing from '@/types/Writing';
+import type MyWriting from '@/types/MyWriting';
+import type { MyWritingItem } from '@/types/MyWriting';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
 import dayjs from 'dayjs';
 
@@ -44,6 +46,13 @@ export const getHomepageData = (resume: ResumeSchema) => {
   };
 };
 
+export const getMyWritingItems = (): MyWritingItem[] => {
+  return allWritings.map((writing) => {
+    const { title, created_at, tags, description } = writing;
+    return { slug: writing._meta.path, title, created_at, tags, description };
+  });
+};
+
 const getTitle = (md: string) => {
   if (!md) return '';
   const EXPR = /^#\s+.+/;
@@ -63,12 +72,12 @@ const extractTitleAndContent = (md: string) => {
   const content = md.split(rawTitle)[1];
   const title = rawTitle.split('# ')[1];
   return [title, content];
-}
+};
 
 export const getWritingFromGit = (
   meta: GitRepoMeta,
   rawContent: string,
-): Writing => {
+): MyWriting => {
   const [title, content] = extractTitleAndContent(rawContent);
 
   const {
@@ -80,6 +89,7 @@ export const getWritingFromGit = (
   } = meta;
 
   return {
+    slug: meta.name,
     title,
     created_at,
     updated_at,
@@ -89,9 +99,6 @@ export const getWritingFromGit = (
     content,
   };
 };
-
-
-// export const getWritingFromFile = () => { }
 
 export const slugToTitle = (slug: string): string =>
   slug

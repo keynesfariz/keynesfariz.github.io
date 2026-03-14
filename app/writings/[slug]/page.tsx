@@ -1,8 +1,9 @@
+import { allWritings } from '@/.content-collections/generated';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { getPageTitle, getWriting } from '@/lib/data';
 import { slugToTitle } from '@/lib/transformers';
-import { allWritings, featuredRepos } from '@/lib/writings';
+import { featuredRepos } from '@/lib/writings';
 import { ArrowLeftIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -11,10 +12,19 @@ import { ViewTransition } from 'react';
 import Markdown from 'react-markdown';
 
 export async function generateStaticParams() {
-  return allWritings.map((slug) => ({
-    slug,
+  const featured = featuredRepos.map((slug) => ({ slug }));
+  const writings = allWritings.map((wr) => ({
+    slug: wr._meta.path,
   }));
+
+  return [...featured, ...writings];
 }
+
+const guessIsFromRepo = (slug: string): boolean => {
+  // using `allWritings` as the comparison to enable dynamic fetching for writings that are not from the repo on development,
+  // while still allowing the ones from the repo to be statically generated
+  return allWritings.findIndex((wr) => wr._meta.path === slug) === -1;
+};
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -22,7 +32,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const isFromRepo = featuredRepos.includes(slug);
+  const isFromRepo = guessIsFromRepo(slug);
   const writing = await getWriting(slug, isFromRepo);
 
   if (writing) {
@@ -40,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PostDetail({ params }: Props) {
   const { slug } = await params;
-  const isFromRepo = featuredRepos.includes(slug);
+  const isFromRepo = guessIsFromRepo(slug);
   const repoLink = `https://github.com/${process.env.NEXT_USERNAME}/${slug}`;
 
   const writing = await getWriting(slug, isFromRepo);
@@ -85,9 +95,9 @@ export default async function PostDetail({ params }: Props) {
           </Link>
         )}
 
-        {writing.tags.length > 0 && (
+        {writing.tags!.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {writing.tags.map((tag) => (
+            {writing.tags!.map((tag) => (
               <Badge key={tag} variant="secondary">
                 {tag}
               </Badge>

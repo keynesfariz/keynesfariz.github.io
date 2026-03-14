@@ -6,11 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getPageTitle } from '@/lib/data';
-import { FULL_DATE } from '@/lib/date-format';
-import { slugToTitle } from '@/lib/transformers';
-import { allWritings } from '@/lib/writings';
-import dayjs from 'dayjs';
+import { getGitRepos, getPageTitle } from '@/lib/data';
+import { getMyWritingItems } from '@/lib/transformers';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 
@@ -20,20 +17,14 @@ export function generateMetadata() {
   };
 }
 
-const mockPosts = allWritings.map((slug, i) => {
-  const title = slugToTitle(slug);
-  return {
-    slug,
-    title,
-    date: dayjs().subtract(i, 'w').format(FULL_DATE),
-    readTime: '5 min read',
-    description:
-      'A deep dive into how Server Components change the way we think about building React applications and managing state across the network boundary.',
-    tags: ['React', 'Next.js'],
-  };
-});
+export default async function Posts() {
+  const writings = getMyWritingItems();
+  const featuredWritings = await getGitRepos();
 
-export default function Posts() {
+  const allWritings = [...writings, ...featuredWritings].sort((a, b) =>
+    a.created_at > b.created_at ? -1 : 1,
+  );
+
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
@@ -45,7 +36,7 @@ export default function Posts() {
       </div>
 
       <div className="grid gap-6">
-        {mockPosts.map((post) => (
+        {allWritings.map((post) => (
           <Link
             key={post.slug}
             href={`/writings/${post.slug}`}
@@ -54,11 +45,11 @@ export default function Posts() {
               <CardHeader className="pb-3">
                 <div className="mb-2 flex items-center gap-2">
                   <span className="text-muted-foreground text-sm font-medium">
-                    {post.date}
+                    {post.created_at}
                   </span>
                   <span className="text-muted-foreground/50">•</span>
                   <span className="text-muted-foreground text-sm">
-                    {post.readTime}
+                    5 mins read
                   </span>
                 </div>
                 <ViewTransition name={post.slug}>
@@ -71,16 +62,18 @@ export default function Posts() {
                 <CardDescription className="mb-4 text-base leading-relaxed">
                   {post.description}
                 </CardDescription>
-                <div className="mt-auto flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="secondary"
-                      className="text-xs font-medium">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                {post.tags && post.tags.length > 0 && (
+                  <div className="mt-auto flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <Badge
+                        key={tag}
+                        variant="secondary"
+                        className="text-xs font-medium">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </Link>

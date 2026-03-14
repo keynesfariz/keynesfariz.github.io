@@ -1,4 +1,4 @@
-import { allWritings } from '@/lib/writings';
+import { allWritings } from 'content-collections';
 import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
