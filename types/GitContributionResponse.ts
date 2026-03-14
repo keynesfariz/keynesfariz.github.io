@@ -10,5 +10,5 @@ export default interface GitContributionResponse {
     [year: string]: number; // 'lastYear;
   };
   contributions: Array<GitContribution>;
-  updated_at: string
+  updated_at: string;
 }
