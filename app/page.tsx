@@ -2,19 +2,34 @@ import { Highlight, HighlightItem } from '@/components/highlights';
 import Skills from '@/components/skill';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getResumeSchema } from '@/lib/data';
-import { formatYear } from '@/lib/date-format';
+import { getGitRepos, getResumeSchema } from '@/lib/data';
+import { formatDateTime, formatYear } from '@/lib/date-format';
 import { getHomepageData } from '@/lib/transformers';
 import {
+  ArrowRightIcon,
   BriefcaseIcon,
   GraduationCapIcon,
   LanguagesIcon,
   MapPinIcon,
 } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function Home() {
-  const resume = await getResumeSchema();
+  const resumeData = getResumeSchema();
+  const featuredWritingsData = getGitRepos();
+  const [resume, featuredWritings] = await Promise.all([
+    resumeData,
+    featuredWritingsData,
+  ]);
+
   const profile = getHomepageData(resume);
 
   return (
@@ -135,12 +150,14 @@ export default async function Home() {
         )}
       </section>
 
-      {/* <Separator /> */}
+      <Separator />
 
-      {/* Recent Writings */}
-      {/* <section className="flex flex-col gap-6">
+      {/* Featured Writings */}
+      <section className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-bold tracking-tight">Recent writings</h3>
+          <h3 className="text-2xl font-bold tracking-tight">
+            Featured Writings
+          </h3>
           <Link
             href="/writings"
             className="text-primary flex items-center gap-1 text-sm font-medium underline-offset-4 hover:underline">
@@ -149,32 +166,32 @@ export default async function Home() {
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          {[1, 2].map((post) => (
+          {featuredWritings.map((post) => (
             <Link
-              key={post}
-              href={`/writings/mock-post-${post}`}
+              key={post.slug}
+              href={`/writings/mock-post-${post.slug}`}
               className="group h-full">
               <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
                 <CardHeader>
                   <div className="text-muted-foreground mb-2 text-xs">
-                    Oct 24, 2024 • 5 min read
+                    {formatDateTime(post.created_at)}
                   </div>
                   <CardTitle className="group-hover:text-primary line-clamp-2 text-lg transition-colors">
-                    Understanding React Server Components in Next.js 14
+                    {post.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-1">
-                  <CardDescription className="line-clamp-3">
-                    A deep dive into how Server Components change the way we
-                    think about building React applications and managing state
-                    across the network boundary.
-                  </CardDescription>
-                </CardContent>
+                {post.description && (
+                  <CardContent className="flex-1">
+                    <CardDescription className="line-clamp-3">
+                      {post.description}
+                    </CardDescription>
+                  </CardContent>
+                )}
               </Card>
             </Link>
           ))}
         </div>
-      </section> */}
+      </section>
     </div>
   );
 }
