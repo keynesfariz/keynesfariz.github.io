@@ -169,7 +169,7 @@ export default async function Home() {
           {featuredWritings.map((post) => (
             <Link
               key={post.slug}
-              href={`/writings/mock-post-${post.slug}`}
+              href={`/writings/${post.slug}`}
               className="group h-full">
               <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
                 <CardHeader>

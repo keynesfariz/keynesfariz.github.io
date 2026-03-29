@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator';
-import { FileTextIcon, GithubIcon, LinkedinIcon } from 'lucide-react';
+import { FileTextIcon } from 'lucide-react';
 import Link from 'next/link';
 
 const USERNAME = process.env.NEXT_USERNAME ?? '';
@@ -19,16 +19,14 @@ export function Footer() {
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors">
-            <LinkedinIcon className="size-5" />
-            <span className="sr-only">LinkedIn</span>
+            <span>LinkedIn</span>
           </Link>
           <Link
             href={`https://github.com/${USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors">
-            <GithubIcon className="size-5" />
-            <span className="sr-only">GitHub</span>
+            <span>GitHub</span>
           </Link>
           <Link
             href={`https://registry.jsonresume.org/${USERNAME}`}
