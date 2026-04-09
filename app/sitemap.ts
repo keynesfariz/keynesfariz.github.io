@@ -1,4 +1,3 @@
-import { allWritings } from 'content-collections';
 import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
@@ -23,11 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.5,
     },
-    ...allWritings.map((slug) => ({
+    /* ...allWritings.map((slug) => ({
       url: `${process.env.NEXT_BASE_URL}/writings/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as MetadataRoute.Sitemap[0]['changeFrequency'],
       priority: 0.5,
-    })),
+    })), */
   ];
 }

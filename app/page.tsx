@@ -38,7 +38,7 @@ export default async function Home() {
       <section className="flex flex-col items-start gap-8 md:flex-row md:items-center">
         <div className="flex flex-col gap-4">
           <h1 className="text-center text-4xl font-bold tracking-tight md:text-left md:text-5xl">
-            Hi, I'm Fariz 👋
+            Hi, I&apos;m Fariz 👋
           </h1>
           <h2 className="text-muted-foreground text-center text-xl font-medium md:text-left md:text-2xl">
             {profile.title}
@@ -52,9 +52,9 @@ export default async function Home() {
             )}
           </h2>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            I'm a software engineer specializing in building (and occasionally
-            designing) exceptional digital experiences. Currently, I'm focused
-            on building accessible, human-centered products.
+            I&apos;m a software engineer specializing in building (and
+            occasionally designing) exceptional digital experiences. Currently,
+            I&apos;m focused on building accessible, human-centered products.
           </p>
           {profile.location && (
             <div className="text-muted-foreground mt-2 flex items-center gap-2 text-sm">

@@ -7,12 +7,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { formatDateTime } from '@/lib/date-format';
-import type { MyWritingItem } from '@/types/MyWriting';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 
 interface WritingCardProps {
-  post: MyWritingItem;
+  post: any;
 }
 
 export function WritingCard({ post }: WritingCardProps) {
@@ -41,7 +40,7 @@ export function WritingCard({ post }: WritingCardProps) {
             )}
             {hasTags && (
               <div className="mt-auto flex flex-wrap gap-2">
-                {post.tags!.map((tag) => (
+                {post.tags!.map((tag: string) => (
                   <Badge
                     key={tag}
                     variant="secondary"

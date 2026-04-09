@@ -1,40 +1,28 @@
-import { allWritings } from '@/.content-collections/generated';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { getPageTitle, getWriting } from '@/lib/data';
-import { formatDateTime } from '@/lib/date-format';
-import { slugToTitle } from '@/lib/transformers';
-import { featuredRepos } from '@/lib/writings';
-import { ArrowLeftIcon } from 'lucide-react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { ViewTransition } from 'react';
-import Markdown from 'react-markdown';
-
-const USERNAME = process.env.NEXT_USERNAME ?? '';
+// const USERNAME = process.env.NEXT_USERNAME ?? '';
 
 export async function generateStaticParams() {
-  const featured = featuredRepos.map((slug) => ({ slug }));
+  return [{ slug: 'hello-world' }];
+  /* const featured = featuredRepos.map((slug) => ({ slug }));
   const writings = allWritings.map((wr) => ({
     slug: wr._meta.path,
   }));
 
-  return [...featured, ...writings];
+  return [...featured, ...writings]; */
 }
 
-const guessIsFromRepo = (slug: string): boolean => {
-  // using `allWritings` as the comparison to enable dynamic fetching
-  // for writings that are not from the repo on development,
-  // while still allowing the ones from the repo to be statically generated
-  return allWritings.findIndex((wr) => wr._meta.path === slug) === -1;
-};
+// const guessIsFromRepo = (slug: string): boolean => {
+//   return false;
+//   // using `allWritings` as the comparison to enable dynamic fetching
+//   // for writings that are not from the repo on development,
+//   // while still allowing the ones from the repo to be statically generated
+//   // return allWritings.findIndex((wr) => wr._meta.path === slug) === -1;
+// };
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+/* export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const isFromRepo = guessIsFromRepo(slug);
   const writing = await getWriting(slug, isFromRepo);
@@ -50,20 +38,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: getPageTitle(slugToTitle(slug)),
   };
-}
+} */
 
 export default async function PostDetail({ params }: Props) {
   const { slug } = await params;
-  const isFromRepo = guessIsFromRepo(slug);
+  const { default: Post } = await import(`@/contents/${slug}.md`);
+  return (
+    <div className="prose prose-neutral dark:prose-invert max-w-none text-lg leading-relaxed">
+      <Post />
+    </div>
+  );
+
+  /* const isFromRepo = guessIsFromRepo(slug);
   const repoLink = `https://github.com/${USERNAME}/${slug}`;
 
   const writing = await getWriting(slug, isFromRepo);
 
   if (!writing) {
     notFound();
-  }
+  } */
 
-  return (
+  /* return (
     <article className="flex flex-col gap-8">
       <Link
         href="/writings"
@@ -127,5 +122,5 @@ export default async function PostDetail({ params }: Props) {
         </div>
       )}
     </article>
-  );
+  ); */
 }

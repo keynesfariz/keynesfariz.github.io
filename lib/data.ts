@@ -1,15 +1,9 @@
-import { allWritings } from '@/.content-collections/generated';
-import { getWritingFromGit, slugToTitle } from '@/lib/transformers';
-import type GitContributionResponse from '@/types/GitContributionResponse';
-import type GithubGist from '@/types/GithubGist';
-import type GitRepoMeta from '@/types/GitRepoMeta';
-import type MyWriting from '@/types/MyWriting';
-import type { MyWritingItem } from '@/types/MyWriting';
+import type { GitContributionResponse, GithubGist } from '@/types/Github';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
 import { cache } from 'react';
-import { featuredRepos } from './writings';
 
 const USERNAME = process.env.NEXT_USERNAME ?? '';
+const RESUME_FILE_NAME = 'resume.json';
 
 export const getPageTitle = (title?: string) => {
   const NAME = 'Fariz Muhammad';
@@ -23,8 +17,6 @@ async function cacheFetch<T>(
   const res = await fetch(url, init);
   return res.json() as T;
 }
-
-const RESUME_FILE_NAME = 'resume.json';
 
 export async function getResumeSchema() {
   const data = await cacheFetch<GithubGist>(
@@ -46,57 +38,22 @@ export const getGitContributions = cache(
   },
 );
 
-export async function getGitRepos(): Promise<MyWritingItem[]> {
-  const data = await cacheFetch<GitRepoMeta[]>(
-    `https://api.github.com/users/${USERNAME}/repos`,
-  );
+export async function getGitRepos(): Promise<any[]> {
+  // const data = await cacheFetch<GitRepoMeta[]>(
+  //   `https://api.github.com/users/${USERNAME}/repos`,
+  // );
 
-  return data
-    .filter((repo) => featuredRepos.includes(repo.name))
-    .map((repo) => ({
-      slug: repo.name,
-      title: slugToTitle(repo.name),
-      created_at: repo.created_at,
-      tags: repo.topics || [],
-      description: repo.description || '',
-    }));
+  return []
 }
 
-async function fetchReadmeContent(baseUrl: string) {
-  const res = await fetch(`${baseUrl}/readme`, {
-    cache: 'force-cache',
-    headers: {
-      Accept: 'application/vnd.github.raw',
-    },
-  });
+// async function fetchReadmeContent(baseUrl: string) {
+//   const res = await fetch(`${baseUrl}/readme`, {
+//     cache: 'force-cache',
+//     headers: {
+//       Accept: 'application/vnd.github.raw',
+//     },
+//   });
 
-  return res.text();
-}
+//   return res.text();
+// }
 
-export const getWriting = cache(
-  async (
-    slug: string,
-    isFromRepo: boolean = false,
-  ): Promise<MyWriting | undefined> => {
-    if (isFromRepo) {
-      const baseUrl = `https://api.github.com/repos/${USERNAME}/${slug}`;
-      const metaData = cacheFetch<GitRepoMeta>(baseUrl);
-      const contentData = fetchReadmeContent(baseUrl);
-      const [meta, content] = await Promise.all([metaData, contentData]);
-      return getWritingFromGit(meta, content);
-    }
-
-    const writing = allWritings.find((wr) => wr._meta.path === slug);
-
-    if (writing) {
-      const { _meta, ...wr } = writing;
-
-      return {
-        ...wr,
-        slug: _meta.path,
-      };
-    }
-
-    return undefined;
-  },
-);

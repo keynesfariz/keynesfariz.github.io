@@ -1,7 +1,5 @@
 import { WritingCard } from '@/components/writing-card';
-import { getGitRepos, getPageTitle } from '@/lib/data';
-import { getMyWritingItems } from '@/lib/transformers';
-import { sortWritingsByDate } from '@/lib/writings';
+import { getPageTitle } from '@/lib/data';
 
 export function generateMetadata() {
   return {
@@ -10,10 +8,11 @@ export function generateMetadata() {
 }
 
 export default async function Posts() {
-  const writings = getMyWritingItems();
-  const featuredWritings = await getGitRepos();
+  // const writings = getMyWritingItems();
+  // const featuredWritings = await getGitRepos();
 
-  const allWritings = sortWritingsByDate([...writings, ...featuredWritings]);
+  // const allWritings = sortWritingsByDate([...writings, ...featuredWritings]);
+  const allWritings: any[] = [];
 
   return (
     <div className="flex flex-col gap-10">
@@ -21,7 +20,7 @@ export default async function Posts() {
         <h1 className="text-4xl font-bold tracking-tight">Writings</h1>
         <p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
           I occasionally write about software engineering, frontend development,
-          design systems, and whatever else I'm currently exploring.
+          design systems, and whatever else I&apos;m currently exploring.
         </p>
       </div>
 

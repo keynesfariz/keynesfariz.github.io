@@ -8,7 +8,7 @@ import { Inter } from 'next/font/google';
 import { ViewTransition } from 'react';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const font = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export function generateMetadata() {
   return {
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(inter.variable, 'font-sans', 'antialiased')}
+      className={cn(font.variable, 'font-sans', 'antialiased')}
       suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-screen flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
