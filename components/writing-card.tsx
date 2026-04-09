@@ -1,3 +1,4 @@
+import { Writing } from '@/.content-collections/generated';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -11,13 +12,15 @@ import Link from 'next/link';
 import { ViewTransition } from 'react';
 
 interface WritingCardProps {
-  post: any;
+  post: Writing;
 }
 
 export function WritingCard({ post }: WritingCardProps) {
   const hasTags = post.tags && post.tags.length > 0;
+  const slug = post._meta.path;
+
   return (
-    <Link key={post.slug} href={`/writings/${post.slug}`} className="group">
+    <Link key={slug} href={`/writings/${slug}`} className="group">
       <Card className="hover:border-primary/50 bg-card/50 hover:bg-card transition-all duration-200 hover:shadow-md">
         <CardHeader className="pb-3">
           <div className="mb-2 flex items-center gap-2">
@@ -25,7 +28,7 @@ export function WritingCard({ post }: WritingCardProps) {
               {formatDateTime(post.created_at)}
             </span>
           </div>
-          <ViewTransition name={post.slug}>
+          <ViewTransition name={slug}>
             <CardTitle className="group-hover:text-primary text-2xl transition-colors">
               {post.title}
             </CardTitle>

@@ -1,64 +1,43 @@
 // const USERNAME = process.env.NEXT_USERNAME ?? '';
 
+import { Writing } from '@/.content-collections/generated';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { getMetadata, getWritings } from '@/lib/data';
+import { formatDateTime } from '@/lib/date-format';
+import { ArrowLeftIcon } from 'lucide-react';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { ViewTransition } from 'react';
+import Markdown from 'react-markdown';
+
 export async function generateStaticParams() {
-  return [{ slug: 'hello-world' }];
-  /* const featured = featuredRepos.map((slug) => ({ slug }));
-  const writings = allWritings.map((wr) => ({
-    slug: wr._meta.path,
-  }));
-
-  return [...featured, ...writings]; */
+  const writings = getWritings() as Writing[];
+  return writings.map((wr) => ({ slug: wr._meta.path }));
 }
-
-// const guessIsFromRepo = (slug: string): boolean => {
-//   return false;
-//   // using `allWritings` as the comparison to enable dynamic fetching
-//   // for writings that are not from the repo on development,
-//   // while still allowing the ones from the repo to be statically generated
-//   // return allWritings.findIndex((wr) => wr._meta.path === slug) === -1;
-// };
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-/* export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const isFromRepo = guessIsFromRepo(slug);
-  const writing = await getWriting(slug, isFromRepo);
-
-  if (writing) {
-    const { title, description } = writing;
-    return {
-      title: getPageTitle(title),
-      description,
-    };
-  }
-
-  return {
-    title: getPageTitle(slugToTitle(slug)),
-  };
-} */
+  const writing = getWritings(slug) as Writing | undefined;
+  return getMetadata({
+    title: writing?.title,
+    description: writing?.description,
+  });
+}
 
 export default async function PostDetail({ params }: Props) {
   const { slug } = await params;
-  const { default: Post } = await import(`@/contents/${slug}.md`);
-  return (
-    <div className="prose prose-neutral dark:prose-invert max-w-none text-lg leading-relaxed">
-      <Post />
-    </div>
-  );
-
-  /* const isFromRepo = guessIsFromRepo(slug);
-  const repoLink = `https://github.com/${USERNAME}/${slug}`;
-
-  const writing = await getWriting(slug, isFromRepo);
+  const writing = getWritings(slug) as Writing | undefined;
 
   if (!writing) {
     notFound();
-  } */
+  }
 
-  /* return (
+  return (
     <article className="flex flex-col gap-8">
       <Link
         href="/writings"
@@ -109,18 +88,18 @@ export default async function PostDetail({ params }: Props) {
         <Markdown>{writing.content}</Markdown>
       </div>
 
-      {isFromRepo && (
+      {writing.url && (
         <div>
           Source code:{' '}
           <Link
-            href={repoLink}
+            href={writing.url}
             target="_blank"
             rel="noreferrer"
             className="text-primary font-medium underline-offset-4 hover:underline">
-            {repoLink}
+            {writing.url}
           </Link>
         </div>
       )}
     </article>
-  ); */
+  );
 }

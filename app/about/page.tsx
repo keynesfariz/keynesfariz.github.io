@@ -1,11 +1,9 @@
 import GitContributions from '@/components/git-contributions';
-import { getGitContributions, getPageTitle } from '@/lib/data';
+import { getGitContributions, getMetadata } from '@/lib/data';
 import { formatDateTime } from '@/lib/date-format';
 
 export function generateMetadata() {
-  return {
-    title: getPageTitle('About Me'),
-  };
+  return getMetadata({ title: 'About Me' });
 }
 
 export default async function About() {

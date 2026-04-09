@@ -1,18 +1,13 @@
+import { Writing } from '@/.content-collections/generated';
 import { WritingCard } from '@/components/writing-card';
-import { getPageTitle } from '@/lib/data';
+import { getMetadata, getWritings } from '@/lib/data';
 
 export function generateMetadata() {
-  return {
-    title: getPageTitle('Writings'),
-  };
+  return getMetadata({ title: 'Writings' });
 }
 
 export default async function Posts() {
-  // const writings = getMyWritingItems();
-  // const featuredWritings = await getGitRepos();
-
-  // const allWritings = sortWritingsByDate([...writings, ...featuredWritings]);
-  const allWritings: any[] = [];
+  const allWritings = getWritings() as Writing[];
 
   return (
     <div className="flex flex-col gap-10">
@@ -26,7 +21,7 @@ export default async function Posts() {
 
       <div className="grid gap-6">
         {allWritings.map((post) => (
-          <WritingCard key={post.slug} post={post} />
+          <WritingCard key={post._meta.path} post={post} />
         ))}
       </div>
     </div>

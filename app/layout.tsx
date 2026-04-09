@@ -1,7 +1,7 @@
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { ThemeProvider } from '@/components/theme-provider';
-import { getPageTitle } from '@/lib/data';
+import { getMetadata } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
@@ -11,10 +11,7 @@ import './globals.css';
 const font = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export function generateMetadata() {
-  return {
-    title: getPageTitle(),
-    description: 'Just another Software Engineer',
-  };
+  return getMetadata();
 }
 
 export default function RootLayout({

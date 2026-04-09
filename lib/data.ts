@@ -1,13 +1,18 @@
 import type { GitContributionResponse, GithubGist } from '@/types/Github';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
+import { allWritings } from 'content-collections';
+import type { Metadata } from 'next';
 import { cache } from 'react';
 
-const USERNAME = process.env.NEXT_USERNAME ?? '';
 const RESUME_FILE_NAME = 'resume.json';
 
-export const getPageTitle = (title?: string) => {
+export const getMetadata = (rawMeta?: Metadata): Metadata => {
   const NAME = 'Fariz Muhammad';
-  return title ? `${title} | ${NAME}` : `${NAME}, A Senior Software Engineer`;
+  const title =
+    rawMeta && rawMeta.title
+      ? `${rawMeta.title} | ${NAME}`
+      : `${NAME}, A Senior Software Engineer`;
+  return { ...rawMeta, title };
 };
 
 async function cacheFetch<T>(
@@ -28,7 +33,7 @@ export async function getResumeSchema() {
 export const getGitContributions = cache(
   async (year: string = 'last'): Promise<GitContributionResponse> => {
     const data = await cacheFetch<GitContributionResponse>(
-      `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=${year}`,
+      `https://github-contributions-api.jogruber.de/v4/${process.env.NEXT_USERNAME}?y=${year}`,
     );
 
     return {
@@ -38,22 +43,18 @@ export const getGitContributions = cache(
   },
 );
 
-export async function getGitRepos(): Promise<any[]> {
-  // const data = await cacheFetch<GitRepoMeta[]>(
-  //   `https://api.github.com/users/${USERNAME}/repos`,
-  // );
+export const getWritings = cache((slug?: string, isFeatured?: boolean) => {
+  if (slug) {
+    return allWritings.find((wr) => wr._meta.path === slug);
+  }
 
-  return []
-}
+  const sortedWritings = allWritings.sort((a, b) =>
+    a.created_at > b.created_at ? -1 : 1,
+  );
 
-// async function fetchReadmeContent(baseUrl: string) {
-//   const res = await fetch(`${baseUrl}/readme`, {
-//     cache: 'force-cache',
-//     headers: {
-//       Accept: 'application/vnd.github.raw',
-//     },
-//   });
+  if (isFeatured) {
+    return sortedWritings.filter((wr) => !!wr.is_featured);
+  }
 
-//   return res.text();
-// }
-
+  return sortedWritings;
+});

@@ -6,7 +6,5 @@ tags: []
 description: ''
 ---
 
-# Hello world
-
 This is my first post!
 ... rest of the content

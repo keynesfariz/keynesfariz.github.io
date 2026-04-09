@@ -1,3 +1,4 @@
+import { Writing } from '@/.content-collections/generated';
 import { Highlight, HighlightItem } from '@/components/highlights';
 import Skills from '@/components/skill';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -10,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getGitRepos, getResumeSchema } from '@/lib/data';
+import { getResumeSchema, getWritings } from '@/lib/data';
 import { formatDateTime, formatYear } from '@/lib/date-format';
 import { getHomepageData } from '@/lib/transformers';
 import {
@@ -23,14 +24,10 @@ import {
 import Link from 'next/link';
 
 export default async function Home() {
-  const resumeData = getResumeSchema();
-  const featuredWritingsData = getGitRepos();
-  const [resume, featuredWritings] = await Promise.all([
-    resumeData,
-    featuredWritingsData,
-  ]);
-
+  const resume = await getResumeSchema();
   const profile = getHomepageData(resume);
+
+  const featuredWritings = getWritings(undefined, true) as Writing[];
 
   return (
     <div className="flex flex-col gap-12">
@@ -150,48 +147,51 @@ export default async function Home() {
         )}
       </section>
 
-      <Separator />
-
       {/* Featured Writings */}
-      <section className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-bold tracking-tight">
-            Featured Writings
-          </h3>
-          <Link
-            href="/writings"
-            className="text-primary flex items-center gap-1 text-sm font-medium underline-offset-4 hover:underline">
-            View all writings
-            <ArrowRightIcon className="size-4" />
-          </Link>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {featuredWritings.map((post) => (
-            <Link
-              key={post.slug}
-              href={`/writings/${post.slug}`}
-              className="group h-full">
-              <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
-                <CardHeader>
-                  <div className="text-muted-foreground mb-2 text-xs">
-                    {formatDateTime(post.created_at)}
-                  </div>
-                  <CardTitle className="group-hover:text-primary line-clamp-2 text-lg transition-colors">
-                    {post.title}
-                  </CardTitle>
-                </CardHeader>
-                {post.description && (
-                  <CardContent className="flex-1">
-                    <CardDescription className="line-clamp-3">
-                      {post.description}
-                    </CardDescription>
-                  </CardContent>
-                )}
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {featuredWritings.length > 0 && (
+        <>
+          <Separator />
+          <section className="flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-bold tracking-tight">
+                Featured Writings
+              </h3>
+              <Link
+                href="/writings"
+                className="text-primary flex items-center gap-1 text-sm font-medium underline-offset-4 hover:underline">
+                View all writings
+                <ArrowRightIcon className="size-4" />
+              </Link>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {featuredWritings.map((post) => (
+                <Link
+                  key={post._meta.path}
+                  href={`/writings/${post._meta.path}`}
+                  className="group h-full">
+                  <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
+                    <CardHeader>
+                      <div className="text-muted-foreground mb-2 text-xs">
+                        {formatDateTime(post.created_at)}
+                      </div>
+                      <CardTitle className="group-hover:text-primary line-clamp-2 text-lg transition-colors">
+                        {post.title}
+                      </CardTitle>
+                    </CardHeader>
+                    {post.description && (
+                      <CardContent className="flex-1">
+                        <CardDescription className="line-clamp-3">
+                          {post.description}
+                        </CardDescription>
+                      </CardContent>
+                    )}
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 }

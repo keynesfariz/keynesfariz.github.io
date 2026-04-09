@@ -54,4 +54,3 @@ export const getHomepageData = (resume: ResumeSchema) => {
 
 //   return '';
 // };
-
