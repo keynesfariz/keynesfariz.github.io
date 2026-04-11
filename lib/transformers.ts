@@ -40,17 +40,3 @@ export const getHomepageData = (resume: ResumeSchema) => {
     skills,
   };
 };
-
-// const getTitle = (md: string) => {
-//   if (!md) return '';
-//   const EXPR = /^#\s+.+/;
-//   const tokens = md.split('\n');
-
-//   for (let i = 0; i < tokens.length; i++) {
-//     if (EXPR.test(tokens[i])) {
-//       return tokens[i];
-//     }
-//   }
-
-//   return '';
-// };

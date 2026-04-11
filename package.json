@@ -30,7 +30,7 @@
     "@supastuff/json-resume-types": "^1.0.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/bun": "^1.3.11",
+    "@types/bun": "^1.3.12",
     "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
