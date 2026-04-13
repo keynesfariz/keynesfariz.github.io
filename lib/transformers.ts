@@ -1,4 +1,3 @@
-// import { allWritings } from '@/.content-collections/generated';
 import { getYearRange } from '@/lib/date-format';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
 

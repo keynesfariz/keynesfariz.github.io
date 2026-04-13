@@ -1,5 +1,3 @@
-// const USERNAME = process.env.NEXT_USERNAME ?? '';
-
 import { Writing } from '@/.content-collections/generated';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -71,9 +69,9 @@ export default async function PostDetail({ params }: Props) {
           </Link>
         )}
 
-        {writing.tags!.length > 0 && (
+        {writing.tags && writing.tags?.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {writing.tags!.map((tag) => (
+            {writing.tags.map((tag) => (
               <Badge key={tag} variant="secondary">
                 {tag}
               </Badge>
@@ -84,22 +82,9 @@ export default async function PostDetail({ params }: Props) {
 
       <Separator className="my-2" />
 
-      <div className="prose prose-neutral dark:prose-invert max-w-none text-lg leading-relaxed">
+      <div className="prose prose-neutral dark:prose-invert prose-pre:bg-zinc-900 prose-img:rounded-lg max-w-none text-lg leading-relaxed underline-offset-[3px]">
         <Markdown>{writing.content}</Markdown>
       </div>
-
-      {writing.url && (
-        <div>
-          Source code:{' '}
-          <Link
-            href={writing.url}
-            target="_blank"
-            rel="noreferrer"
-            className="text-primary font-medium underline-offset-4 hover:underline">
-            {writing.url}
-          </Link>
-        </div>
-      )}
     </article>
   );
 }
