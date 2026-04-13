@@ -1,8 +1,8 @@
 import { Writing } from '@/.content-collections/generated';
+import { LocalDateTime } from '@/components/local-datetime';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { getMetadata, getWritings } from '@/lib/data';
-import { formatDateTime } from '@/lib/date-format';
 import { ArrowLeftIcon } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -53,8 +53,8 @@ export default async function PostDetail({ params }: Props) {
 
         <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <time dateTime="2024-10-24" className="font-medium">
-              {formatDateTime(writing.created_at)}
+            <time dateTime={writing.created_at} className="font-medium">
+              <LocalDateTime dateTime={writing.created_at} />
             </time>
           </div>
         </div>

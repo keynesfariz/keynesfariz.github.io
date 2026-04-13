@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { formatDateTime } from '@/lib/date-format';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
+import { LocalDateTime } from './local-datetime';
 
 interface WritingCardProps {
   post: Writing;
@@ -25,7 +25,7 @@ export function WritingCard({ post }: WritingCardProps) {
         <CardHeader className="pb-3">
           <div className="mb-2 flex items-center gap-2">
             <span className="text-muted-foreground text-sm">
-              {formatDateTime(post.created_at)}
+              <LocalDateTime dateTime={post.created_at} />
             </span>
           </div>
           <ViewTransition name={slug}>

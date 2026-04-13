@@ -1,6 +1,6 @@
 import GitContributions from '@/components/git-contributions';
+import { LocalDateTime } from '@/components/local-datetime';
 import { getGitContributions, getMetadata } from '@/lib/data';
-import { formatDateTime } from '@/lib/date-format';
 
 export function generateMetadata() {
   return getMetadata({ title: 'About Me' });
@@ -37,7 +37,8 @@ export default async function About() {
           </h2>
           <GitContributions contributions={contributions.contributions} />
           <div className="text-muted-foreground text-right text-xs">
-            Last updated: {formatDateTime(contributions.updated_at)}
+            <span>Last updated: </span>
+            <LocalDateTime dateTime={contributions.updated_at} />
           </div>
         </section>
       )}

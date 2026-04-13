@@ -1,5 +1,6 @@
 import { Writing } from '@/.content-collections/generated';
 import { Highlight, HighlightItem } from '@/components/highlights';
+import { LocalDateTime } from '@/components/local-datetime';
 import Skills from '@/components/skill';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { getResumeSchema, getWritings } from '@/lib/data';
-import { formatDateTime, formatYear } from '@/lib/date-format';
+import { formatYear } from '@/lib/date-format';
 import { getHomepageData } from '@/lib/transformers';
 import {
   ArrowRightIcon,
@@ -172,7 +173,7 @@ export default async function Home() {
                   <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
                     <CardHeader>
                       <div className="text-muted-foreground mb-2 text-xs">
-                        {formatDateTime(post.created_at)}
+                        <LocalDateTime dateTime={post.created_at} />
                       </div>
                       <CardTitle className="group-hover:text-primary line-clamp-2 text-lg transition-colors">
                         {post.title}
