@@ -64,7 +64,7 @@ export default async function PostDetail({ params }: Props) {
             href={writing.url}
             target="_blank"
             rel="noreferrer"
-            className="text-primary font-medium underline-offset-4 hover:underline">
+            className="text-primary font-medium wrap-break-word underline-offset-4 hover:underline">
             {writing.url}
           </Link>
         )}
@@ -80,7 +80,7 @@ export default async function PostDetail({ params }: Props) {
         )}
       </header>
 
-      <Separator className="my-2" />
+      <Separator />
 
       <div className="prose prose-neutral dark:prose-invert prose-pre:bg-zinc-900 prose-img:rounded-lg max-w-none text-lg leading-relaxed underline-offset-[3px]">
         <Markdown>{writing.content}</Markdown>

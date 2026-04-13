@@ -1,5 +1,5 @@
 ---
-title: 'Building My Personal Website: Stack, Decisions, and Lessons'
+title: 'Building My Personal Website: Stack, Decisions, and Lesson'
 created_at: '2026-04-13T08:42:00Z'
 description: "Eleven years of overthinking later, I finally built my personal website. Here's the stack, the AI-assisted design process, and what I'd do differently."
 url: 'https://github.com/keynesfariz/keynesfariz.github.io'
@@ -103,13 +103,12 @@ In this phase, human judgment was still essential. The overall _"feel",_ typogra
 
 ## Outcomes & What's Next
 
-What I actually got out of it: hands-on time with newer tooling, a live public presence, a writing platform
-Spinning up a simple website like this has never been easier nowadays now that AI assistants are everywhere and mostly free. It's been a nice learning experience for me. Besides that, now that the website is finally live, I now have a live public presence, also a writing platform.
+Honestly, building this was way easier and enjoyable than I expected. AI handled most of the design groundwork, so I could focus on the parts I actually care about — picking the stack, making the calls, shipping the thing. The hardest part is writing its content 😃
 
-There's probably one thing that I'd do differently: Making the content of the website (can also including the design) to reflect my thinking process. Honestly I'm mostly happy with what it turned out to be for now.
+If I could redo one thing, I'd make the site feel more like me. The design is clean but maybe a bit safe. Something I'll keep in view. But honestly, I'm happy with where it landed for now.
 
-So what's next? I'll do more research when I have another time so that this website can serve its purpose. In the mean time, I'd continue to learn more about system design, software architecture, do more projects and have them documented here. Oh! And one small thing for this website: I'd put an outline section on the writing details.
+So what's next? More posts on system design, architecture, and projects I've been sitting on too long. Oh, and I still need to add an outline section to the writing detail page — that one's been on my list since day one.
 
 ## Closing
 
-Stop waiting for the perfect design. Ship the first, polish it forever. That's what I tell myself now.
+Lesson to myself: Stop waiting for the perfect design. Ship the first, polish it forever.
