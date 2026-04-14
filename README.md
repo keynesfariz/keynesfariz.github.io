@@ -1,4 +1,4 @@
-# fariz.me - Personal Portfolio
+# Portfolio Website
 
 Welcome to the source code for my personal portfolio website, built with modern web technologies to showcase my work, experience, and writings.
 
@@ -47,8 +47,8 @@ This is a personal checklist of things I need to update before this site is full
 
 ### Blog / Writing
 
-- [ ] **Writings Page**: Remove all mock data from `/app/writings/page.tsx` and implement a real CMS or MDX fetching system.
-- [ ] **Writing Detail**: Implement dynamic routing fetching real markdown/MDX content instead of using hardcoded switch statements or mock text.
+- [x] **Writings Page**: Remove all mock data from `/app/writings/page.tsx` and implement a real CMS or MDX fetching system.
+- [x] **Writing Detail**: Implement dynamic routing fetching real markdown/MDX content instead of using hardcoded switch statements or mock text.
 
 ### Deployment & SEO
 

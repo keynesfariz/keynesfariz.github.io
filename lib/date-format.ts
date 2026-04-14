@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
-dayjs.extend(utc)
+dayjs.extend(utc);
 
 const FULL_DATE = 'MMMM D, YYYY';
 const FULL_DATETIME = `${FULL_DATE} @ h:mm A`;

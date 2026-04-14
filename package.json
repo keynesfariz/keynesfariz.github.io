@@ -2,12 +2,14 @@
   "name": "portfolio-next-2",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
-    "format": "prettier --write --list-different ."
+    "format": "prettier --write --list-different .",
+    "writing": "node lib/writing-generator.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
