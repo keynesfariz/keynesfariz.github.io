@@ -5,7 +5,7 @@ import { getMetadata } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
-import { ViewTransition } from 'react';
+import { Suspense, ViewTransition } from 'react';
 import './globals.css';
 
 const font = Inter({ subsets: ['latin'], variable: '--font-sans' });
@@ -28,7 +28,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main className="mx-auto w-full max-w-4xl flex-1 p-8 md:px-12 md:pt-12">
-            <ViewTransition>{children}</ViewTransition>
+            <Suspense>
+              <ViewTransition>{children}</ViewTransition>
+            </Suspense>
           </main>
           <Footer />
         </ThemeProvider>
