@@ -1,9 +1,9 @@
 import { Writing } from '@/.content-collections/generated';
 import { LocalDateTime } from '@/components/local-datetime';
-import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { BackToWritingButton } from '@/components/writings/back-link';
+import { TagList } from '@/components/writings/tag-list';
 import { getMetadata, getWritings } from '@/lib/data';
-import { ArrowLeftIcon } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
@@ -14,12 +14,8 @@ export async function generateStaticParams() {
   return writings.map((wr) => ({ slug: wr._meta.path }));
 }
 
-type Props = {
-  params: Promise<{ slug: string }>;
-};
-
-export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
+export async function generateMetadata(props: PageProps<'/writings/[slug]'>) {
+  const { slug } = await props.params;
   const writing = getWritings(slug) as Writing | undefined;
   return getMetadata({
     title: writing?.title,
@@ -27,22 +23,21 @@ export async function generateMetadata({ params }: Props) {
   });
 }
 
-export default async function PostDetail({ params }: Props) {
-  const { slug } = await params;
+export default async function WritingDetail(
+  props: PageProps<'/writings/[slug]'>,
+) {
+  const { slug } = await props.params;
   const writing = getWritings(slug) as Writing | undefined;
 
   if (!writing) {
     notFound();
   }
 
+  const hasTags = writing.tags && writing.tags.length > 0;
+
   return (
     <article className="flex flex-col gap-8">
-      <Link
-        href="/writings"
-        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm font-medium transition-colors">
-        <ArrowLeftIcon className="size-4" />
-        Back to writings
-      </Link>
+      <BackToWritingButton />
 
       <header className="flex flex-col gap-4">
         <ViewTransition name={slug}>
@@ -51,7 +46,7 @@ export default async function PostDetail({ params }: Props) {
           </h1>
         </ViewTransition>
 
-        <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-4">
+        <div className="text-muted-foreground flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
             <time dateTime={writing.created_at} className="font-medium">
               <LocalDateTime dateTime={writing.created_at} />
@@ -69,15 +64,7 @@ export default async function PostDetail({ params }: Props) {
           </Link>
         )}
 
-        {writing.tags && writing.tags?.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-2">
-            {writing.tags.map((tag) => (
-              <Badge key={tag} variant="secondary">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
+        {hasTags && <TagList tags={writing.tags!} />}
       </header>
 
       <Separator />

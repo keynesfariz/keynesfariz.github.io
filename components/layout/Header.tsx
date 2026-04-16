@@ -1,5 +1,5 @@
 'use client';
-import Logo from '@/components/Logo';
+import { MyLogo } from '@/components/my-logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -39,7 +39,7 @@ export function Header() {
               ? 'bg-primary text-white'
               : 'bg-muted hover:bg-primary hover:text-white',
           )}>
-          <Logo className="size-5" />
+          <MyLogo className="size-5" />
         </div>
         {/* <span className="text-xl font-semibold">fariz(s)</span> */}
       </Link>

@@ -1,6 +1,10 @@
 import { Badge } from '@/components/ui/badge';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
 import { ResumeSchema } from '@supastuff/json-resume-types';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
 
 interface SkillsProps {
   skills: NonNullable<ResumeSchema['skills']>;
