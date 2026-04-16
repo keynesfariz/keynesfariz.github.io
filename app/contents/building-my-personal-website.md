@@ -3,6 +3,16 @@ title: 'Building My Personal Website: Stack, Decisions, and Lesson'
 created_at: '2026-04-13T08:42:00Z'
 description: "Eleven years of overthinking later, I finally built my personal website. Here's the stack, the AI-assisted design process, and what I'd do differently."
 url: 'https://github.com/keynesfariz/keynesfariz.github.io'
+tags:
+  [
+    'ai-assisted',
+    'github-pages',
+    'github-actions',
+    'next.js',
+    'react',
+    'typescript',
+    'tailwindcss',
+  ]
 ---
 
 Hi! This is my first post 😃 and I want to talk about this very own personal website that I've finally launched.
@@ -90,13 +100,13 @@ One thing worth highlighting: Antigravity supports multimodal input natively, so
 
 ### The Review Loop
 
-![Prototyping Flowchart](/assets/prototyping-flowchart.png)
+![Prototyping Flowchart](/assets/portfolio-prototyping-flowchart.webp)
 
 In this phase, human judgment was still essential. The overall _"feel",_ typography, spacing are still up to us to decide. AI gets you 70% there fast, the remaining 30% is still on you. AI-assisted design is quick at generating a starting point but you still make the real calls. Although it's mostly constrained because I only use Shadcn components.
 
 ## Deployment
 
-![Deployment Flowchart](/assets/deployment-flowchart.png)
+![Deployment Flowchart](/assets/portfolio-deployment-flowchart.webp)
 
 - Started out by adding `output: 'export' in next.config` so that `next build` can generate a static `out/` folder.
 - The GitHub Actions workflow: triggered on push to main, builds and deploys to GitHub Pages automatically.
