@@ -1,4 +1,3 @@
-import { Skeleton } from '@/components/ui/skeleton';
 import { WritingList } from '@/components/writings/writing-list';
 import { WritingTitle } from '@/components/writings/writing-title';
 import { getMetadata } from '@/lib/data';
@@ -18,13 +17,7 @@ export default async function Posts() {
           design systems, and whatever else I&apos;m currently exploring.
         </p>
       </div>
-      <Suspense
-        fallback={
-          <div className="space-y-6">
-            <Skeleton className="h-28 w-full" />
-            <Skeleton className="h-28 w-full" />
-          </div>
-        }>
+      <Suspense>
         <WritingList />
       </Suspense>
     </div>

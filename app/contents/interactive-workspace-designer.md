@@ -1,6 +1,6 @@
 ---
 title: 'Interactive Workspace Designer: Claude Did Most of the Work'
-created_at: '2026-04-14T14:42:33.722Z'
+created_at: '2026-04-16T07:42:26.586Z'
 description: 'Got a coding challenge, used AI to help build it, shipped a blueprint-style workspace configurator in one sitting'
 url: 'https://workspace-designer-chi.vercel.app'
 tags:
@@ -104,7 +104,10 @@ The cart updates in real time as you place or remove objects. Step 3 shows a ful
 
 **Responsive**. Side panel on desktop, bottom drawer on mobile. The canvas itself scales down via a CSS transform on smaller screens.
 
-**Keyboard shortcuts**. `Delete` or `Backspace` removes the selected object, `Escape` closes the picker modal. Small thing but it makes the canvas feel more like a real tool.
+**Keyboard shortcuts**. Small thing but it makes the canvas feel more like a real tool.
+
+- `Delete` or `Backspace` removes the selected object,
+- `Escape` closes the picker modal.
 
 All CSS via **Tailwind** utility classes. The only inline style props are for runtime-computed pixel values (slot positions, canvas geometry) that can't be expressed as static Tailwind classes.
 

@@ -17,6 +17,7 @@ import { formatYear } from '@/lib/date-format';
 import { getHomepageData } from '@/lib/transformers';
 import {
   ArrowRightIcon,
+  AtomIcon,
   BriefcaseIcon,
   GraduationCapIcon,
   LanguagesIcon,
@@ -117,7 +118,7 @@ export default async function Home() {
         {profile.skills?.length && (
           <Highlight
             title="Stack / Skills"
-            icon={LanguagesIcon}
+            icon={AtomIcon}
             className="md:order-2">
             <Skills skills={profile.skills} />
           </Highlight>
