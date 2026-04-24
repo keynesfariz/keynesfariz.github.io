@@ -16,9 +16,7 @@ tags:
 is_featured: false
 ---
 
-```
-TL;DR: Got a coding challenge, used AI to help build it, shipped a blueprint-style workspace configurator through some iterations.
-```
+> TL;DR: Got a coding challenge, used AI to help build it, shipped a blueprint-style workspace configurator through some iterations.
 
 ## Background of the Story
 

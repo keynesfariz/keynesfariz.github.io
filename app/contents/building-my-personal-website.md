@@ -17,9 +17,7 @@ tags:
 
 Hi! This is my first post 😃 and I want to talk about this very own personal website that I've finally launched.
 
-```
-TL;DR: I overthink the details. A lot.
-```
+> TL;DR: I overthink the details. A lot.
 
 Ever since I've started doing projects in 2015, I always wanted to make a personal website, but for me it's a bit of a challenge since I was constantly thinking about how it would look rather than just 'do it first' and 'polish it later'. So yeah, it really took me a while. Especially when you come from a background that loves graphic designing and thinking in detail rather than big pictures 😃.
 
