@@ -8,7 +8,7 @@ tags:
     'ai-assisted',
     'github-pages',
     'github-actions',
-    'next.js',
+    'nextjs',
     'react',
     'typescript',
     'tailwindcss',
