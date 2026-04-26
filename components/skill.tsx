@@ -1,9 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
+import Hover from '@/components/ui/hover-card-simplified';
 import { ResumeSchema } from '@supastuff/json-resume-types';
 
 interface SkillsProps {
@@ -31,23 +27,14 @@ const Skills = ({ skills }: SkillsProps) => (
               </Badge>
             ))}
             {remainingKeywords > 0 && (
-              <HoverCard>
-                <HoverCardTrigger
-                  delay={10}
-                  closeDelay={100}
-                  render={
-                    <Badge
-                      variant="outline"
-                      className="cursor-pointer"
-                      title={remainingKeywordText}>
-                      +{remainingKeywords}
-                    </Badge>
-                  }
-                />
-                <HoverCardContent className="flex w-64 flex-col gap-0.5">
-                  {remainingKeywordText}
-                </HoverCardContent>
-              </HoverCard>
+              <Hover content={remainingKeywordText}>
+                <Badge
+                  variant="outline"
+                  className="cursor-pointer"
+                  title={remainingKeywordText}>
+                  +{remainingKeywords}
+                </Badge>
+              </Hover>
             )}
           </div>
         </div>

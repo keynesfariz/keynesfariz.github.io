@@ -8,7 +8,11 @@ import { Inter } from 'next/font/google';
 import { Suspense, ViewTransition } from 'react';
 import './globals.css';
 
-const font = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const font = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  preload: false,
+});
 
 export function generateMetadata() {
   return getMetadata();
