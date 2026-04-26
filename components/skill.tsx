@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import Hover from '@/components/ui/hover-card-simplified';
+import { Hover } from '@/components/ui/hover-card-simplified';
 import { ResumeSchema } from '@supastuff/json-resume-types';
 
 interface SkillsProps {
