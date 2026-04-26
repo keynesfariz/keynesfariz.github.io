@@ -11,7 +11,6 @@ import './globals.css';
 const font = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
-  preload: false,
 });
 
 export function generateMetadata() {
@@ -38,8 +37,10 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
-        <GoogleAnalytics gaId={process.env.NEXT_GA_ID ?? ''} />
       </body>
+      {process.env.NEXT_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_GA_ID} />
+      )}
     </html>
   );
 }
