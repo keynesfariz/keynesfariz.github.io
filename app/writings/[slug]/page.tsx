@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Markdown from 'react-markdown';
-import rehypeExternalLinks from 'rehype-external-links';
 
 export async function generateStaticParams() {
   const writings = getWritings() as Writing[];
@@ -70,8 +69,23 @@ export default async function WritingDetail(
 
       <Separator />
 
-      <div className="prose prose-neutral dark:prose-invert prose-pre:bg-zinc-900 prose-img:rounded-lg prose-img:mx-auto max-w-none text-lg leading-relaxed underline-offset-[3px]">
-        <Markdown rehypePlugins={[[rehypeExternalLinks, { target: '_blank' }]]}>
+      <div className="prose prose-neutral dark:prose-invert prose-pre:bg-zinc-900 max-w-none text-lg leading-relaxed underline-offset-[3px]">
+        <Markdown
+          components={{
+            a: (props) => (
+              <a {...props} target="_blank" rel="noopener noreferrer" />
+            ),
+            img: (props) => (
+              <>
+                <img {...props} loading="lazy" className="mx-auto rounded-lg" />
+                {props.alt && (
+                  <span className="flex justify-center text-sm italic">
+                    **{props.alt}**
+                  </span>
+                )}
+              </>
+            ),
+          }}>
           {writing.content}
         </Markdown>
       </div>
