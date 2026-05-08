@@ -33,7 +33,6 @@ created_at: '${createdAt.toISOString()}'
 description: ''
 url: ''
 tags: []
-is_featured: false
 ---
 It's about ${title}
 `;

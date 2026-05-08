@@ -1,35 +1,24 @@
-import { Writing } from '@/.content-collections/generated';
 import { Highlight, HighlightItem } from '@/components/highlights';
-import { LocalDateTime } from '@/components/local-datetime';
 import Skills from '@/components/skill';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getResumeSchema, getWritings } from '@/lib/data';
+import { getResumeSchema } from '@/lib/data';
 import { formatYear } from '@/lib/date-format';
 import { getHomepageData } from '@/lib/transformers';
 import {
-  ArrowRightIcon,
   AtomIcon,
   BriefcaseIcon,
   GraduationCapIcon,
   LanguagesIcon,
   MapPinIcon,
 } from 'lucide-react';
-import Link from 'next/link';
 
 export default async function Home() {
   const resume = await getResumeSchema();
   const profile = getHomepageData(resume);
 
-  const featuredWritings = getWritings(undefined, true) as Writing[];
+  // const featuredWritings = getWritings(undefined, true) as Writing[];
 
   return (
     <div className="flex flex-col gap-12">
@@ -150,7 +139,7 @@ export default async function Home() {
       </section>
 
       {/* Featured Writings */}
-      {featuredWritings.length > 0 && (
+      {/* {featuredWritings.length > 0 && (
         <>
           <Separator />
           <section className="flex flex-col gap-6">
@@ -193,7 +182,7 @@ export default async function Home() {
             </div>
           </section>
         </>
-      )}
+      )} */}
     </div>
   );
 }

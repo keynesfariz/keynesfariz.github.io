@@ -43,18 +43,23 @@ export const getGitContributions = cache(
   },
 );
 
-export const getWritings = cache((slug?: string, isFeatured?: boolean) => {
-  if (slug) {
-    return allWritings.find((wr) => wr._meta.path === slug);
-  }
+export const getWritings = cache(
+  (
+    slug?: string,
+    /* , isFeatured?: boolean */
+  ) => {
+    if (slug) {
+      return allWritings.find((wr) => wr._meta.path === slug);
+    }
 
-  const sortedWritings = allWritings.sort((a, b) =>
-    a.created_at > b.created_at ? -1 : 1,
-  );
+    const sortedWritings = allWritings.sort((a, b) =>
+      a.created_at > b.created_at ? -1 : 1,
+    );
 
-  if (isFeatured) {
-    return sortedWritings.filter((wr) => !!wr.is_featured);
-  }
+    // if (isFeatured) {
+    //   return sortedWritings.filter((wr) => !!wr.is_featured);
+    // }
 
-  return sortedWritings;
-});
+    return sortedWritings;
+  },
+);
