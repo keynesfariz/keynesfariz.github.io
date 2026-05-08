@@ -1,7 +1,7 @@
 ---
 title: 'Interactive Workspace Designer: Claude Did Most of the Work'
 created_at: '2026-04-16T07:42:26.586Z'
-description: 'Got a coding challenge, used AI to help build it, shipped a blueprint-style workspace configurator in one sitting'
+description: 'A coding challenge and leveraging AI to help build it, shipped a blueprint-style workspace configurator 8 hours'
 url: 'https://workspace-designer-chi.vercel.app'
 tags:
   [
@@ -13,7 +13,6 @@ tags:
     'typescript',
     'tailwindcss',
   ]
-is_featured: false
 ---
 
 > TL;DR: Got a coding challenge, used AI to help build it, shipped a blueprint-style workspace configurator through some iterations.

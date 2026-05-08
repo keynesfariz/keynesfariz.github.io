@@ -4,7 +4,6 @@ created_at: '2026-04-24T10:42:45.496Z'
 description: 'A story of my first React/Next.js project that no longer exists'
 url: 'https://artcallsindonesia.com/'
 tags: ['retrospective', 'nextjs', 'react', 'headless-cms', 'deployment']
-is_featured: false
 ---
 
 > TL;DR My first professional Next.js website has died along with its history. One project that is quite personal because it introduced me to the React community.

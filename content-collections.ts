@@ -11,7 +11,7 @@ const writings = defineCollection({
     description: z.string().optional(),
     url: z.string().optional(),
     tags: z.array(z.string()).optional(),
-    is_featured: z.boolean().optional(),
+    // is_featured: z.boolean().optional(),
     content: z.string(),
   }),
 });

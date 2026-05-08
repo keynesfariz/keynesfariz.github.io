@@ -77,10 +77,14 @@ export default async function WritingDetail(
             ),
             img: (props) => (
               <>
-                <img {...props} loading="lazy" className="mx-auto rounded-lg" />
+                <img
+                  {...props}
+                  loading="lazy"
+                  className={`mx-auto rounded-lg ${props.alt ? 'mb-4' : ''}`}
+                />
                 {props.alt && (
                   <span className="flex justify-center text-sm italic">
-                    **{props.alt}**
+                    {props.alt}
                   </span>
                 )}
               </>
