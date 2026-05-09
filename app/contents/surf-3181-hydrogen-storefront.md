@@ -1,6 +1,6 @@
 ---
 title: 'Custom Storefront for Surf3181 Boardstore, Powered by Shopify Hydrogen'
-created_at: '2026-04-26T18:42:27.757Z'
+created_at: '2026-05-09T18:42:27.757Z'
 description: 'How I built an Australian surf shop storefront with Shopify Hydrogen + Oxygen, and why the stack was worth every bit of it.'
 url: 'https://surf3181.com.au/'
 tags:
