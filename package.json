@@ -23,11 +23,13 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
     "shadcn": "^4.13.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@content-collections/core": "^0.15.2",
+    "@content-collections/markdown": "^0.1.4",
     "@content-collections/next": "^0.2.11",
     "@supastuff/json-resume-types": "^1.0.0",
     "@tailwindcss/postcss": "^4.3.2",

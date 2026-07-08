@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Markdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import 'highlight.js/styles/github-dark.css';
 
 export async function generateStaticParams() {
   const writings = getWritings() as Writing[];
@@ -69,8 +71,9 @@ export default async function WritingDetail(
 
       <Separator />
 
-      <div className="prose prose-neutral dark:prose-invert prose-pre:bg-zinc-900 max-w-none text-lg leading-relaxed underline-offset-[3px]">
+      <div className="prose prose-neutral dark:prose-invert max-w-none text-lg leading-relaxed underline-offset-[3px]">
         <Markdown
+          rehypePlugins={[rehypeHighlight]}
           components={{
             a: (props) => (
               <a {...props} target="_blank" rel="noopener noreferrer" />

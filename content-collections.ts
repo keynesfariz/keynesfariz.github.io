@@ -1,4 +1,6 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
+import { compileMarkdown } from "@content-collections/markdown";
+import rehypeHighlight from "rehype-highlight";
 import { z } from 'zod';
 
 const writings = defineCollection({
@@ -11,9 +13,19 @@ const writings = defineCollection({
     description: z.string().optional(),
     url: z.string().optional(),
     tags: z.array(z.string()).optional(),
-    // is_featured: z.boolean().optional(),
     content: z.string(),
   }),
+  transform: async (document, context) => {
+    const html = await compileMarkdown(context, document, {
+      rehypePlugins: [
+        rehypeHighlight,
+      ],
+    });
+    return {
+      ...document,
+      html,
+    };
+  },
 });
 
 export default defineConfig({

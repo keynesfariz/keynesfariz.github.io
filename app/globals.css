@@ -192,3 +192,11 @@
     letter-spacing: var(--tracking-normal);
   }
 }
+
+pre {
+  @apply dark:border;
+
+  .hljs {
+    @apply bg-transparent!;
+  }
+}
