@@ -75,20 +75,26 @@ export default async function WritingDetail(
             a: (props) => (
               <a {...props} target="_blank" rel="noopener noreferrer" />
             ),
-            img: (props) => (
-              <>
-                <img
-                  {...props}
-                  loading="lazy"
-                  className={`mx-auto rounded-lg ${props.alt ? 'mb-4' : ''}`}
-                />
-                {props.alt && (
-                  <span className="flex justify-center text-sm italic">
-                    {props.alt}
-                  </span>
-                )}
-              </>
-            ),
+            img: (props) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              const { node, ...rest } = props;
+              return (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    alt={rest.alt || ''}
+                    loading="lazy"
+                    className={`mx-auto rounded-lg ${rest.alt ? 'mb-4' : ''}`}
+                    {...rest}
+                  />
+                  {rest.alt && (
+                    <span className="flex justify-center text-sm italic">
+                      {rest.alt}
+                    </span>
+                  )}
+                </>
+              );
+            },
           }}>
           {writing.content}
         </Markdown>

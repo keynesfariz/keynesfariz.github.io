@@ -104,7 +104,7 @@ export default async function Home() {
         </Highlight>
 
         {/* Stack / Skills */}
-        {profile.skills?.length && (
+        {profile.skills && profile.skills.length > 0 && (
           <Highlight
             title="Stack / Skills"
             icon={AtomIcon}
@@ -114,7 +114,7 @@ export default async function Home() {
         )}
 
         {/* Languages */}
-        {profile.languages?.length && (
+        {profile.languages && profile.languages.length > 0 && (
           <Highlight
             title="Languages"
             icon={LanguagesIcon}
