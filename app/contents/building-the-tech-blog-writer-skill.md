@@ -1,7 +1,7 @@
 ---
 title: 'Building the Tech Blog Writer Skill'
 created_at: '2026-07-09T13:42:01.596Z'
-description: ''
+description: 'How I built an Antigravity AI skill to automate my blog writing workflow, cutting out tedious context switching and app juggling.'
 url: ''
 tags: ['automation', 'ai-agents', 'antigravity', 'productivity']
 ---
