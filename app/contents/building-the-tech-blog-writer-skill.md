@@ -46,6 +46,6 @@ Now, when I want to write a post, I just type "Help me write a new tech blog pos
 
 It completely cuts out the context switching. I stay in one window, focus on the actual ideas, and let the AI handle the mechanical drudgery of file creation, image compression, and version control. 
 
-[IMAGE PLACEHOLDER: Screenshot of the automated Pull Request created by the agent]
+![Screenshot of the automated Pull Request created by the agent](/assets/building-the-tech-blog-writer-skill-pr-action.webp)
 
 Next up: writing more posts, obviously. 😃
