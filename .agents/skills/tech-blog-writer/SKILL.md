@@ -26,7 +26,7 @@ Write the initial draft directly into the generated markdown file using your fil
 
 **Formatting Rules**:
 - **Headings**: Use `##` for the largest headings, working your way down to smaller headings (`###`, `####`). Do NOT use `#` (H1) inside the markdown body.
-- **Tone & Style**: Adopt a humanized, conversational tone based on the user's previous posts you read.
+- **Tone & Style**: The writing style should reflect a goofy tone and "English as a second language" (ESL) phrasing, matching the user's previous posts you read. Avoid overly formal or perfectly polished "native speaker" sentences.
 - **Avoid AI Tropes**: Do NOT use double hyphens (--) or common AI jargon.
 - **Image Placeholders**: Where relevant images should go, insert `[IMAGE PLACEHOLDER: <description>]`.
 
