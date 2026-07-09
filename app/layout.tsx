@@ -1,11 +1,12 @@
-import { Footer } from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { Suspense, ViewTransition } from 'react';
+import { Inter } from 'next/font/google';
+
 import { ThemeProvider } from '@/components/theme-provider';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { getMetadata } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { GoogleAnalytics } from '@next/third-parties/google';
-import { Inter } from 'next/font/google';
-import { Suspense, ViewTransition } from 'react';
 import './globals.css';
 
 const font = Inter({

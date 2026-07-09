@@ -1,7 +1,9 @@
-import { Card } from '@/components/ui/card';
-import { formatDate } from '@/lib/date-format';
-import type { GitContributionResponse } from '@/types/Github';
 import dayjs from 'dayjs';
+
+import type { GitContributionResponse } from '@/types/Github';
+
+import { formatDate } from '@/lib/date-format';
+import { Card } from '@/components/ui/card';
 
 interface GitContributionsProps {
   contributions: GitContributionResponse['contributions'];

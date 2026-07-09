@@ -1,7 +1,8 @@
-import { WritingList } from '@/components/writings/writing-list';
-import { WritingTitle } from '@/components/writings/writing-title';
-import { getMetadata } from '@/lib/data';
 import { Suspense } from 'react';
+
+import { WritingTitle } from '@/components/writings/writing-title';
+import { WritingList } from '@/components/writings/writing-list';
+import { getMetadata } from '@/lib/data';
 
 export function generateMetadata() {
   return getMetadata({ title: 'Writings' });

@@ -1,5 +1,6 @@
-import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+
+import { Badge } from '@/components/ui/badge';
 
 interface TagListProps {
   tags: string[];

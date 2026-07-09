@@ -1,6 +1,6 @@
 import GitContributions from '@/components/git-contributions';
-import { LocalDateTime } from '@/components/local-datetime';
 import { getGitContributions, getMetadata } from '@/lib/data';
+import { LocalDateTime } from '@/components/local-datetime';
 
 export function generateMetadata() {
   return getMetadata({ title: 'About Me' });

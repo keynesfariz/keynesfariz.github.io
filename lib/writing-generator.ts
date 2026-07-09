@@ -1,7 +1,8 @@
-import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
-import fs from 'node:fs';
+import dayjs from 'dayjs';
+
 import { exit } from 'node:process';
+import fs from 'node:fs';
 
 dayjs.extend(utc);
 

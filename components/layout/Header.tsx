@@ -1,9 +1,10 @@
 'use client';
-import { MyLogo } from '@/components/my-logo';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
+import { ThemeToggle } from '@/components/theme-toggle';
+import { MyLogo } from '@/components/my-logo';
+import { cn } from '@/lib/utils';
 
 type NavLink = {
   label: string;

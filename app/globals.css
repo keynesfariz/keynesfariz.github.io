@@ -194,9 +194,9 @@
 }
 
 pre {
-  @apply dark:border;
+  @apply dark:bg-stone-900;
 
-  .hljs {
+  code.hljs {
     @apply bg-transparent!;
   }
 }

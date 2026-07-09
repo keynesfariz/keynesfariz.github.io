@@ -1,8 +1,10 @@
+import { cache } from 'react';
+
 import type { GitContributionResponse, GithubGist } from '@/types/Github';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
-import { allWritings } from 'content-collections';
 import type { Metadata } from 'next';
-import { cache } from 'react';
+
+import { allWritings } from 'content-collections';
 
 const RESUME_FILE_NAME = 'resume.json';
 

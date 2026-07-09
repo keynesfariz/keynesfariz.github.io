@@ -1,11 +1,3 @@
-import { Highlight, HighlightItem } from '@/components/highlights';
-import Skills from '@/components/skill';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { getResumeSchema } from '@/lib/data';
-import { formatYear } from '@/lib/date-format';
-import { getHomepageData } from '@/lib/transformers';
 import {
   AtomIcon,
   BriefcaseIcon,
@@ -13,6 +5,15 @@ import {
   LanguagesIcon,
   MapPinIcon,
 } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Highlight, HighlightItem } from '@/components/highlights';
+import { Separator } from '@/components/ui/separator';
+import { getHomepageData } from '@/lib/transformers';
+import { formatYear } from '@/lib/date-format';
+import { Badge } from '@/components/ui/badge';
+import { getResumeSchema } from '@/lib/data';
+import Skills from '@/components/skill';
 
 export default async function Home() {
   const resume = await getResumeSchema();

@@ -1,6 +1,7 @@
+import type { MetadataRoute } from 'next';
+
 import { Writing } from '@/.content-collections/generated';
 import { getWritings } from '@/lib/data';
-import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
 

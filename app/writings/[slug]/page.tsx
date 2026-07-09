@@ -1,15 +1,15 @@
-import { Writing } from '@/.content-collections/generated';
-import { LocalDateTime } from '@/components/local-datetime';
-import { Separator } from '@/components/ui/separator';
 import { BackToWritingButton } from '@/components/writings/back-link';
+import { LocalDateTime } from '@/components/local-datetime';
+import { Writing } from '@/.content-collections/generated';
 import { TagList } from '@/components/writings/tag-list';
+import { Separator } from '@/components/ui/separator';
 import { getMetadata, getWritings } from '@/lib/data';
-import Link from 'next/link';
+import rehypeHighlight from 'rehype-highlight';
+import 'highlight.js/styles/github-dark.css';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Markdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import 'highlight.js/styles/github-dark.css';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   const writings = getWritings() as Writing[];
@@ -71,7 +71,7 @@ export default async function WritingDetail(
 
       <Separator />
 
-      <div className="prose prose-neutral dark:prose-invert max-w-none text-lg leading-relaxed underline-offset-[3px]">
+      <div className="prose prose-neutral dark:prose-invert prose-a:text-primary max-w-none text-lg leading-relaxed underline-offset-[3px]">
         <Markdown
           rehypePlugins={[rehypeHighlight]}
           components={{

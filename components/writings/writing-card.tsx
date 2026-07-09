@@ -1,5 +1,6 @@
-import { Writing } from '@/.content-collections/generated';
-import { LocalDateTime } from '@/components/local-datetime';
+import { ViewTransition } from 'react';
+import Link from 'next/link';
+
 import {
   Card,
   CardContent,
@@ -7,9 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { LocalDateTime } from '@/components/local-datetime';
+import { Writing } from '@/.content-collections/generated';
 import { TagList } from '@/components/writings/tag-list';
-import Link from 'next/link';
-import { ViewTransition } from 'react';
 
 interface WritingCardProps {
   writing: Writing;

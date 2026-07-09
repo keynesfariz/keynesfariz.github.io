@@ -1,8 +1,9 @@
 'use client';
-import { Writing } from '@/.content-collections/generated';
-import { WritingCard } from '@/components/writings/writing-card';
-import { getWritings } from '@/lib/data';
 import { useSearchParams } from 'next/navigation';
+
+import { WritingCard } from '@/components/writings/writing-card';
+import { Writing } from '@/.content-collections/generated';
+import { getWritings } from '@/lib/data';
 
 export function WritingList() {
   const searchParams = useSearchParams();

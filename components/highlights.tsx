@@ -1,6 +1,7 @@
-import { cn } from '@/lib/utils';
 import { LucideProps } from 'lucide-react';
 import React from 'react';
+
+import { cn } from '@/lib/utils';
 
 interface HighlightProps {
   icon: React.ComponentType<LucideProps>;

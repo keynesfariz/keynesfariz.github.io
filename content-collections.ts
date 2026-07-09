@@ -1,6 +1,6 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
-import { compileMarkdown } from "@content-collections/markdown";
-import rehypeHighlight from "rehype-highlight";
+import { compileMarkdown } from '@content-collections/markdown';
+import rehypeHighlight from 'rehype-highlight';
 import { z } from 'zod';
 
 const writings = defineCollection({
@@ -17,9 +17,7 @@ const writings = defineCollection({
   }),
   transform: async (document, context) => {
     const html = await compileMarkdown(context, document, {
-      rehypePlugins: [
-        rehypeHighlight,
-      ],
+      rehypePlugins: [rehypeHighlight],
     });
     return {
       ...document,

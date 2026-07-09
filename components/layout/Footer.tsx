@@ -1,6 +1,7 @@
-import { Separator } from '@/components/ui/separator';
 import { FileTextIcon } from 'lucide-react';
 import Link from 'next/link';
+
+import { Separator } from '@/components/ui/separator';
 
 const USERNAME = process.env.NEXT_USERNAME ?? '';
 

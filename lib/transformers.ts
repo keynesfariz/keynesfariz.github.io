@@ -1,5 +1,6 @@
-import { getYearRange } from '@/lib/date-format';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
+
+import { getYearRange } from '@/lib/date-format';
 
 const getLocation = (
   location?: NonNullable<ResumeSchema['basics']>['location'],
