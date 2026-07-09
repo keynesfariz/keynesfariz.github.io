@@ -46,6 +46,14 @@ Now, when I want to write a post, I just type "Help me write a new tech blog pos
 
 It completely cuts out the context switching. I stay in one window, focus on the actual ideas, and let the AI handle the mechanical drudgery of file creation, image compression, and version control. 
 
+## Iterating on the Fly
+
+The beauty of having this skill run locally is that it's just a Markdown file (`SKILL.md`). If I want the agent to do something differently, I just tell it to update its own instructions.
+
+For example, right after building the initial version, I realized I was still manually writing the post descriptions in the markdown frontmatter, and the GitHub Pull Requests were being opened with generic titles. So I just asked the agent: *"Update the skill to also generate a post description, and use the title and description when creating the PR."* 
+
+Now, the agent automatically generates a 1-2 sentence summary for the frontmatter and passes `--title` and `--body` flags to the GitHub CLI. Continuous improvement with zero context switching.
+
 ![Screenshot of the automated Pull Request created by the agent](/assets/building-the-tech-blog-writer-skill-pr-action.webp)
 
 Next up: writing more posts, obviously. 😃
