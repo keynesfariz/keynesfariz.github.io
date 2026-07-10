@@ -1,8 +1,8 @@
-import utc from 'dayjs/plugin/utc.js';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
 
-import { exit } from 'node:process';
 import fs from 'node:fs';
+import { exit } from 'node:process';
 
 dayjs.extend(utc);
 
@@ -24,7 +24,7 @@ function generateSlug(title: string) {
     .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
 }
 
-const createdAt = dayjs.utc().set('minute', 42).add(5, 'hours');
+const createdAt = dayjs.utc().set('minute', 42).add(3, 'hours');
 
 const slug = generateSlug(`${title}`);
 

@@ -34,7 +34,7 @@ So I put Claude Desktop to work. (Claude Chat, I don't have a subscription _yet_
 **First decision**: what should this thing look like?
 
 They gave us the rough idea of them on how it might look like:
-![Workspace UI Idea](/assets/workspace-monis-sketch.webp)
+![Workspace UI Idea](/assets/workspace-monis-sketch.webp?w=800&h=533)
 
 And some constrained stacks that should be used: Next.js, Tailwind CSS, Vercel Deployment.
 
@@ -51,7 +51,7 @@ It's a 3-step wizard and I promise it's more fun than it sounds:
 2. **Design** — place furniture on a canvas like a tiny god with only limited abilities
 3. **Checkout** — cry at the daily total (cause it's expensive), adjust rental duration, confirm anyway
 
-![Workspace Actual UI: Step 1, Office Size](/assets/workspace-step-1-office-size.webp)
+![Workspace Actual UI: Step 1, Office Size](/assets/workspace-step-1-office-size.webp?w=800&h=568)
 
 Step 2 is where all the action is.
 
@@ -61,7 +61,7 @@ A unique decision from my side: Instead of a free drag-n-drop floor plan (boring
 
 Each office is divided into vertical columns called space units, and each column has zones with strict placement rules:
 
-![Workspace Actual UI: Step 2, Designer](/assets/workspace-step-2-design.webp)
+![Workspace Actual UI: Step 2, Designer](/assets/workspace-step-2-design.webp?w=800&h=471)
 
 You click `+` on a slot, pick an object from a modal, it snaps in. Done.
 
@@ -69,7 +69,7 @@ You click `+` on a slot, pick an object from a modal, it snaps in. Done.
 
 #### The Object Catalog
 
-![Workspace All Object Assets](/assets/workspace-all-assets.webp)
+![Workspace All Object Assets](/assets/workspace-all-assets.webp?w=800&h=450)
 
 19 Objects, All generated SVGs. No icon libraries. Every single object is a custom inline SVG with outline strokes — tables, chairs, plants, a coffee maker, a toaster, a printer, a monitor, and!!! a **David sculpture**. Renaissance art in a Bali coworking space. Perfectly normal.
 
@@ -91,11 +91,11 @@ interface CanvasState {
 
 #### Live Cart + Checkout
 
-![Workspace Checkout](/assets/workspace-step-3-checkout.webp)
+![Workspace Checkout](/assets/workspace-step-3-checkout.webp?w=800&h=1035)
 
 The cart updates in real time as you place or remove objects. Step 3 shows a full rental summary, lets you adjust the rental duration in days, and spits out a grand total. Daily rates vary per object — a monitor is $6/day, a coffee maker is $5/day, a cactus is $2/day (fair).
 
-![Workspace Booking Confirmed](/assets/workspace-step-4-booked.webp)
+![Workspace Booking Confirmed](/assets/workspace-step-4-booked.webp?w=800&h=845)
 
 ## A Few Technical Notes
 

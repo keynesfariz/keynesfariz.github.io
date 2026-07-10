@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint --fix",
     "format": "prettier --write --list-different .",
-    "writing": "node lib/writing-generator.ts"
+    "writing": "bun scripts/writing-generator.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

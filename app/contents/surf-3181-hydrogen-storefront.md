@@ -1,6 +1,6 @@
 ---
 title: 'Custom Storefront for Surf3181 Boardstore, Powered by Shopify Hydrogen'
-created_at: '2026-05-09T18:42:27.757Z'
+created_at: '2026-05-10T02:42:27.757Z'
 description: 'How I built an Australian surf shop storefront with Shopify Hydrogen + Oxygen, and why the stack was worth every bit of it.'
 url: 'https://surf3181.com.au/'
 tags:
@@ -20,7 +20,7 @@ tags:
 
 ## What's Surf 3181? (& How I Got Involved)
 
-![Surf3181 Offline Store](/assets/surf3181-offline-store.webp)
+![Surf3181 Offline Store](/assets/surf3181-offline-store.webp?w=698&h=676)
 
 [Surf 3181](https://maps.app.goo.gl/5A7DcHDh56Wz2toB9) is a surf shop based in Victoria, Australia. They sell surfboards, custom boards, apparel, accessories, wetsuits, and gift cards. They've had a solid offline presence from the start and have been using [Instagram](https://www.instagram.com/surf_3181) to keep their community engaged. Now they're expanding online so customers can actually browse and order without sliding into the DMs.
 
@@ -28,7 +28,7 @@ A friend of mine, who handles the website design side, pulled me in as the front
 
 ## The Stack and Why
 
-![Surf3181 Pricing Comparison, Shopify vs Building from Scratch](/assets/surf3181-pricing-comparison.webp)
+![Surf3181 Pricing Comparison, Shopify vs Building from Scratch](/assets/surf3181-pricing-comparison.webp?w=758&h=397)
 
 Before this project, they had no storefront at all. The first big decision was whether to build everything from scratch (storefront + CMS modules) or go with an existing platform like Shopify. We ran the numbers. Shopify came in at less than half the initial cost of a custom build, and that's before you factor in the time saved on things like auth, payments, product management, and security. For the first two years, it wasn't even close.
 
@@ -50,7 +50,7 @@ The visual direction for Surf 3181 leans into high-quality imagery, which makes 
 
 The color palette uses a thick black-and-white logo against a soft, muted teal header. Bold sans-serif typography. The overall vibe I'd describe as "urban surf shop meets sun-drenched professional." Clean but not sterile. Premium but not pretentious.
 
-![Surf3181 Homepage Design](/assets/surf3181-homepage.webp)
+![Surf3181 Homepage Design](/assets/surf3181-homepage.webp?w=800&h=544)
 
 Most of the components were built from scratch. The one exception is the range slider for the surfboard volume calculator, where I used a Radix slider since it handles accessibility and interaction behavior really well out of the box. For everything else, custom all the way.
 
@@ -60,13 +60,13 @@ This is the part where the build gets interesting.
 
 ### Product Listing and Collections
 
-![Surf3181 Product collections page](/assets/surf3181-collection.webp)
+![Surf3181 Product collections page](/assets/surf3181-collection.webp?w=800&h=544)
 
 Products are organized into collections (surfboards, apparel, accessories, etc.) and the catalog uses infinite scroll instead of pagination. It keeps the browsing experience smooth, especially on mobile.
 
 ### Product Detail Page (PDP)
 
-![Surfboard PDP with specs](/assets/surf3181-pdp.webp)
+![Surfboard PDP with specs](/assets/surf3181-pdp.webp?w=800&h=931)
 
 The PDP for regular products has your standard variant chooser (size, color) and a dimension chooser. But the surfboard PDP has some extra stuff that made this more fun to build.
 
@@ -74,7 +74,7 @@ Each surfboard has a set of custom metadata we defined on the Shopify platform: 
 
 ### Surfboard Volume Calculator
 
-![Volume calculator](/assets/surf3181-volume-calculator.webp)
+![Volume calculator](/assets/surf3181-volume-calculator.webp?w=800&h=544)
 
 This was one of the more fun features to build. Choosing the right surfboard volume depends on the rider's weight, height, and skill level. We built an interactive calculator that takes those inputs and spits out a recommended volume range. Helps customers self-select the right board without needing to talk to someone first.
 
@@ -85,13 +85,13 @@ These are sources for the formula:
 
 ### Cart
 
-![Cart drawer and cart page on mobile view](/assets/surf3181-cart-drawer-full-page-on-mobile.webp)
+![Cart drawer and cart page on mobile view](/assets/surf3181-cart-drawer-full-page-on-mobile.webp?w=800&h=603)
 
 The cart is available both as a slide-over drawer and a dedicated cart page. Both stay in sync with the same cart state. The drawer is the quick-access version for when you just want to add something and keep browsing. The dedicated page is for when you're ready to review everything before checkout.
 
 ### Interactive Navbar
 
-![Navbar in desktop view](/assets/surf3181-navbar.webp)
+![Navbar in desktop view](/assets/surf3181-navbar.webp?w=800&h=367)
 
 The navbar handles collection navigation, cart access, and user account. On mobile it collapses into a proper drawer menu. It also reflects the cart item count in real time.
 
@@ -111,7 +111,7 @@ Setting up Oxygen is basically:
 
 That's it for setup. After that, the workflow is exactly what you'd want:
 
-![Shopify bot PR](/assets/surf3181-shopify-bot.webp)
+![Shopify bot PR](/assets/surf3181-shopify-bot.webp?w=800&h=299)
 
 Every pull request gets a live preview deployment on Oxygen's infrastructure automatically. The Shopify bot posts the preview URL as a PR comment along with the deployment status check. When the PR is merged, it deploys to production and you get the deployment link for that merge as well.
 

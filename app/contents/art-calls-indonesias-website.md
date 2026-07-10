@@ -14,13 +14,13 @@ Ever since I started building this portfolio website, I was committed to writing
 
 From that commitment, I went to access all the public websites and apps I've built, one of them being this one: [**Art Calls Indonesia**](https://artcallsindonesia.com). But as soon as I tried to access it earlier this year, I found out that it was no longer alive 🪦.
 
-![404 on Art Calls Indonesia's Website](/assets/art-calls-indonesias-404.webp)
+![404 on Art Calls Indonesia's Website](/assets/art-calls-indonesias-404.webp?w=800&h=479)
 
 The loss made me like... _"d\*mn, that's a shame"_. Only because it was my first React baby 🥲. I guess you'd understand the feeling if you had kids (I don't, fyi).
 
 ## What Was Art Calls Indonesia?
 
-![Open Calls](/assets/art-calls-indonesias-open-calls.webp)
+![Open Calls](/assets/art-calls-indonesias-open-calls.webp?w=800&h=544)
 
 For the brief context, Art Calls Indonesia 🎨 was a platform for inspiring Indonesian artists to share their thoughts, post art events, and even art related jobs.
 
@@ -39,7 +39,7 @@ So, there were mainly two things I had to learn:
 - React.js
 - JavaScript in general
 
-![React Meme from Level Up Coding](/assets/art-calls-indonesias-react-meme.webp)
+![React Meme from Level Up Coding](/assets/art-calls-indonesias-react-meme.webp?w=800&h=719)
 
 It was an absolute challenge. Apart from getting used to how the React mental model works, I had to Google basic JavaScript things multiple times. My search history was looking something like this:
 
@@ -75,7 +75,7 @@ You can still see how ACI looked on [Wayback Machine](https://web.archive.org/we
 
 ## Closing Thought
 
-![React Meme from Level Up Coding](/assets/art-calls-indonesias-you-can-do-it-meme.webp)
+![React Meme from Level Up Coding](/assets/art-calls-indonesias-you-can-do-it-meme.webp?w=450&h=290)
 
 I might sound like a broken radio, but this was my first React baby. And I think that's exactly why it stings a little, not because of the code, but because of what it represented. Proof that I _could_ do it. That switching from PHP + jQuery to the React world wasn't going to kill me.
 

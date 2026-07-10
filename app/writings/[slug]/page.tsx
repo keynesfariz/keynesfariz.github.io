@@ -1,15 +1,18 @@
-import { BackToWritingButton } from '@/components/writings/back-link';
-import { LocalDateTime } from '@/components/local-datetime';
-import { Writing } from '@/.content-collections/generated';
-import { TagList } from '@/components/writings/tag-list';
-import { Separator } from '@/components/ui/separator';
-import { getMetadata, getWritings } from '@/lib/data';
 import rehypeHighlight from 'rehype-highlight';
-import 'highlight.js/styles/github-dark.css';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Markdown from 'react-markdown';
 import Link from 'next/link';
+
+import { BackToWritingButton } from '@/components/writings/back-link';
+import { LocalDateTime } from '@/components/local-datetime';
+import { getResponsiveImageProps } from '@/lib/image-utils';
+import { Writing } from '@/.content-collections/generated';
+import { TagList } from '@/components/writings/tag-list';
+import { Separator } from '@/components/ui/separator';
+import { getMetadata, getWritings } from '@/lib/data';
+import { extractImageDimensions } from '@/lib/utils';
+import 'highlight.js/styles/github-dark.css';
 
 export async function generateStaticParams() {
   const writings = getWritings() as Writing[];
@@ -81,17 +84,35 @@ export default async function WritingDetail(
             img: (props) => {
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               const { node, ...rest } = props;
+              const { width, height } = extractImageDimensions(
+                rest.src as string | undefined,
+              );
+
+              const { srcSet, sizes } = getResponsiveImageProps(
+                rest.src as string | undefined,
+                width,
+              );
+
               return (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     alt={rest.alt || ''}
                     loading="lazy"
-                    className={`mx-auto rounded-lg ${rest.alt ? 'mb-4' : ''}`}
+                    className="h-auto w-full rounded-lg"
+                    style={
+                      width && height
+                        ? { aspectRatio: `${width} / ${height}` }
+                        : undefined
+                    }
+                    width={width}
+                    height={height}
+                    srcSet={srcSet}
+                    sizes={sizes}
                     {...rest}
                   />
                   {rest.alt && (
-                    <span className="flex justify-center text-sm italic">
+                    <span className="mt-2 flex justify-center text-sm italic">
                       {rest.alt}
                     </span>
                   )}

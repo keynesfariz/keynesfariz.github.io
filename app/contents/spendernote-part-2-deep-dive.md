@@ -14,7 +14,7 @@ tags:
   ]
 ---
 
-![SpenderNote Transactions Page](/assets/spendernote-1-transactions-page.webp)
+![SpenderNote Transactions Page](/assets/spendernote-1-transactions-page.webp?w=800&h=545)
 
 Hi again! In [Part 1](/writings/spendernote-part-1-journey), I talked about why **SpenderNote** exists and why I ditched pure AI parsing for something a lot more boring and a lot more reliable. Now let's actually crack it open.
 
@@ -50,11 +50,11 @@ This one change made the syncing pipeline almost instant and completely determin
 
 ## 2. Solving the Sync Nightmare (and Idempotency)
 
-![SpenderNote Sync Process Flow](/assets/spendernote-2-sync-process-flow.webp)
+![SpenderNote Sync Process Flow](/assets/spendernote-2-sync-process-flow.webp?w=800&h=622)
 
 The single biggest headache of this whole project was the sync gaps. Gmail's API sorting is quirky enough that I couldn't rely on strict chronological order. My first version of the sync script stopped fetching the moment it saw an already processed email, which quietly dropped transactions that happened to arrive out of order. Fun fact: I only found out because my tracked balance and my actual bank balance stopped agreeing.
 
-![SpenderNote Day-to-Day Sync Process Flow](/assets/spendernote-2-day2day-sync-process-flow.webp)
+![SpenderNote Day-to-Day Sync Process Flow](/assets/spendernote-2-day2day-sync-process-flow.webp?w=800&h=281)
 
 The fix was to rebuild the sync logic around much broader, overlapping time blocks. That decision intentionally invites duplicate emails back into the pipeline, which brings us to the actual fix: idempotency.
 

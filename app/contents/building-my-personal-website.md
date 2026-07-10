@@ -98,13 +98,13 @@ One thing worth highlighting: Antigravity supports multimodal input natively, so
 
 ### The Review Loop
 
-![Prototyping Flowchart](/assets/portfolio-prototyping-flowchart.webp)
+![Prototyping Flowchart](/assets/portfolio-prototyping-flowchart.webp?w=800&h=321)
 
 In this phase, human judgment was still essential. The overall _"feel",_ typography, spacing are still up to us to decide. AI gets you 70% there fast, the remaining 30% is still on you. AI-assisted design is quick at generating a starting point but you still make the real calls. Although it's mostly constrained because I only use Shadcn components.
 
 ## Deployment
 
-![Deployment Flowchart](/assets/portfolio-deployment-flowchart.webp)
+![Deployment Flowchart](/assets/portfolio-deployment-flowchart.webp?w=800&h=252)
 
 - Started out by adding `output: 'export' in next.config` so that `next build` can generate a static `out/` folder.
 - The GitHub Actions workflow: triggered on push to main, builds and deploys to GitHub Pages automatically.

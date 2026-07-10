@@ -12,6 +12,7 @@ import './globals.css';
 const font = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
 });
 
 export function generateMetadata() {

@@ -187,16 +187,16 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
-    letter-spacing: var(--tracking-normal);
-  }
-}
+    @apply bg-background text-foreground tracking-normal;
 
-pre {
-  @apply dark:bg-stone-900;
+    pre {
+      @apply bg-foreground/85! dark:bg-foreground/3!;
 
-  code.hljs {
-    @apply bg-transparent!;
+      code.hljs {
+        @apply bg-transparent!;
+      }
+    }
   }
 }
