@@ -1,25 +1,14 @@
-import {
-  AtomIcon,
-  BriefcaseIcon,
-  GraduationCapIcon,
-  LanguagesIcon,
-  MapPinIcon,
-} from 'lucide-react';
+import { MapPinIcon } from 'lucide-react';
+import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Highlight, HighlightItem } from '@/components/highlights';
 import { Separator } from '@/components/ui/separator';
 import { getHomepageData } from '@/lib/transformers';
-import { formatYear } from '@/lib/date-format';
-import { Badge } from '@/components/ui/badge';
 import { getResumeSchema } from '@/lib/data';
-import Skills from '@/components/skill';
 
 export default async function Home() {
   const resume = await getResumeSchema();
   const profile = getHomepageData(resume);
-
-  // const featuredWritings = getWritings(undefined, true) as Writing[];
 
   return (
     <div className="flex flex-col gap-12">
@@ -40,11 +29,17 @@ export default async function Home() {
               </>
             )}
           </h2>
-          <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            I&apos;m a software engineer specializing in building (and
-            occasionally designing) exceptional digital experiences. Currently,
-            I&apos;m focused on building accessible, human-centered products.
-          </p>
+          <div className="text-muted-foreground flex max-w-2xl flex-col gap-4 leading-relaxed">
+            <p>
+              I&apos;m a software engineer. I help companies build reliable web
+              systems by evaluating technical trade-offs and shipping things
+              people actually use 😃.
+            </p>
+            <p>
+              Lately, I&apos;ve been playing around with AI and LLMs, trying to
+              see how they can make my daily dev workflow less painful.
+            </p>
+          </div>
           {profile.location && (
             <div className="text-muted-foreground mt-2 flex items-center gap-2 text-sm">
               <MapPinIcon className="size-4" />
@@ -65,125 +60,35 @@ export default async function Home() {
 
       <Separator />
 
-      {/* Experience, Education & Languages */}
-      <section className="grid gap-8 md:grid-cols-2 md:gap-12">
-        {/* Work Experience */}
-        <Highlight
-          title="Experience"
-          icon={BriefcaseIcon}
-          className="order-first">
-          <div className="flex flex-col gap-6">
-            {profile.work?.map((work) => (
-              <HighlightItem
-                key={work.name}
-                title={work.position ?? ''}
-                organisation={work.name ?? ''}
-                date={work.date}
-              />
-            ))}
-          </div>
-        </Highlight>
-
-        {/* Education */}
-        <Highlight
-          title="Education"
-          icon={GraduationCapIcon}
-          className="md:order-3">
-          <div className="flex flex-col gap-6">
-            {profile.education?.map((education) => {
-              const title = `${education.studyType ?? ''} of ${education.area ?? ''}`;
-              return (
-                <HighlightItem
-                  key={title}
-                  title={title}
-                  organisation={education.institution ?? ''}
-                  date={education.endDate ? formatYear(education.endDate) : ''}
-                />
-              );
-            })}
-          </div>
-        </Highlight>
-
-        {/* Stack / Skills */}
-        {profile.skills && profile.skills.length > 0 && (
-          <Highlight
-            title="Stack / Skills"
-            icon={AtomIcon}
-            className="md:order-2">
-            <Skills skills={profile.skills} />
-          </Highlight>
-        )}
-
-        {/* Languages */}
-        {profile.languages && profile.languages.length > 0 && (
-          <Highlight
-            title="Languages"
-            icon={LanguagesIcon}
-            className="order-last">
-            <div className="flex flex-wrap gap-2">
-              {profile.languages.map((lang) => (
-                <Badge
-                  key={lang.language}
-                  variant={
-                    ['native', 'fluent', 'intermediate', 'advanced'].includes(
-                      lang.fluency ? lang.fluency.toLowerCase() : '',
-                    )
-                      ? 'secondary'
-                      : 'outline'
-                  }>
-                  {lang.language} ({lang.fluency})
-                </Badge>
-              ))}
-            </div>
-          </Highlight>
-        )}
+      {/* Currently I'm Section */}
+      <section className="flex flex-col gap-6">
+        <h3 className="text-2xl font-bold tracking-tight">
+          Currently I&apos;m...
+        </h3>
+        <ul className="text-muted-foreground list-inside list-disc space-y-2 leading-relaxed">
+          <li>
+            Building product-focused stuff where shipping fast is the priority,
+            but the backend is still solid enough to let me sleep well at night.
+          </li>
+          <li>
+            Tinkering with AI tools because doing repetitive dev tasks manually
+            sucks.
+          </li>
+          <li>
+            Stepping away from the screen to make physical stuff. Lately
+            it&apos;s been photography, painting, cross-stitching, needle
+            felting, and shrinky dinks. Turns out making art with your hands
+            actually helps clear the brain for better code architecture.
+          </li>
+        </ul>
+        <div className="mt-4">
+          <Link
+            href="/about"
+            className="text-primary text-sm font-medium underline-offset-4 hover:underline">
+            Read more about my journey &rarr;
+          </Link>
+        </div>
       </section>
-
-      {/* Featured Writings */}
-      {/* {featuredWritings.length > 0 && (
-        <>
-          <Separator />
-          <section className="flex flex-col gap-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-bold tracking-tight">
-                Featured Writings
-              </h3>
-              <Link
-                href="/writings"
-                className="text-primary flex items-center gap-1 text-sm font-medium underline-offset-4 hover:underline">
-                View all writings
-                <ArrowRightIcon className="size-4" />
-              </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {featuredWritings.map((post) => (
-                <Link
-                  key={post._meta.path}
-                  href={`/writings/${post._meta.path}`}
-                  className="group h-full">
-                  <Card className="hover:border-primary/50 bg-card/50 hover:bg-card flex h-full flex-col transition-all duration-200 hover:shadow-md">
-                    <CardHeader>
-                      <div className="text-muted-foreground mb-2 text-xs">
-                        <LocalDateTime dateTime={post.created_at} />
-                      </div>
-                      <CardTitle className="group-hover:text-primary line-clamp-2 text-lg transition-colors">
-                        {post.title}
-                      </CardTitle>
-                    </CardHeader>
-                    {post.description && (
-                      <CardContent className="flex-1">
-                        <CardDescription className="line-clamp-3">
-                          {post.description}
-                        </CardDescription>
-                      </CardContent>
-                    )}
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </>
-      )} */}
     </div>
   );
 }

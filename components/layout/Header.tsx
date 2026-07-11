@@ -18,6 +18,10 @@ const links: NavLink[] = [
     path: '/about',
   },
   {
+    label: 'Resume',
+    path: '/resume',
+  },
+  {
     label: 'Writings',
     path: '/writings',
   },

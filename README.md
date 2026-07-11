@@ -1,15 +1,25 @@
-# Portfolio Website
+# keynesfariz.github.io
 
-Welcome to the source code for my personal portfolio website, built with modern web technologies to showcase my work, experience, and writings.
+My personal website and blog, built because I finally decided to stop overthinking the design and just ship something 😃. 
+
+It serves as a central place to showcase my projects, host my resume, and force myself to write more about systems design, AI tooling, and whatever side projects I'm tinkering with.
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Static Export)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **Content**: [Content Collections](https://www.content-collections.dev/) for type-safe Markdown blog posts
+- **Resume Data**: [JSON Resume](https://jsonresume.org/) schema integration
 - **Icons**: [Lucide React](https://lucide.dev/icons/)
-- **Theming**: `next-themes` (Dark/Light mode support)
+- **Theming**: `next-themes` (Dark/Light mode)
 - **Package Manager**: [Bun](https://bun.sh/)
+
+## 🏗️ Features
+
+- **Markdown Blog**: Fast and type-safe markdown parsing for all my writings using Content Collections.
+- **Data-Driven Resume**: The `/resume` page is powered directly by a schema conforming to the JSON Resume standard, making it incredibly easy to update my professional timeline.
+- **100% Static**: Hosted on GitHub Pages as a fully static export (`output: 'export'`) for maximum speed and zero infrastructure overhead.
 
 ## 🏃‍♂️ Getting Started
 
@@ -27,33 +37,6 @@ bun run dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
-
-> **Note**: If you are using a different package manager, make sure to update the `deploy.yml` file accordingly.
-
-## 📝 TODO List
-
-This is a personal checklist of things I need to update before this site is fully ready for production:
-
-### Content Updates
-
-- [ ] **Home Page**: Update the hero section text to accurately reflect my current role.
-- [ ] **About Page**: Rewrite the "About Me" paragraphs to be more personal and detailed.
-- [x] **Home Page**: Replace `/placeholder-avatar.png` with a real professional headshot.
-- [x] **Home Page**: Update the "Experience" section with my actual timeline and responsibilities.
-- [x] **Home Page**: Update the "Education" section with my actual degrees and universities.
-- [x] **About Page**: Replace the mock Git contribution graph with an actual integration (e.g., using GitHub API) or remove it if unnecessary.
-- [x] **Footer**: Update the `href` links for LinkedIn, GitHub, and Resume.
-- [x] **Resume**: Add my actual `resume.pdf` to the `/public` folder.
-
-### Blog / Writing
-
-- [x] **Writings Page**: Remove all mock data from `/app/writings/page.tsx` and implement a real CMS or MDX fetching system.
-- [x] **Writing Detail**: Implement dynamic routing fetching real markdown/MDX content instead of using hardcoded switch statements or mock text.
-
-### Deployment & SEO
-
-- [x] **Metadata**: Update the `app/layout.tsx` metadata (title, description, open graph images) for SEO.
-- [x] **Analytics**: Add web analytics (e.g., Vercel Analytics, Plausible, or Google Analytics).
 
 ## 📄 License
 

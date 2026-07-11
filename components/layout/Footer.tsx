@@ -30,9 +30,7 @@ export function Footer() {
             <span>GitHub</span>
           </Link>
           <Link
-            href={`https://registry.jsonresume.org/${USERNAME}`}
-            target="_blank"
-            rel="noreferrer"
+            href="/resume"
             className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors">
             <FileTextIcon className="size-5" />
             <span className="text-sm font-medium">Resume</span>

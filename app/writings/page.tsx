@@ -14,8 +14,8 @@ export default async function Posts() {
       <div className="flex flex-col gap-4">
         <WritingTitle />
         <p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
-          I occasionally write about software engineering, frontend development,
-          design systems, and whatever else I&apos;m currently exploring.
+          I occasionally write about my side projects, weird experiments with AI
+          tools, and whatever else I happen to be hyper-fixated on right now 😃.
         </p>
       </div>
       <Suspense>
