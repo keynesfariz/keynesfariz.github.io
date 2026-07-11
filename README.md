@@ -1,6 +1,6 @@
 # keynesfariz.github.io
 
-My personal website and blog, built because I finally decided to stop overthinking the design and just ship something 😃. 
+My personal website and blog, built because I finally decided to stop overthinking the design and just ship something 😃.
 
 It serves as a central place to showcase my projects, host my resume, and force myself to write more about systems design, AI tooling, and whatever side projects I'm tinkering with.
 
