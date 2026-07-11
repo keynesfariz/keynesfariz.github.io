@@ -1,3 +1,4 @@
+import tailwindCanonicalClasses from 'eslint-plugin-tailwind-canonical-classes';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextTs from 'eslint-config-next/typescript';

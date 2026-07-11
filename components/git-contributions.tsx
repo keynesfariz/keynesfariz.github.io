@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { getDate, getMonth, parseISO } from 'date-fns';
 
 import type { GitContributionResponse } from '@/types/Github';
 
@@ -40,9 +40,9 @@ const getContributionColor = (level: number) => {
 };
 
 const GitContributions = ({ contributions }: GitContributionsProps) => {
-  const startDate = dayjs(contributions[0].date);
-  const startDay = +startDate.format('D');
-  const startMonth = +startDate.format('M');
+  const startDate = parseISO(contributions[0].date);
+  const startDay = getDate(startDate);
+  const startMonth = getMonth(startDate) + 1;
   const numOfHeaders = startDay > 7 ? 13 : 12; // headers (months) to loop
 
   return (

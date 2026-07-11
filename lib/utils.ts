@@ -24,7 +24,7 @@ export function extractImageDimensions(src: string | undefined): {
       width: isNaN(width as number) ? undefined : width,
       height: isNaN(height as number) ? undefined : height,
     };
-  } catch (e) {
+  } catch {
     return { width: undefined, height: undefined };
   }
 }
