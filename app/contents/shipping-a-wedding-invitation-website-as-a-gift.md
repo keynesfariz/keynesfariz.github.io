@@ -86,6 +86,6 @@ To wrap this up, here are some fun facts about the project:
 - **The NSFW Favicon**: We spent around _one hour_ just to generate and decide on the favicon 😂. We originally set an icon of wedding rings stacked next to each other with a diamond in the top center... but somehow it came out looking like a (d***) picture. We quickly decided to just use a monogram of the couple's initials instead!
 - **Speed**: All of this was done within 5 hours! Can you beat that? (Yes, you can!)
 
-Go please check it out, WATCH the video, and say congrats to them :) [https://dinda-pahlevi.web.app](https://dinda-pahlevi.web.app)
+Go please check it out, WATCH the video, and say congrats to them 😌 [https://dinda-pahlevi.web.app](https://dinda-pahlevi.web.app)
 
-One last fun fact: at the end, the bride insisted for me to leave my "mark" on the website. So, I proudly put a link to this portfolio website in the "All rights reserved" section in the footer!
+One last fun fact: at the end, the bride insisted for me to leave my "mark" on the website. So, I proudly put a link to this portfolio website in the "All rights reserved" section in the footer! Wish you guys all the best 💍🫶
