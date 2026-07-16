@@ -35,8 +35,8 @@ We focused on a mobile-first approach, although we definitely tested it extensiv
 
 Since we wanted the website to serve the visitors well, we included these main features:
 
-- **The Forced Video Player**: We built a video player that you _have_ 😈 to watch. We even added a loading screen so the video can be downloaded in the background using a service worker. No buffering excuses!
-- **Schedule and Venues**: Details for the Holy Matrimony (Akad Nikah) and the Reception, complete with links to the designated locations.
+- **The Forced Video Player**: We built a video player that you _have_ 😈 to watch.
+- **Schedule and Venues**: Details for the Holy Matrimony ([Akad Nikah](https://www.google.com/search?q=what+is+akad+nikah+in+english)) and the Reception, complete with links to the designated locations.
 - **Wedding Gift Section**: Displaying the bank account details of the couple. Very important.
 - **Wedding Wishes Form**: A section for guests to leave their congratulations.
 
@@ -45,7 +45,7 @@ What we intentionally skipped:
 - **RSVP Form**: It wasn't really what the client (my friend) needed.
 - **Gallery**: The groom is quite a shy guy, so we opted out of showing tons of pre-wedding photos.
 
-![Forced video player mobile view](/assets/shipping-a-wedding-invitation-website-as-a-gift-video.webp?w=800&h=546)
+![Forced video player desktop view](/assets/shipping-a-wedding-invitation-website-as-a-gift-video.webp?w=800&h=546)
 
 ## The Tech Stack
 
@@ -53,7 +53,7 @@ I went with my usual trusty tools, but with a fully AI-Native approach:
 
 - **Next.js (App Router)** for the framework.
 - **Tailwind CSS** and **Shadcn components** for the styling and UI.
-- **Firebase Static Hosting** for deployment.
+- **Firebase Static Hosting** for deployment. New here.
 - **Supabase** to store the wedding wishes sent by the guests, though we kept using it for generating the wishes table only on local/development (same database). I also added a simple rate limiting by IP address (up to 3 comments) just to be safe.
 - **Tanstack Query** to handle fetching the wishes data smoothly.
 
@@ -63,7 +63,7 @@ I went with my usual trusty tools, but with a fully AI-Native approach:
 
 ## AI-Native Workflow with Google Stitch
 
-This was the fun part. The entire design was generated using Google Stitch.
+This was the fun part. The entire design was generated using [Google Stitch](https://stitch.withgoogle.com).
 
 I told the agent in Google Stitch to create the screens we needed, and it generated the `design.md`. The bride and I iterated a couple of times on the design. Once we were happy, I just grabbed the project ID, put it into my initial website setup (because I already had the Stitch MCP set up), and everything was built AI-Natively from there. It saved us so much time, which is exactly what we needed for a 45-day deadline.
 
@@ -71,7 +71,7 @@ I told the agent in Google Stitch to create the screens we needed, and it genera
 
 ## The "Cheap" Indonesian Wedding Website Trick
 
-Oh, one fun limitation or trick I used. If you look at most commercial Indonesian wedding websites, they don't generate a unique secure link for every guest. They just use a query param to display the guest's name, like `?to=Budi`.
+Oh, one fun limitation or trick I used. If you look at most commercial Indonesian wedding websites, they don't generate a unique secure link for every guest. They just use a query param to display the guest's name, like `?to=Nagib+Fariz`.
 
 ![Hero section showing the query param trick](/assets/shipping-a-wedding-invitation-website-as-a-gift-trick.webp?w=800&h=546)
 
@@ -81,11 +81,11 @@ We did the exact same thing. I would consider this very cheap from a technical p
 
 To wrap this up, here are some fun facts about the project:
 
-- **Zero domain costs**: We didn't need to pay for a domain since the `.web.app` provided by Firebase was already acceptable for them.
+- **Zero domain costs**: We didn't need to pay for a domain since the `.web.app` provided by Firebase was already acceptable for them 😃.
 - **Developer fatigue**: The three of us got so tired of watching the video during testing that I ended up creating a secret "skip" button just for development mode.
 - **The NSFW Favicon**: We spent around _one hour_ just to generate and decide on the favicon 😂. We originally set an icon of wedding rings stacked next to each other with a diamond in the top center... but somehow it came out looking like a (d***) picture. We quickly decided to just use a monogram of the couple's initials instead!
-- **Speed**: All of this was done within 5 hours! Can you beat that? (Yes, you can!)
+- **Speed**: All of this was done within 6 hours! (5 hours for the website, and 1 hour for that failed favicon 😂).
 
-Go please check it out, WATCH the video, and say congrats to them 😌 [https://dinda-pahlevi.web.app](https://dinda-pahlevi.web.app)
+Go please check it out, **WATCH** 😈 the video, and say congrats to them 😌 [https://dinda-pahlevi.web.app](https://dinda-pahlevi.web.app?guest=You,+Gorgeous)
 
-One last fun fact: at the end, the bride insisted for me to leave my "mark" on the website. So, I proudly put a link to this portfolio website in the "All rights reserved" section in the footer! Wish you guys all the best 💍🫶
+One last fun fact: at the end, the bride insisted for me to leave my "mark" on the website. So, I proudly put a link to this portfolio website in the "All rights reserved" section in the footer! May this new chapter bring you guys absolute joy and endless laughter 💍 🫶.
