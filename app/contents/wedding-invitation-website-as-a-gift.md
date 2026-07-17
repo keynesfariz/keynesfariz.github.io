@@ -25,7 +25,7 @@ I couldn't let my friend be sad about it, so I offered to build the actual websi
 
 But there was a catch. She already paid for that animated video, and we did not want that money to go to waste. So the main concern became: we need to use this video. My solution? We built the website where we _force_ the visitors to finish watching the video first, and only then they can browse around the actual website. A bit authoritarian? Maybe. But it works! It was a bittersweet moment in the end because the bride was very grateful, and honestly, it's the least that I can do to her.
 
-## The Clock is Ticking
+## We’re Short on Time
 
 The deadline was pretty tight. The wedding is in less than 45 days. We needed to move fast.
 

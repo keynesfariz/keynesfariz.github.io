@@ -31,8 +31,8 @@ Write the initial draft directly into the generated markdown file using your fil
 **Formatting Rules**:
 
 - **Headings**: Use `##` for the largest headings, working your way down to smaller headings (`###`, `####`). Do NOT use `#` (H1) inside the markdown body.
-- **Tone & Style**: The writing style should reflect a goofy tone and "English as a second language" (ESL) phrasing, matching the user's previous posts you read. Avoid overly formal or perfectly polished "native speaker" sentences.
-- **Avoid AI Tropes**: Do NOT use double hyphens (--) or common AI jargon.
+- **Tone & Style**: The writing style MUST heavily reflect the user's specific "goofy" tone and "English as a second language" (ESL) phrasing. It should be playful, informal, occasionally self-deprecating, and highly conversational. Closely study and mimic the voice found in previous posts from `app/contents/`. Avoid overly formal or perfectly polished "native speaker" sentences.
+- **Avoid AI Tropes**: Do NOT use double hyphens (--), transition words like "furthermore" or "delve", or common AI jargon.
 - **Image Placeholders**: Where relevant images should go, insert `[IMAGE PLACEHOLDER: <description>]`.
 
 ## Step 5: Image Processing
@@ -52,20 +52,24 @@ If you placed image placeholders in the draft:
 4. The script will output the final dimensions of the base image (e.g. `w=800&h=600`). Use these to replace the placeholder in the markdown file with the standard markdown image link:
    `![<description>](/assets/<filename>.webp?w=<width>&h=<height>)`
 
-## Step 6: Human-in-the-Loop Review
+## Step 6: Tone Assessment
+
+Before asking for user review, ALWAYS use the `tone-assessor` skill (by reading `.agents/skills/tone-assessor/SKILL.md` and following its guidelines) to evaluate your initial draft. Revise the draft based on the assessment to ensure it strongly matches the required "goofy" and informal style.
+
+## Step 7: Human-in-the-Loop Review
 
 1. Inform the user that the outline/draft is ready.
 2. Instruct the user to write/edit the post based on the outline.
 3. Pause execution and wait. Repeat this review cycle if the user requests changes, until they confirm they are satisfied.
 
-## Step 7: Final Polish
+## Step 8: Final Polish
 
 1. Once the user is done writing, read the final markdown content.
 2. Generate a brief, engaging summary (1-2 sentences) for the `description` field in the frontmatter based on the final content.
 3. Recommend relevant tags based on the content.
 4. Update the `description` and `tags` fields in the file's frontmatter.
 
-## Step 8: Publishing
+## Step 9: Publishing
 
 Run the following git commands to create a pull request:
 
