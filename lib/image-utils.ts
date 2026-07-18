@@ -1,12 +1,11 @@
-import path from 'node:path';
 import fs from 'node:fs';
+import path from 'node:path';
 
 export function getResponsiveImageProps(
   src: string | undefined,
   width: number | undefined,
 ) {
   let srcSet: string | undefined = undefined;
-  let sizes: string | undefined = undefined;
 
   if (src) {
     const cleanSrc = src.split('?')[0];
@@ -28,9 +27,8 @@ export function getResponsiveImageProps(
 
     if (srcSetArr.length > 0) {
       srcSet = srcSetArr.join(', ');
-      sizes = '(max-width: 800px) 100vw, 800px';
     }
   }
 
-  return { srcSet, sizes };
+  return srcSet;
 }

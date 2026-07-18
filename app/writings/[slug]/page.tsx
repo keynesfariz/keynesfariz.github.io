@@ -88,7 +88,7 @@ export default async function WritingDetail(
                 rest.src as string | undefined,
               );
 
-              const { srcSet, sizes } = getResponsiveImageProps(
+              const srcSet = getResponsiveImageProps(
                 rest.src as string | undefined,
                 width,
               );
@@ -99,6 +99,7 @@ export default async function WritingDetail(
                   <img
                     alt={rest.alt || ''}
                     loading="lazy"
+                    sizes="auto"
                     className="h-auto w-full rounded-lg"
                     style={
                       width && height
@@ -108,7 +109,6 @@ export default async function WritingDetail(
                     width={width}
                     height={height}
                     srcSet={srcSet}
-                    sizes={sizes}
                     {...rest}
                   />
                   {rest.alt && (
