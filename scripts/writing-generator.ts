@@ -1,5 +1,6 @@
 import { addHours, setMinutes } from 'date-fns';
 
+import { slugify } from '../lib/utils';
 import { exit } from 'node:process';
 import fs from 'node:fs';
 
@@ -12,19 +13,10 @@ if (!title) {
   exit(1);
 }
 
-function generateSlug(title: string) {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '') // Remove non-word [a-z0-9_], non-space, non-hyphen characters
-    .replace(/[\s_]+/g, '-') // Replace spaces and underscores with a single hyphen
-    .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
-}
-
 const now = new Date();
 const createdAt = addHours(setMinutes(now, 42), 3);
 
-const slug = generateSlug(`${title}`);
+const slug = slugify(`${title}`);
 
 const template = `---
 title: '${title}'
