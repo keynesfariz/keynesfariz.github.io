@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(font.variable, 'font-sans', 'antialiased')}
+      className={cn(font.variable, 'font-sans', 'antialiased', 'scroll-smooth')}
       suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-screen flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
