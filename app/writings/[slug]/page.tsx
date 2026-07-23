@@ -44,7 +44,7 @@ const Heading = ({ level, children, ...props }: any) => {
   const id = slugify(extractText(children));
   return (
     <Tag id={id} className="group scroll-m-20" {...props}>
-      <a href={`#${id}`} className="text-foreground no-underline">
+      <a href={`#${id}`} className="text-foreground font-bold no-underline">
         {children}
       </a>
     </Tag>
