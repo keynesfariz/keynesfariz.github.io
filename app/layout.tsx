@@ -27,6 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={cn(font.variable, 'font-sans', 'antialiased', 'scroll-smooth')}
       suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-screen flex-col">

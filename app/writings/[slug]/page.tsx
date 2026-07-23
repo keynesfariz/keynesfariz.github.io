@@ -163,7 +163,7 @@ export default async function WritingDetail(
       </article>
 
       {toc.length > 0 && (
-        <aside className="fixed right-10 hidden max-w-52 shrink-0 pt-14 xl:block">
+        <aside className="fixed right-8 hidden max-w-52 shrink-0 pt-10 xl:block">
           <TableOfContents items={toc} />
         </aside>
       )}
