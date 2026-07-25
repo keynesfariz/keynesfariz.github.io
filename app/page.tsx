@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { getHomepageData } from '@/lib/transformers';
+import homepageData from '@/data/homepage.json';
 import { getResumeSchema } from '@/lib/data';
 
 export default async function Home() {
@@ -30,15 +31,9 @@ export default async function Home() {
             )}
           </h2>
           <div className="text-muted-foreground flex max-w-2xl flex-col gap-4 leading-relaxed">
-            <p>
-              I&apos;m a software engineer. I help companies build reliable web
-              systems by evaluating technical trade-offs and shipping things
-              people actually use 😃.
-            </p>
-            <p>
-              Lately, I&apos;ve been playing around with AI and LLMs, trying to
-              see how they can make my daily dev workflow less painful.
-            </p>
+            {homepageData.intro.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
           </div>
           {profile.location && (
             <div className="text-muted-foreground mt-2 flex items-center gap-2 text-sm">
@@ -66,20 +61,9 @@ export default async function Home() {
           Currently I&apos;m...
         </h3>
         <ul className="text-muted-foreground list-inside list-disc space-y-2 leading-relaxed">
-          <li>
-            Building product-focused stuff where shipping fast is the priority,
-            but the backend is still solid enough to let me sleep well at night.
-          </li>
-          <li>
-            Tinkering with AI tools because doing repetitive dev tasks manually
-            sucks.
-          </li>
-          <li>
-            Stepping away from the screen to make physical stuff. Lately
-            it&apos;s been photography, painting, cross-stitching, needle
-            felting, and shrinky dinks. Turns out making art with your hands
-            actually helps clear the brain for better code architecture.
-          </li>
+          {homepageData.currently.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
         </ul>
         <div className="mt-4">
           <Link
