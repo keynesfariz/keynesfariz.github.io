@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Writing } from '@/.content-collections/generated';
 import { DateTime } from '@/components/ui/datetime';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/components/ui/badge';
 
 interface WritingCardProps {
   writing: Writing;

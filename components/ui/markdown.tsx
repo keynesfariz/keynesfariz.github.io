@@ -1,12 +1,11 @@
-import rehypeHighlight from 'rehype-highlight';
-import ReactMarkdown from 'react-markdown';
-import React from 'react';
-
 import type { Components } from 'react-markdown';
 
 import { extractImageDimensions } from '@/lib/image.server';
+import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css';
+import ReactMarkdown from 'react-markdown';
 import { slugify } from '@/lib/string';
+import React from 'react';
 
 const extractText = (node: React.ReactNode): string => {
   if (typeof node === 'string') return node;
@@ -28,6 +27,7 @@ const Heading = ({
   const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
   const id = slugify(extractText(children));
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Tag id={id} className="group scroll-m-20" {...(props as any)}>
       <a href={`#${id}`} className="text-foreground font-bold no-underline">
         {children}

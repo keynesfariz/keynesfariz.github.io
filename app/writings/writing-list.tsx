@@ -1,18 +1,17 @@
 'use client';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
-import { Search } from 'lucide-react';
-import Fuse from 'fuse.js';
-
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/ui/input-group';
-import { WritingCard } from '@/components/writings/writing-card';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Writing } from '@/.content-collections/generated';
+import { useEffect, useMemo, useState } from 'react';
 import { getWritings } from '@/lib/content.server';
 import { Badge } from '@/components/ui/badge';
+import { WritingCard } from './writing-card';
+import { Search } from 'lucide-react';
+import Fuse from 'fuse.js';
 
 function useWritingsFilter(allWritings: Writing[], urlTag: string | null) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -60,7 +59,6 @@ function usePopularTags(allWritings: Writing[]) {
     });
     return Object.entries(tagCounts)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
       .map((entry) => entry[0]);
   }, [allWritings]);
 }

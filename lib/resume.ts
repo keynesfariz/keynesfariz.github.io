@@ -5,38 +5,39 @@ import { getYearRange } from '@/lib/date-format';
 const getLocation = (
   location?: NonNullable<ResumeSchema['basics']>['location'],
 ): string => {
-  const parts = [
+  return [
     location?.address,
     location?.city,
     location?.region,
     location?.postalCode,
     location?.countryCode,
-  ].filter(Boolean);
+  ]
+    .filter(Boolean)
+    .join(', ');
+};
 
-  return parts.join(', ');
+const getCurrentCompany = (work?: ResumeSchema['work']) => {
+  const currentWork = work?.[0];
+  return currentWork?.endDate === undefined ? currentWork?.name : undefined;
+};
+
+const getRecentWork = (work?: ResumeSchema['work']) => {
+  return work?.slice(0, 2).map((item) => ({
+    position: item.position,
+    name: item.name,
+    date: getYearRange(item.startDate!, item.endDate),
+    summary: item.highlights?.[0],
+  }));
 };
 
 export const getHomepageData = (resume: ResumeSchema) => {
   const { basics, work, education, languages, skills } = resume;
 
-  const company =
-    work && work.length && work[0].endDate === undefined
-      ? work[0].name
-      : undefined;
-
   return {
     title: basics?.label ?? 'Senior Software Engineer',
-    company,
+    company: getCurrentCompany(work),
     location: getLocation(basics?.location),
-    work: work?.slice(0, 2).map((item) => {
-      const { position, name } = item;
-      return {
-        position,
-        name,
-        date: getYearRange(item.startDate!, item.endDate),
-        summary: item.highlights?.length ? item.highlights[0] : undefined,
-      };
-    }),
+    work: getRecentWork(work),
     education,
     languages,
     skills,
