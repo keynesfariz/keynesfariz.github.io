@@ -2,20 +2,8 @@ import { cache } from 'react';
 
 import type { GitContributionResponse, GithubGist } from '@/types/Github';
 import type { ResumeSchema } from '@supastuff/json-resume-types';
-import type { Metadata } from 'next';
-
-import { allWritings } from 'content-collections';
 
 const RESUME_FILE_NAME = 'resume.json';
-
-export const getMetadata = (rawMeta?: Metadata): Metadata => {
-  const NAME = 'Fariz Muhammad';
-  const title =
-    rawMeta && rawMeta.title
-      ? `${rawMeta.title} | ${NAME}`
-      : `${NAME}, A Senior Software Engineer`;
-  return { ...rawMeta, title };
-};
 
 async function cacheFetch<T>(
   url: string,
@@ -42,26 +30,5 @@ export const getGitContributions = cache(
       ...data,
       updated_at: new Date().toISOString(),
     };
-  },
-);
-
-export const getWritings = cache(
-  (
-    slug?: string,
-    /* , isFeatured?: boolean */
-  ) => {
-    if (slug) {
-      return allWritings.find((wr) => wr._meta.path === slug);
-    }
-
-    const sortedWritings = allWritings.sort((a, b) =>
-      a.created_at > b.created_at ? -1 : 1,
-    );
-
-    // if (isFeatured) {
-    //   return sortedWritings.filter((wr) => !!wr.is_featured);
-    // }
-
-    return sortedWritings;
   },
 );

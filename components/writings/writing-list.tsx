@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/input-group';
 import { WritingCard } from '@/components/writings/writing-card';
 import { Writing } from '@/.content-collections/generated';
+import { getWritings } from '@/lib/content.server';
 import { Badge } from '@/components/ui/badge';
-import { getWritings } from '@/lib/data';
 
 function useWritingsFilter(allWritings: Writing[], urlTag: string | null) {
   const [searchQuery, setSearchQuery] = useState('');

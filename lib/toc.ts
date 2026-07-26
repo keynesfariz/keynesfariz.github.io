@@ -1,4 +1,4 @@
-import { slugify } from '@/lib/utils';
+import { slugify } from '@/lib/string';
 
 export type TOCItem = {
   id: string;

@@ -2,10 +2,10 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { Suspense, ViewTransition } from 'react';
 import { Inter } from 'next/font/google';
 
-import { ThemeProvider } from '@/components/theme-provider';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { getMetadata } from '@/lib/data';
+import { ThemeProvider } from '@/components/providers/theme-provider';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
+import { getMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 import './globals.css';
 
@@ -33,11 +33,9 @@ export default function RootLayout({
       <body className="bg-background text-foreground flex min-h-screen flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
-          <main className="mx-auto w-full max-w-4xl flex-1 p-8 md:px-12 md:pt-12">
-            <Suspense>
-              <ViewTransition>{children}</ViewTransition>
-            </Suspense>
-          </main>
+          <Suspense>
+            <ViewTransition>{children}</ViewTransition>
+          </Suspense>
           <Footer />
         </ThemeProvider>
       </body>

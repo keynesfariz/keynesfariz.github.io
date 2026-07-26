@@ -10,8 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { LocalDateTime } from '@/components/local-datetime';
 import { Writing } from '@/.content-collections/generated';
+import { DateTime } from '@/components/ui/datetime';
 import { Badge } from '../ui/badge';
 
 interface WritingCardProps {
@@ -47,7 +47,7 @@ export function WritingCard({ writing }: WritingCardProps) {
 
           <CardFooter className="border-border/50 mx-6 mt-auto mb-2 flex items-center justify-between border-t px-0 pt-4 text-sm">
             <span className="text-muted-foreground font-medium">
-              <LocalDateTime dateTime={writing.created_at} />
+              <DateTime dateTime={writing.created_at} />
             </span>
             <span className="text-primary flex items-center gap-1 font-medium whitespace-nowrap transition-all group-hover:gap-2">
               Read More <ArrowRight className="h-4 w-4 shrink-0" />

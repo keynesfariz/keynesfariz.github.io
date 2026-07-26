@@ -1,6 +1,6 @@
 import { addHours, setMinutes } from 'date-fns';
 
-import { slugify } from '../lib/utils';
+import { slugify } from '../lib/string';
 import { exit } from 'node:process';
 import fs from 'node:fs';
 
