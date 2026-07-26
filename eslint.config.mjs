@@ -18,6 +18,16 @@ const eslintConfig = defineConfig([
     'build/**',
     'next-env.d.ts',
   ]),
+  {
+    rules: {
+      'tailwind-canonical-classes/tailwind-canonical-classes': [
+        'warn',
+        {
+          cssPath: './app/globals.css',
+        },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;

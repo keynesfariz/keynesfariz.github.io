@@ -2,19 +2,19 @@ import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Link from 'next/link';
 
-import { BackToWritingButton } from '@/components/writings/back-link';
 import { MainLayout } from '@/components/layout/main-layout';
 import { getResponsiveImageProps } from '@/lib/image.server';
-import { TableOfContents } from '@/components/writings/toc';
 import { extractImageDimensions } from '@/lib/image.server';
 import { Writing } from '@/.content-collections/generated';
-import { TagList } from '@/components/writings/tag-list';
 import { Separator } from '@/components/ui/separator';
 import { Markdown } from '@/components/ui/markdown';
 import { DateTime } from '@/components/ui/datetime';
 import { getWritings } from '@/lib/content.server';
+import { BackToWritingButton } from '../back-link';
+import { TableOfContents } from '../toc';
 import { generateTOC } from '@/lib/toc';
 import { getMetadata } from '@/lib/seo';
+import { TagList } from '../tag-list';
 
 export async function generateStaticParams() {
   const writings = getWritings() as Writing[];

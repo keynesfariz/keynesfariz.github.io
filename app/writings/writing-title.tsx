@@ -1,7 +1,7 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 
-import { BackToWritingButton } from '@/components/writings/back-link';
+import { BackToWritingButton } from './back-link';
 
 export function WritingTitle() {
   const searchParams = useSearchParams();

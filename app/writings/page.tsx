@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 
-import { WritingTitle } from '@/components/writings/writing-title';
-import { WritingList } from '@/components/writings/writing-list';
 import { MainLayout } from '@/components/layout/main-layout';
+import { WritingTitle } from './writing-title';
+import { WritingList } from './writing-list';
 import { getMetadata } from '@/lib/seo';
 
 export function generateMetadata() {
