@@ -8,9 +8,10 @@ import { Textarea } from '@/components/ui/textarea';
 interface ChatInputProps {
   sendMessage: (msg: string) => void;
   isLoading: boolean;
+  botName?: string;
 }
 
-export function ChatInput({ sendMessage, isLoading }: ChatInputProps) {
+export function ChatInput({ sendMessage, isLoading, botName = 'Farsisstant' }: ChatInputProps) {
   const [input, setInput] = useState('');
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -55,7 +56,7 @@ export function ChatInput({ sendMessage, isLoading }: ChatInputProps) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Ask Farsisstant anything..."
+        placeholder={`Ask ${botName} anything...`}
         className="min-h-11 w-full resize-none border-0 bg-transparent py-3 focus-visible:ring-0 focus-visible:ring-offset-0"
         rows={1}
       />
