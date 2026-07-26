@@ -1,0 +1,155 @@
+import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { useMutation, useQueryClient, QueryClient } from '@tanstack/react-query';
+import { Message } from './types';
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+async function processChatStream(
+  response: Response,
+  queryClient: QueryClient,
+  router: ReturnType<typeof useRouter>,
+  assistantMessageId: string,
+  initialConversationId: string | null | undefined
+) {
+  if (!response.body) throw new Error('No response body');
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let done = false;
+  let buffer = '';
+  let currentConversationId = initialConversationId;
+
+  while (!done) {
+    const { value, done: readerDone } = await reader.read();
+    done = readerDone;
+    if (value) {
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n\n');
+      buffer = lines.pop() || '';
+
+      for (const chunk of lines) {
+        const dataLines = chunk.split('\n');
+        for (const line of dataLines) {
+          if (line.startsWith('data: ')) {
+            const dataStr = line.slice(6);
+            if (dataStr.trim() === '[DONE]') break;
+
+            try {
+              const data = JSON.parse(dataStr);
+
+              // Handle new conversation ID from backend
+              if (data.conversation_id && !currentConversationId) {
+                currentConversationId = data.conversation_id;
+
+                // Move temporary cache to actual conversation cache
+                const tempMessages = queryClient.getQueryData(['conversation', undefined]) as Message[];
+                if (tempMessages) {
+                  queryClient.setQueryData(['conversation', currentConversationId], tempMessages);
+                  queryClient.setQueryData(['conversation', undefined], []);
+                }
+
+                router.push(`/chat?id=${currentConversationId}`);
+                queryClient.invalidateQueries({ queryKey: ['conversations'] });
+              }
+
+              // Append text to assistant message in cache
+              if (data.text) {
+                const targetId = currentConversationId || undefined;
+                queryClient.setQueryData(['conversation', targetId], (old: Message[] | undefined) => {
+                  if (!old) return old;
+                  return old.map((msg) =>
+                    msg.id === assistantMessageId
+                      ? { ...msg, content: msg.content + data.text }
+                      : msg
+                  );
+                });
+              }
+            } catch {
+              // Ignore JSON parse errors for incomplete chunks
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return currentConversationId;
+}
+
+function setupOptimisticCache(
+  queryClient: QueryClient,
+  conversationId: string | null | undefined,
+  userMessage: Message,
+  assistantMessage: Message
+) {
+  const targetId = conversationId || undefined;
+  queryClient.setQueryData(['conversation', targetId], (old: Message[] | undefined) => {
+    const messages = old || [];
+    return [...messages, userMessage, assistantMessage];
+  });
+}
+
+export function useAiChatMutation(conversationId?: string | null) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: async (messageContent: string) => {
+      const userMessageId = Math.random().toString();
+      const assistantMessageId = Math.random().toString();
+
+      const userMessage: Message = { id: userMessageId, role: 'user', content: messageContent };
+      const assistantMessage: Message = { id: assistantMessageId, role: 'assistant', content: '' };
+
+      setupOptimisticCache(queryClient, conversationId, userMessage, assistantMessage);
+
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+
+      const res = await fetch(`${BASE_URL}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: messageContent, conversation_id: conversationId }),
+        signal: controller.signal,
+      });
+
+      if (!res.ok) throw new Error('Network error');
+
+      const finalConversationId = await processChatStream(
+        res,
+        queryClient,
+        router,
+        assistantMessageId,
+        conversationId
+      );
+
+      return { conversationId: finalConversationId };
+    },
+    onSettled: (data) => {
+      abortControllerRef.current = null;
+      if (data?.conversationId) {
+        queryClient.invalidateQueries({ queryKey: ['conversation', data.conversationId] });
+      }
+    },
+    onError: (error) => {
+      if (error.name !== 'AbortError') {
+        const targetId = conversationId || undefined;
+        queryClient.setQueryData(['conversation', targetId], (old: Message[] | undefined) => {
+          if (!old) return old;
+          return [
+            ...old,
+            { id: Math.random().toString(), role: 'assistant', content: 'An error occurred. Please try again.' },
+          ];
+        });
+      }
+    }
+  });
+
+  return {
+    sendMessage: mutation.mutate,
+    isLoading: mutation.isPending,
+    stop: () => abortControllerRef.current?.abort()
+  };
+}

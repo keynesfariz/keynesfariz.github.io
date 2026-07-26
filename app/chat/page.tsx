@@ -1,0 +1,180 @@
+'use client';
+
+import { Bot, Clock, Database, Zap } from 'lucide-react';
+import { Suspense, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
+
+import {
+  useAiChatMutation,
+  useAiConversationMessages,
+  useAiSystemInfo,
+} from '@/hooks/chat';
+import { ChatMessage } from '@/components/chat/ChatMessage';
+import { LocalDateTime } from '@/components/local-datetime';
+import { ChatInput } from '@/components/chat/ChatInput';
+import { Button } from '@/components/ui/button';
+
+function ChatLandingPage({
+  sendMessage,
+  isChatLoading,
+  systemInfo,
+}: {
+  sendMessage: (msg: string) => void;
+  isChatLoading: boolean;
+  systemInfo: any;
+}) {
+  const exampleQuestions = [
+    "What is Fariz's tech stack?",
+    'Tell me about his RAG chatbot project',
+  ];
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center p-8">
+      <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
+        <div className="bg-primary/10 text-primary flex h-20 w-20 items-center justify-center rounded-2xl">
+          <Bot className="h-10 w-10" />
+        </div>
+
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">Farsisstant</h1>
+          <p className="text-muted-foreground">
+            Your AI assistant for everything about Fariz. Ask me about his
+            projects, skills, or experience!
+          </p>
+        </div>
+
+        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4">
+            <Zap className="h-5 w-5 text-yellow-500" />
+            <div className="text-sm font-medium">Active LLM</div>
+            <div className="text-muted-foreground text-xs">
+              {systemInfo?.llm_model || 'Loading...'}
+            </div>
+          </div>
+          <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4">
+            <Database className="h-5 w-5 text-blue-500" />
+            <div className="text-sm font-medium">Knowledge Base</div>
+            <div className="text-muted-foreground text-xs">
+              Updated:{' '}
+              {systemInfo?.latest_ingestion_date &&
+              systemInfo.latest_ingestion_date !== 'Never' ? (
+                <LocalDateTime
+                  dateTime={systemInfo.latest_ingestion_date as string}
+                />
+              ) : (
+                systemInfo?.latest_ingestion_date || 'Loading...'
+              )}
+            </div>
+          </div>
+          <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4 sm:col-span-2 lg:col-span-1">
+            <Clock className="h-5 w-5 text-green-500" />
+            <div className="text-sm font-medium">Session TTL</div>
+            <div className="text-muted-foreground text-xs">
+              Conversation ends after{' '}
+              {systemInfo?.session_ttl
+                ? Math.round(systemInfo.session_ttl / 3600)
+                : 2}{' '}
+              hours of inactivity
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full max-w-xl">
+          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} />
+        </div>
+
+        <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-2 text-sm">
+          {exampleQuestions.map((question) => (
+            <Button
+              key={question}
+              variant="outline"
+              className="cursor-pointer"
+              onClick={() => sendMessage(question)}>
+              {question}
+            </Button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ConversationView({
+  conversationId,
+  sendMessage,
+  isChatLoading,
+}: {
+  conversationId: string;
+  sendMessage: (msg: string) => void;
+  isChatLoading: boolean;
+}) {
+  const { data: messages = [] } = useAiConversationMessages(conversationId);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  return (
+    <div className="flex h-full flex-col">
+      <div className="flex-1 overflow-y-auto p-4 md:p-8">
+        <div className="mx-auto flex max-w-3xl flex-col gap-2">
+          {messages.map((message: any) => (
+            <ChatMessage
+              key={message.id}
+              role={message.role}
+              content={message.content}
+            />
+          ))}
+          <div ref={bottomRef} />
+        </div>
+      </div>
+
+      <div className="bg-background/95 supports-backdrop-filter:bg-background/60 p-4 backdrop-blur">
+        <div className="mx-auto max-w-3xl">
+          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ChatContent() {
+  const searchParams = useSearchParams();
+  const conversationId = searchParams?.get('id') || undefined;
+
+  const { data: systemInfo } = useAiSystemInfo();
+  const { sendMessage, isLoading: isChatLoading } =
+    useAiChatMutation(conversationId);
+
+  if (conversationId) {
+    return (
+      <ConversationView
+        conversationId={conversationId}
+        sendMessage={sendMessage}
+        isChatLoading={isChatLoading}
+      />
+    );
+  }
+
+  return (
+    <ChatLandingPage
+      sendMessage={sendMessage}
+      isChatLoading={isChatLoading}
+      systemInfo={systemInfo}
+    />
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-full items-center justify-center p-8">
+          Loading...
+        </div>
+      }>
+      <ChatContent />
+    </Suspense>
+  );
+}
