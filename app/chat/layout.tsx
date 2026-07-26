@@ -9,7 +9,7 @@ export default function ChatLayout({
 }) {
   return (
     <QueryProvider>
-      <MainLayout className="max-w-7xl py-0!">
+      <MainLayout className="max-w-5xl py-0!">
         <div className="border-border/50 bg-background/50 flex h-[calc(100vh-17.8rem)] w-full overflow-hidden rounded-xl border shadow-sm">
           <Sidebar />
           <div className="flex grow flex-col overflow-hidden">{children}</div>

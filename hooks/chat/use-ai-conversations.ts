@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { API_URL } from '@/lib/env';
+
 export function useAiConversations() {
   return useQuery({
     queryKey: ['conversations'],
     queryFn: async () => {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const res = await fetch(`${apiUrl}/conversations`);
+      const res = await fetch(`${API_URL}/conversations`);
       if (!res.ok) throw new Error('Failed to fetch conversations');
       const data = await res.json();
       return data.conversations || [];

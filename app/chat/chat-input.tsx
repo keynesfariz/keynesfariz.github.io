@@ -11,7 +11,11 @@ interface ChatInputProps {
   botName?: string;
 }
 
-export function ChatInput({ sendMessage, isLoading, botName = 'Farsisstant' }: ChatInputProps) {
+export function ChatInput({
+  sendMessage,
+  isLoading,
+  botName = 'Farsisstant',
+}: ChatInputProps) {
   const [input, setInput] = useState('');
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
