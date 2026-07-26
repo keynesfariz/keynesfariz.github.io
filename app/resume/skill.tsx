@@ -1,6 +1,6 @@
 import { ResumeSchema } from '@supastuff/json-resume-types';
 
-import { Hover } from '@/components/ui/hover-card-simplified';
+import { OverflowHover } from './overflow-hover';
 import { Badge } from '@/components/ui/badge';
 
 interface SkillsProps {
@@ -28,14 +28,14 @@ const Skills = ({ skills }: SkillsProps) => (
               </Badge>
             ))}
             {remainingKeywords > 0 && (
-              <Hover content={remainingKeywordText}>
+              <OverflowHover content={remainingKeywordText}>
                 <Badge
                   variant="outline"
                   className="cursor-pointer"
                   title={remainingKeywordText}>
                   +{remainingKeywords}
                 </Badge>
-              </Hover>
+              </OverflowHover>
             )}
           </div>
         </div>

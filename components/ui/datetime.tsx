@@ -1,10 +1,10 @@
 'use client';
 import { formatDateTime } from '@/lib/date-format';
 
-interface LocalDateTimeProps {
+interface DateTimeProps {
   dateTime: string;
 }
 
-export function LocalDateTime({ dateTime }: LocalDateTimeProps) {
+export function DateTime({ dateTime }: DateTimeProps) {
   return <time dateTime={dateTime}>{formatDateTime(dateTime)}</time>;
 }

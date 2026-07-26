@@ -4,8 +4,9 @@ import React from 'react';
 
 import type { Components } from 'react-markdown';
 
-import { extractImageDimensions, slugify } from '@/lib/utils';
+import { extractImageDimensions } from '@/lib/image.server';
 import 'highlight.js/styles/github-dark.css';
+import { slugify } from '@/lib/string';
 
 const extractText = (node: React.ReactNode): string => {
   if (typeof node === 'string') return node;

@@ -21,7 +21,7 @@ interface HoverProps {
   content: React.ReactNode;
 }
 
-export const Hover = ({ children, content }: HoverProps) => (
+export const OverflowHover = ({ children, content }: HoverProps) => (
   <HoverCard>
     <HoverCardTrigger delay={10} closeDelay={100} render={children} />
     <HoverCardContent className="flex w-64 flex-col gap-0.5">
