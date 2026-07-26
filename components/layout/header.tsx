@@ -26,7 +26,7 @@ const links: NavLink[] = [
     path: '/writings',
   },
   {
-    label: 'Farsisstant 🤖',
+    label: '🤖',
     path: '/chat',
   },
 ];

@@ -1,21 +1,20 @@
-import {
-  extractImageDimensions,
-  getResponsiveImageProps,
-} from '@/lib/image.server';
+import { notFound } from 'next/navigation';
+import { ViewTransition } from 'react';
+import Link from 'next/link';
+
 import { MainLayout } from '@/components/layout/main-layout';
+import { getResponsiveImageProps } from '@/lib/image.server';
 import { Writing } from '@/.content-collections/generated';
 import { Separator } from '@/components/ui/separator';
+import { extractImageDimensions } from '@/lib/image';
 import { Markdown } from '@/components/ui/markdown';
 import { DateTime } from '@/components/ui/datetime';
 import { getWritings } from '@/lib/content.server';
 import { BackToWritingButton } from '../back-link';
-import { notFound } from 'next/navigation';
 import { TableOfContents } from '../toc';
 import { generateTOC } from '@/lib/toc';
 import { getMetadata } from '@/lib/seo';
-import { ViewTransition } from 'react';
 import { TagList } from '../tag-list';
-import Link from 'next/link';
 
 export async function generateStaticParams() {
   const writings = getWritings() as Writing[];
@@ -47,7 +46,7 @@ export default async function WritingDetail(
   return (
     <MainLayout>
       <div className="flex flex-col lg:flex-row lg:items-start lg:gap-12">
-        <article className="flex w-full min-w-0 flex-1 flex-col gap-8">
+        <article className="flex w-full min-w-0 grow flex-col gap-8">
           <BackToWritingButton />
 
           <header className="flex flex-col gap-4">

@@ -1,14 +1,15 @@
 'use client';
 
+import { Bot, Clock, Database, Zap } from 'lucide-react';
+import { Suspense, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
+
 import {
   useAiChatMutation,
   useAiConversationMessages,
   useAiSystemInfo,
 } from '@/hooks/chat';
-import { Bot, Clock, Database, Zap } from 'lucide-react';
 import { DateTime } from '@/components/ui/datetime';
-import { Suspense, useEffect, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChatMessage } from './chat-message';
 import { ChatInput } from './chat-input';
@@ -23,8 +24,11 @@ function ChatLandingPage({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   systemInfo: any;
 }) {
+  const botName = systemInfo?.bot_name || 'Farsisstant';
+  const ownerName = systemInfo?.owner_name || 'Fariz';
+
   const exampleQuestions = [
-    "What is Fariz's tech stack?",
+    `What is ${ownerName}'s tech stack?`,
     'Tell me about his RAG chatbot project',
   ];
 
@@ -36,9 +40,9 @@ function ChatLandingPage({
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Farsisstant</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{botName}</h1>
           <p className="text-muted-foreground">
-            Your AI assistant for everything about Fariz. Ask me about his
+            Your AI assistant for everything about {ownerName}. Ask me about his
             projects, skills, or experience!
           </p>
         </div>
@@ -80,7 +84,7 @@ function ChatLandingPage({
         </div>
 
         <div className="w-full max-w-xl">
-          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} />
+          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} botName={botName} />
         </div>
 
         <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-2 text-sm">
@@ -103,10 +107,13 @@ function ConversationView({
   conversationId,
   sendMessage,
   isChatLoading,
+  systemInfo,
 }: {
   conversationId: string;
   sendMessage: (msg: string) => void;
   isChatLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  systemInfo: any;
 }) {
   const { data: messages = [] } = useAiConversationMessages(conversationId);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -117,7 +124,7 @@ function ConversationView({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto p-4 md:p-8">
+      <div className="grow overflow-y-auto p-4 md:p-8">
         <div className="mx-auto flex max-w-3xl flex-col gap-2">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {messages.map((message: any) => (
@@ -133,7 +140,7 @@ function ConversationView({
 
       <div className="bg-background/95 supports-backdrop-filter:bg-background/60 p-4 backdrop-blur">
         <div className="mx-auto max-w-3xl">
-          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} />
+          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} botName={systemInfo?.bot_name || 'Farsisstant'} />
         </div>
       </div>
     </div>
@@ -154,6 +161,7 @@ function ChatContent() {
         conversationId={conversationId}
         sendMessage={sendMessage}
         isChatLoading={isChatLoading}
+        systemInfo={systemInfo}
       />
     );
   }
