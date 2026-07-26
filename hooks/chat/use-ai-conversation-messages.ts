@@ -1,16 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { API_URL } from '@/lib/env';
 
 export const useAiConversationMessages = (conversationId?: string | null) =>
   useQuery({
     queryKey: ['conversation', conversationId],
     queryFn: async () => {
-      if (!conversationId) return [];
-      const res = await fetch(`${BASE_URL}/conversations/${conversationId}`);
+      if (!conversationId) return { messages: [], expiresAt: null };
+
+      const res = await fetch(`${API_URL}/conversations/${conversationId}`);
+
       if (!res.ok) throw new Error('Failed to load conversation');
       const data = await res.json();
-      return data.messages || [];
+
+      return {
+        messages: data.messages || [],
+        expiresAt: data.expires_at || null,
+      };
     },
     enabled: !!conversationId,
   });

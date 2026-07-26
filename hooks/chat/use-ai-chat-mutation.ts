@@ -1,16 +1,20 @@
-import { useRef } from 'react';
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useMutation, useQueryClient, QueryClient } from '@tanstack/react-query';
-import { Message } from './types';
+import { useRef } from 'react';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { API_URL } from '@/lib/env';
+import { Message } from './types';
 
 async function processChatStream(
   response: Response,
   queryClient: QueryClient,
   router: ReturnType<typeof useRouter>,
   assistantMessageId: string,
-  initialConversationId: string | null | undefined
+  initialConversationId: string | null | undefined,
 ) {
   if (!response.body) throw new Error('No response body');
 
@@ -43,9 +47,15 @@ async function processChatStream(
                 currentConversationId = data.conversation_id;
 
                 // Move temporary cache to actual conversation cache
-                const tempMessages = queryClient.getQueryData(['conversation', undefined]) as Message[];
+                const tempMessages = queryClient.getQueryData([
+                  'conversation',
+                  undefined,
+                ]) as Message[];
                 if (tempMessages) {
-                  queryClient.setQueryData(['conversation', currentConversationId], tempMessages);
+                  queryClient.setQueryData(
+                    ['conversation', currentConversationId],
+                    tempMessages,
+                  );
                   queryClient.setQueryData(['conversation', undefined], []);
                 }
 
@@ -56,14 +66,17 @@ async function processChatStream(
               // Append text to assistant message in cache
               if (data.text) {
                 const targetId = currentConversationId || undefined;
-                queryClient.setQueryData(['conversation', targetId], (old: Message[] | undefined) => {
-                  if (!old) return old;
-                  return old.map((msg) =>
-                    msg.id === assistantMessageId
-                      ? { ...msg, content: msg.content + data.text }
-                      : msg
-                  );
-                });
+                queryClient.setQueryData(
+                  ['conversation', targetId],
+                  (old: Message[] | undefined) => {
+                    if (!old) return old;
+                    return old.map((msg) =>
+                      msg.id === assistantMessageId
+                        ? { ...msg, content: msg.content + data.text }
+                        : msg,
+                    );
+                  },
+                );
               }
             } catch {
               // Ignore JSON parse errors for incomplete chunks
@@ -81,13 +94,16 @@ function setupOptimisticCache(
   queryClient: QueryClient,
   conversationId: string | null | undefined,
   userMessage: Message,
-  assistantMessage: Message
+  assistantMessage: Message,
 ) {
   const targetId = conversationId || undefined;
-  queryClient.setQueryData(['conversation', targetId], (old: Message[] | undefined) => {
-    const messages = old || [];
-    return [...messages, userMessage, assistantMessage];
-  });
+  queryClient.setQueryData(
+    ['conversation', targetId],
+    (old: Message[] | undefined) => {
+      const messages = old || [];
+      return [...messages, userMessage, assistantMessage];
+    },
+  );
 }
 
 export function useAiChatMutation(conversationId?: string | null) {
@@ -100,18 +116,34 @@ export function useAiChatMutation(conversationId?: string | null) {
       const userMessageId = Math.random().toString();
       const assistantMessageId = Math.random().toString();
 
-      const userMessage: Message = { id: userMessageId, role: 'user', content: messageContent };
-      const assistantMessage: Message = { id: assistantMessageId, role: 'assistant', content: '' };
+      const userMessage: Message = {
+        id: userMessageId,
+        role: 'user',
+        content: messageContent,
+      };
+      const assistantMessage: Message = {
+        id: assistantMessageId,
+        role: 'assistant',
+        content: '',
+      };
 
-      setupOptimisticCache(queryClient, conversationId, userMessage, assistantMessage);
+      setupOptimisticCache(
+        queryClient,
+        conversationId,
+        userMessage,
+        assistantMessage,
+      );
 
       const controller = new AbortController();
       abortControllerRef.current = controller;
 
-      const res = await fetch(`${BASE_URL}/chat`, {
+      const res = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: messageContent, conversation_id: conversationId }),
+        body: JSON.stringify({
+          message: messageContent,
+          conversation_id: conversationId,
+        }),
         signal: controller.signal,
       });
 
@@ -122,7 +154,7 @@ export function useAiChatMutation(conversationId?: string | null) {
         queryClient,
         router,
         assistantMessageId,
-        conversationId
+        conversationId,
       );
 
       return { conversationId: finalConversationId };
@@ -130,26 +162,35 @@ export function useAiChatMutation(conversationId?: string | null) {
     onSettled: (data) => {
       abortControllerRef.current = null;
       if (data?.conversationId) {
-        queryClient.invalidateQueries({ queryKey: ['conversation', data.conversationId] });
+        queryClient.invalidateQueries({
+          queryKey: ['conversation', data.conversationId],
+        });
       }
     },
     onError: (error) => {
       if (error.name !== 'AbortError') {
         const targetId = conversationId || undefined;
-        queryClient.setQueryData(['conversation', targetId], (old: Message[] | undefined) => {
-          if (!old) return old;
-          return [
-            ...old,
-            { id: Math.random().toString(), role: 'assistant', content: 'An error occurred. Please try again.' },
-          ];
-        });
+        queryClient.setQueryData(
+          ['conversation', targetId],
+          (old: Message[] | undefined) => {
+            if (!old) return old;
+            return [
+              ...old,
+              {
+                id: Math.random().toString(),
+                role: 'assistant',
+                content: 'An error occurred. Please try again.',
+              },
+            ];
+          },
+        );
       }
-    }
+    },
   });
 
   return {
     sendMessage: mutation.mutate,
     isLoading: mutation.isPending,
-    stop: () => abortControllerRef.current?.abort()
+    stop: () => abortControllerRef.current?.abort(),
   };
 }

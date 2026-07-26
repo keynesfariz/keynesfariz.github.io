@@ -8,6 +8,7 @@ import {
   useAiChatMutation,
   useAiConversationMessages,
   useAiSystemInfo,
+  useConversationExpiration,
 } from '@/hooks/chat';
 import { DateTime } from '@/components/ui/datetime';
 import { Button } from '@/components/ui/button';
@@ -76,15 +77,19 @@ function ChatLandingPage({
             <div className="text-muted-foreground text-xs">
               Conversation ends after{' '}
               {systemInfo?.session_ttl
-                ? Math.round(systemInfo.session_ttl / 3600)
-                : 2}{' '}
-              hours of inactivity
+                ? Math.round(systemInfo.session_ttl / 60)
+                : 1}{' '}
+              minute(s) of inactivity
             </div>
           </div>
         </div>
 
         <div className="w-full max-w-xl">
-          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} botName={botName} />
+          <ChatInput
+            sendMessage={sendMessage}
+            isLoading={isChatLoading}
+            botName={botName}
+          />
         </div>
 
         <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-2 text-sm">
@@ -115,19 +120,20 @@ function ConversationView({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   systemInfo: any;
 }) {
-  const { data: messages = [] } = useAiConversationMessages(conversationId);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { data } = useAiConversationMessages(conversationId);
+  const { isExpired } = useConversationExpiration(data?.expiresAt);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [data?.messages]);
 
   return (
     <div className="flex h-full flex-col">
       <div className="grow overflow-y-auto p-4 md:p-8">
         <div className="mx-auto flex max-w-3xl flex-col gap-2">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {messages.map((message: any) => (
+          {(data?.messages || []).map((message: any) => (
             <ChatMessage
               key={message.id}
               role={message.role}
@@ -140,7 +146,17 @@ function ConversationView({
 
       <div className="bg-background/95 supports-backdrop-filter:bg-background/60 p-4 backdrop-blur">
         <div className="mx-auto max-w-3xl">
-          <ChatInput sendMessage={sendMessage} isLoading={isChatLoading} botName={systemInfo?.bot_name || 'Farsisstant'} />
+          {isExpired ? (
+            <div className="text-muted-foreground rounded-lg border border-dashed py-6 text-center text-sm">
+              Conversation has ended due to inactivity.
+            </div>
+          ) : (
+            <ChatInput
+              sendMessage={sendMessage}
+              isLoading={isChatLoading}
+              botName={systemInfo?.bot_name || 'Farsisstant'}
+            />
+          )}
         </div>
       </div>
     </div>
