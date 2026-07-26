@@ -25,6 +25,10 @@ const links: NavLink[] = [
     label: 'Writings',
     path: '/writings',
   },
+  {
+    label: 'Farsisstant 🤖',
+    path: '/chat',
+  },
 ];
 
 export function Header() {
