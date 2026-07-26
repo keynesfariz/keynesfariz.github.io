@@ -1,18 +1,17 @@
 'use client';
 
-import { Bot, Clock, Database, Zap } from 'lucide-react';
-import { Suspense, useEffect, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
-
 import {
   useAiChatMutation,
   useAiConversationMessages,
   useAiSystemInfo,
 } from '@/hooks/chat';
-import { ChatMessage } from '@/components/chat/ChatMessage';
-import { LocalDateTime } from '@/components/local-datetime';
-import { ChatInput } from '@/components/chat/ChatInput';
+import { Bot, Clock, Database, Zap } from 'lucide-react';
+import { DateTime } from '@/components/ui/datetime';
+import { Suspense, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { ChatMessage } from './chat-message';
+import { ChatInput } from './chat-input';
 
 function ChatLandingPage({
   sendMessage,
@@ -21,6 +20,7 @@ function ChatLandingPage({
 }: {
   sendMessage: (msg: string) => void;
   isChatLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   systemInfo: any;
 }) {
   const exampleQuestions = [
@@ -58,7 +58,7 @@ function ChatLandingPage({
               Updated:{' '}
               {systemInfo?.latest_ingestion_date &&
               systemInfo.latest_ingestion_date !== 'Never' ? (
-                <LocalDateTime
+                <DateTime
                   dateTime={systemInfo.latest_ingestion_date as string}
                 />
               ) : (
@@ -119,6 +119,7 @@ function ConversationView({
     <div className="flex h-full flex-col">
       <div className="flex-1 overflow-y-auto p-4 md:p-8">
         <div className="mx-auto flex max-w-3xl flex-col gap-2">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {messages.map((message: any) => (
             <ChatMessage
               key={message.id}

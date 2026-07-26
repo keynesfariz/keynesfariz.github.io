@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useAiConversations } from '@/hooks/chat';
 import Link from 'next/link';
 import { PlusCircle, MessageSquare } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
@@ -15,16 +15,7 @@ export function Sidebar() {
   const searchParams = useSearchParams();
   const id = searchParams?.get('id') || undefined;
   
-  const { data, isLoading } = useQuery({
-    queryKey: ['conversations'],
-    queryFn: async () => {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const res = await fetch(`${apiUrl}/conversations`);
-      if (!res.ok) throw new Error('Failed to fetch conversations');
-      const data = await res.json();
-      return data.conversations || [];
-    }
-  });
+  const { data, isLoading } = useAiConversations();
 
   return (
     <div className="flex w-64 flex-col border-r border-border/50 bg-muted/20 p-4">
