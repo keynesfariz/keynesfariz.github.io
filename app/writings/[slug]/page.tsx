@@ -1,11 +1,8 @@
-import rehypeHighlight from 'rehype-highlight';
-import React, { ViewTransition } from 'react';
 import { notFound } from 'next/navigation';
-import Markdown from 'react-markdown';
+import { ViewTransition } from 'react';
 import Link from 'next/link';
 
 import { BackToWritingButton } from '@/components/writings/back-link';
-import { extractImageDimensions, slugify } from '@/lib/utils';
 import { LocalDateTime } from '@/components/local-datetime';
 import { TableOfContents } from '@/components/writings/toc';
 import { getResponsiveImageProps } from '@/lib/image-utils';
@@ -13,7 +10,8 @@ import { Writing } from '@/.content-collections/generated';
 import { TagList } from '@/components/writings/tag-list';
 import { Separator } from '@/components/ui/separator';
 import { getMetadata, getWritings } from '@/lib/data';
-import 'highlight.js/styles/github-dark.css';
+import { extractImageDimensions } from '@/lib/utils';
+import { Markdown } from '@/components/ui/markdown';
 import { generateTOC } from '@/lib/toc';
 
 export async function generateStaticParams() {
@@ -29,27 +27,6 @@ export async function generateMetadata(props: PageProps<'/writings/[slug]'>) {
     description: writing?.description,
   });
 }
-
-const extractText = (node: any): string => {
-  if (typeof node === 'string') return node;
-  if (typeof node === 'number') return String(node);
-  if (Array.isArray(node)) return node.map(extractText).join('');
-  if (React.isValidElement(node))
-    return extractText((node.props as any).children);
-  return '';
-};
-
-const Heading = ({ level, children, ...props }: any) => {
-  const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
-  const id = slugify(extractText(children));
-  return (
-    <Tag id={id} className="group scroll-m-20" {...props}>
-      <a href={`#${id}`} className="text-foreground font-bold no-underline">
-        {children}
-      </a>
-    </Tag>
-  );
-};
 
 export default async function WritingDetail(
   props: PageProps<'/writings/[slug]'>,
@@ -105,14 +82,10 @@ export default async function WritingDetail(
             <Separator className="mt-8" />
           </div>
         )}
-
         <div className="prose prose-neutral dark:prose-invert prose-a:text-primary max-w-none text-lg leading-relaxed underline-offset-[3px]">
           <Markdown
-            rehypePlugins={[rehypeHighlight]}
+            content={writing.content}
             components={{
-              a: (props) => (
-                <a {...props} target="_blank" rel="noopener noreferrer" />
-              ),
               img: (props) => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const { node, ...rest } = props;
@@ -151,14 +124,8 @@ export default async function WritingDetail(
                   </>
                 );
               },
-              h2: (props) => <Heading level={2} {...props} />,
-              h3: (props) => <Heading level={3} {...props} />,
-              h4: (props) => <Heading level={4} {...props} />,
-              h5: (props) => <Heading level={5} {...props} />,
-              h6: (props) => <Heading level={6} {...props} />,
-            }}>
-            {writing.content}
-          </Markdown>
+            }}
+          />
         </div>
       </article>
 
