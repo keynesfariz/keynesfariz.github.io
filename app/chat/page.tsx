@@ -114,7 +114,7 @@ function ConversationView({
   isChatLoading,
   systemInfo,
 }: {
-  conversationId: string;
+  conversationId: string | undefined;
   sendMessage: (msg: string) => void;
   isChatLoading: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -138,27 +138,35 @@ function ConversationView({
               key={message.id}
               role={message.role}
               content={message.content}
+              createdAt={message.created_at || message.createdAt}
+              isLoading={
+                isChatLoading &&
+                message.role === 'assistant' &&
+                message.content === ''
+              }
             />
           ))}
+          {isExpired && (
+            <div className="text-muted-foreground mt-4 text-center text-sm">
+              Oh dear, you left me hanging! I&apos;ve closed this session, but
+              we can always start a new one.
+            </div>
+          )}
           <div ref={bottomRef} />
         </div>
       </div>
 
-      <div className="bg-background/95 supports-backdrop-filter:bg-background/60 p-4 backdrop-blur">
-        <div className="mx-auto max-w-3xl">
-          {isExpired ? (
-            <div className="text-muted-foreground rounded-lg border border-dashed py-6 text-center text-sm">
-              Conversation has ended due to inactivity.
-            </div>
-          ) : (
+      {!isExpired && (
+        <div className="bg-background/95 supports-backdrop-filter:bg-background/60 p-4 backdrop-blur">
+          <div className="mx-auto max-w-3xl">
             <ChatInput
               sendMessage={sendMessage}
               isLoading={isChatLoading}
               botName={systemInfo?.bot_name || 'Farsisstant'}
             />
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -170,8 +178,14 @@ function ChatContent() {
   const { data: systemInfo } = useAiSystemInfo();
   const { sendMessage, isLoading: isChatLoading } =
     useAiChatMutation(conversationId);
+  const { data: optimisticData } = useAiConversationMessages(undefined);
 
-  if (conversationId) {
+  const hasOptimisticMessages =
+    !conversationId &&
+    optimisticData?.messages &&
+    optimisticData.messages.length > 0;
+
+  if (conversationId || hasOptimisticMessages) {
     return (
       <ConversationView
         conversationId={conversationId}
