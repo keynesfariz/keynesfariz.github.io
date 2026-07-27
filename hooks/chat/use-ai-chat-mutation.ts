@@ -39,47 +39,64 @@ async function processChatStream(
             const dataStr = line.slice(6);
             if (dataStr.trim() === '[DONE]') break;
 
+            let data;
             try {
-              const data = JSON.parse(dataStr);
+              data = JSON.parse(dataStr);
+            } catch {
+              // Ignore JSON parse errors for incomplete chunks
+              continue;
+            }
 
-              // Handle new conversation ID from backend
-              if (data.conversation_id && !currentConversationId) {
-                currentConversationId = data.conversation_id;
+            // Handle errors from backend
+            if (data.error) {
+              throw new Error(data.error);
+            }
 
-                // Move temporary cache to actual conversation cache
-                const tempMessages = queryClient.getQueryData([
-                  'conversation',
-                  undefined,
-                ]) as Message[];
-                if (tempMessages) {
-                  queryClient.setQueryData(
-                    ['conversation', currentConversationId],
-                    tempMessages,
-                  );
-                  queryClient.setQueryData(['conversation', undefined], []);
-                }
+            // Handle new conversation ID from backend
+            if (data.conversation_id && !currentConversationId) {
+              currentConversationId = data.conversation_id;
 
-                router.push(`/chat?id=${currentConversationId}`);
-                queryClient.invalidateQueries({ queryKey: ['conversations'] });
+              // Move temporary cache to actual conversation cache
+              const tempData = queryClient.getQueryData([
+                'conversation',
+                undefined,
+              ]) as { messages: Message[]; expiresAt: string | null };
+              if (tempData) {
+                queryClient.setQueryData(
+                  ['conversation', currentConversationId],
+                  tempData,
+                );
+                queryClient.setQueryData(['conversation', undefined], {
+                  messages: [],
+                  expiresAt: null,
+                });
               }
 
-              // Append text to assistant message in cache
-              if (data.text) {
-                const targetId = currentConversationId || undefined;
-                queryClient.setQueryData(
-                  ['conversation', targetId],
-                  (old: Message[] | undefined) => {
-                    if (!old) return old;
-                    return old.map((msg) =>
+              router.push(`/chat?id=${currentConversationId}`);
+              queryClient.invalidateQueries({ queryKey: ['conversations'] });
+            }
+
+            // Append text to assistant message in cache
+            if (data.text) {
+              const targetId = currentConversationId || undefined;
+              queryClient.setQueryData(
+                ['conversation', targetId],
+                (
+                  old:
+                    | { messages: Message[]; expiresAt: string | null }
+                    | undefined,
+                ) => {
+                  if (!old) return old;
+                  return {
+                    ...old,
+                    messages: old.messages.map((msg) =>
                       msg.id === assistantMessageId
                         ? { ...msg, content: msg.content + data.text }
                         : msg,
-                    );
-                  },
-                );
-              }
-            } catch {
-              // Ignore JSON parse errors for incomplete chunks
+                    ),
+                  };
+                },
+              );
             }
           }
         }
@@ -99,9 +116,12 @@ function setupOptimisticCache(
   const targetId = conversationId || undefined;
   queryClient.setQueryData(
     ['conversation', targetId],
-    (old: Message[] | undefined) => {
-      const messages = old || [];
-      return [...messages, userMessage, assistantMessage];
+    (old: { messages: Message[]; expiresAt: string | null } | undefined) => {
+      const messages = old?.messages || [];
+      return {
+        messages: [...messages, userMessage, assistantMessage],
+        expiresAt: old?.expiresAt || null,
+      };
     },
   );
 }
@@ -172,16 +192,21 @@ export function useAiChatMutation(conversationId?: string | null) {
         const targetId = conversationId || undefined;
         queryClient.setQueryData(
           ['conversation', targetId],
-          (old: Message[] | undefined) => {
+          (
+            old: { messages: Message[]; expiresAt: string | null } | undefined,
+          ) => {
             if (!old) return old;
-            return [
+            return {
               ...old,
-              {
-                id: Math.random().toString(),
-                role: 'assistant',
-                content: 'An error occurred. Please try again.',
-              },
-            ];
+              messages: [
+                ...old.messages,
+                {
+                  id: Math.random().toString(),
+                  role: 'assistant',
+                  content: 'An error occurred. Please try again.',
+                },
+              ],
+            };
           },
         );
       }
