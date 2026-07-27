@@ -19,7 +19,7 @@ It serves as a central place to showcase my projects, host my resume, and force 
 
 - **Markdown Blog**: Fast and type-safe markdown parsing for all my writings using Content Collections.
 - **Data-Driven Resume**: The `/resume` page is powered directly by a schema conforming to the JSON Resume standard, making it incredibly easy to update my professional timeline.
-- **AI Chatbot**: Real-time conversational interface on the `/chat` route powered by a custom RAG backend to ask about myself.
+- **AI Chatbot**: Real-time conversational interface on the `/chat` route powered by a [custom RAG backend](https://github.com/keynesfariz/personal-rag-chatbot) for you to ask about myself.
 - **100% Static**: Hosted on GitHub Pages as a fully static export (`output: 'export'`) for maximum speed and zero infrastructure overhead.
 
 ## 🏃‍♂️ Getting Started
