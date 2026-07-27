@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { useRef } from 'react';
 
 import { API_URL } from '@/lib/env';
@@ -167,6 +168,9 @@ export function useAiChatMutation(conversationId?: string | null) {
         signal: controller.signal,
       });
 
+      if (res.status === 429) {
+        throw new Error('Rate limit exceeded. Please try again later.');
+      }
       if (!res.ok) throw new Error('Network error');
 
       const finalConversationId = await processChatStream(
@@ -189,6 +193,7 @@ export function useAiChatMutation(conversationId?: string | null) {
     },
     onError: (error) => {
       if (error.name !== 'AbortError') {
+        toast.error(error.message || 'An error occurred. Please try again.');
         const targetId = conversationId || undefined;
         queryClient.setQueryData(
           ['conversation', targetId],

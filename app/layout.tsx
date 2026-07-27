@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { QueryProvider } from '@/components/providers/query-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { Toaster } from '@/components/ui/sonner';
 import { getMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 import './globals.css';
@@ -40,6 +41,7 @@ export default function RootLayout({
             </Suspense>
             <Footer />
           </ThemeProvider>
+          <Toaster />
         </QueryProvider>
       </body>
       {process.env.NEXT_GA_ID && (
