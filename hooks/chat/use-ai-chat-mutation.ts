@@ -4,7 +4,6 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import { useRef } from 'react';
 
 import { API_URL } from '@/lib/env';
@@ -193,24 +192,35 @@ export function useAiChatMutation(conversationId?: string | null) {
     },
     onError: (error) => {
       if (error.name !== 'AbortError') {
-        toast.error(error.message || 'An error occurred. Please try again.');
         const targetId = conversationId || undefined;
         queryClient.setQueryData(
           ['conversation', targetId],
           (
             old: { messages: Message[]; expiresAt: string | null } | undefined,
           ) => {
-            if (!old) return old;
+            if (!old || !old.messages.length) return old;
+            
+            const newMessages = [...old.messages];
+            const lastMessage = newMessages[newMessages.length - 1];
+            
+            const errorMessage = error.message || 'An error occurred. Please try again.';
+            
+            if (lastMessage.role === 'assistant' && lastMessage.content === '') {
+              newMessages[newMessages.length - 1] = {
+                ...lastMessage,
+                content: errorMessage,
+              };
+            } else {
+              newMessages.push({
+                id: Math.random().toString(),
+                role: 'assistant',
+                content: errorMessage,
+              });
+            }
+
             return {
               ...old,
-              messages: [
-                ...old.messages,
-                {
-                  id: Math.random().toString(),
-                  role: 'assistant',
-                  content: 'An error occurred. Please try again.',
-                },
-              ],
+              messages: newMessages,
             };
           },
         );
