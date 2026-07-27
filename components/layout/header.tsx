@@ -1,5 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
+import { Bot } from 'lucide-react';
 import Link from 'next/link';
 
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -7,7 +8,7 @@ import { MyLogo } from '@/components/my-logo';
 import { cn } from '@/lib/utils';
 
 type NavLink = {
-  label: string;
+  label: string | React.ReactNode;
   path: string;
   exact?: boolean;
 };
@@ -26,7 +27,7 @@ const links: NavLink[] = [
     path: '/writings',
   },
   {
-    label: '🤖',
+    label: <Bot className="size-5" />,
     path: '/chat',
   },
 ];
