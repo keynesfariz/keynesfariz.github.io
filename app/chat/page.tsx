@@ -36,8 +36,8 @@ function ChatLandingPage({
   return (
     <div className="flex h-full flex-col items-center justify-center p-8">
       <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
-        <div className="bg-primary/10 text-primary flex h-20 w-20 items-center justify-center rounded-2xl">
-          <Bot className="h-10 w-10" />
+        <div className="bg-primary/10 text-primary flex size-20 items-center justify-center rounded-2xl">
+          <Bot className="size-10" />
         </div>
 
         <div className="space-y-2">
@@ -50,14 +50,17 @@ function ChatLandingPage({
 
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4">
-            <Zap className="h-5 w-5 text-yellow-500" />
-            <div className="text-sm font-medium">Active LLM</div>
+            <Zap className="size-5 text-yellow-500" />
+            <div className="text-sm font-medium">Active LLMs</div>
             <div className="text-muted-foreground text-xs">
               {systemInfo?.llm_model || 'Loading...'}
+              {systemInfo?.embedding_model
+                ? ` | ${systemInfo.embedding_model}`
+                : '...'}
             </div>
           </div>
           <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4">
-            <Database className="h-5 w-5 text-blue-500" />
+            <Database className="size-5 text-blue-500" />
             <div className="text-sm font-medium">Knowledge Base</div>
             <div className="text-muted-foreground text-xs">
               Updated:{' '}
@@ -72,7 +75,7 @@ function ChatLandingPage({
             </div>
           </div>
           <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4 sm:col-span-2 lg:col-span-1">
-            <Clock className="h-5 w-5 text-green-500" />
+            <Clock className="size-5 text-green-500" />
             <div className="text-sm font-medium">Session TTL</div>
             <div className="text-muted-foreground text-xs">
               Conversation ends after{' '}
@@ -147,9 +150,8 @@ function ConversationView({
             />
           ))}
           {isExpired && (
-            <div className="text-muted-foreground mt-4 text-center text-sm">
-              Oh dear, you left me hanging! I&apos;ve closed this session, but
-              we can always start a new one.
+            <div className="text-muted-foreground mt-4 text-center text-sm italic">
+              I&apos;ve closed this session, but we can always start a new one.
             </div>
           )}
           <div ref={bottomRef} />

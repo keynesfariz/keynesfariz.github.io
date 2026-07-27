@@ -1,6 +1,10 @@
 'use client';
 
-import { MessageSquare, PlusCircle } from 'lucide-react';
+import {
+  MessageSquareDashed,
+  MessageSquareDot,
+  PlusCircle,
+} from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -10,6 +14,7 @@ import { cn } from '@/lib/utils';
 type Conversation = {
   id: string;
   topic?: string;
+  expires_at?: string;
 };
 
 export function Sidebar() {
@@ -36,20 +41,32 @@ export function Sidebar() {
           <div className="text-muted-foreground px-2 text-sm">No chats yet</div>
         ) : (
           <div className="flex flex-col gap-1">
-            {data?.map((conv: Conversation) => (
-              <Link
-                key={conv.id}
-                href={`/chat?id=${conv.id}`}
-                className={cn(
-                  'flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors',
-                  id === conv.id
-                    ? 'bg-secondary text-secondary-foreground'
-                    : 'text-muted-foreground hover:bg-secondary/50 hover:text-foreground',
-                )}>
-                <MessageSquare className="h-4 w-4 shrink-0" />
-                <span className="truncate">{conv.topic || 'New Chat'}</span>
-              </Link>
-            ))}
+            {data?.map((conv: Conversation) => {
+              const isExpired = conv.expires_at
+                ? new Date(conv.expires_at) < new Date()
+                : false;
+              const Icon = isExpired ? MessageSquareDashed : MessageSquareDot;
+
+              return (
+                <Link
+                  key={conv.id}
+                  href={`/chat?id=${conv.id}`}
+                  className={cn(
+                    'flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors',
+                    id === conv.id
+                      ? 'bg-secondary text-secondary-foreground'
+                      : 'text-muted-foreground hover:bg-secondary/50 hover:text-foreground',
+                  )}>
+                  <Icon
+                    className={cn(
+                      'h-4 w-4 shrink-0',
+                      !isExpired ? 'text-primary' : '',
+                    )}
+                  />
+                  <span className="truncate">{conv.topic || 'New Chat'}</span>
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>

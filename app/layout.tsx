@@ -3,6 +3,7 @@ import { Suspense, ViewTransition } from 'react';
 import { Inter } from 'next/font/google';
 
 import { ThemeProvider } from '@/components/providers/theme-provider';
+import { QueryProvider } from '@/components/providers/query-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { getMetadata } from '@/lib/seo';
@@ -31,13 +32,15 @@ export default function RootLayout({
       className={cn(font.variable, 'font-sans', 'antialiased', 'scroll-smooth')}
       suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-screen flex-col">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          <Suspense>
-            <ViewTransition>{children}</ViewTransition>
-          </Suspense>
-          <Footer />
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Header />
+            <Suspense>
+              <ViewTransition>{children}</ViewTransition>
+            </Suspense>
+            <Footer />
+          </ThemeProvider>
+        </QueryProvider>
       </body>
       {process.env.NEXT_GA_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_GA_ID} />

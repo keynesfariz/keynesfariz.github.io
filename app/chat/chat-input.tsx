@@ -52,23 +52,21 @@ export function ChatInput({
   };
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="border-border/50 bg-background focus-within:ring-primary relative flex w-full items-end gap-2 rounded-2xl border p-2 shadow-sm focus-within:ring-1">
+    <form onSubmit={onSubmit} className="flex items-center gap-2">
       <Textarea
         ref={textareaRef}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={`Ask ${botName} anything...`}
-        className="min-h-11 w-full resize-none border-0 bg-transparent py-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="min-h-11 w-full resize-none py-3 focus-visible:ring-1"
         rows={1}
       />
       <button
         type="submit"
         disabled={!input.trim() || isLoading}
-        className="bg-primary text-primary-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-opacity disabled:opacity-50">
-        <Send className="h-4 w-4" />
+        className="bg-primary text-primary-foreground flex size-11 shrink-0 items-center justify-center rounded-xl transition-opacity disabled:opacity-50">
+        <Send className="size-5" />
       </button>
     </form>
   );
