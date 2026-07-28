@@ -26,7 +26,7 @@ export function WritingCard({ writing }: WritingCardProps) {
 
   return (
     <ViewTransition name={slug}>
-      <Link href={`writings/${slug}`} className="block h-full">
+      <Link href={`/writings/${slug}`} className="block h-full">
         <Card className="group hover:border-primary/30 border-foreground/10 flex h-full cursor-pointer flex-col border shadow-none ring-0 transition duration-300 hover:shadow-lg">
           <CardHeader className="flex-none">
             {firstTag && (

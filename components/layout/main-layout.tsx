@@ -11,10 +11,7 @@ export function MainLayout({
 }) {
   return (
     <main
-      className={cn(
-        'mx-auto w-full max-w-4xl grow p-8 md:px-12 md:pt-12',
-        className,
-      )}>
+      className={cn('mx-auto w-full max-w-4xl grow p-8 md:p-12', className)}>
       {children}
     </main>
   );

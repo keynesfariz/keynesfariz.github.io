@@ -94,7 +94,7 @@ export function WritingList() {
     <div className="flex flex-col gap-8">
       {/* Search and Tags */}
       <div className="flex flex-col gap-4">
-        <InputGroup className="bg-card/50 border-border/50 h-12 text-base">
+        <InputGroup className="h-11 text-base">
           <InputGroupAddon align="inline-start">
             <Search className="text-muted-foreground h-4 w-4" />
           </InputGroupAddon>

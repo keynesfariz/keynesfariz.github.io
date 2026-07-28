@@ -3,44 +3,44 @@ import { usePathname } from 'next/navigation';
 import { Bot } from 'lucide-react';
 import Link from 'next/link';
 
+import { MobileNav } from '@/components/layout/mobile-nav';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { MyLogo } from '@/components/my-logo';
+import { buttonVariants } from '../ui/button';
 import { cn } from '@/lib/utils';
 
 type NavLink = {
   label: string | React.ReactNode;
   path: string;
   exact?: boolean;
-  hideOnMobile?: boolean;
 };
 
 const links: NavLink[] = [
   {
     label: 'About',
     path: '/about',
-    hideOnMobile: true,
   },
   {
     label: 'History',
     path: '/resume',
-    hideOnMobile: true,
   },
   {
     label: 'Writings',
     path: '/writings',
-    hideOnMobile: true,
-  },
-  {
-    label: <Bot className="size-5" />,
-    path: '/chat',
   },
 ];
 
-export function Header() {
+export function Header({
+  mobileRightSidebar,
+  mobileLeftSidebar,
+}: {
+  mobileRightSidebar?: React.ReactNode;
+  mobileLeftSidebar?: React.ReactNode;
+}) {
   const pathname = usePathname();
 
   return (
-    <header className="mx-auto flex w-full max-w-4xl items-center justify-between p-8 md:p-12">
+    <header className="mx-auto flex w-full max-w-4xl items-center justify-between px-8 py-6 md:p-12">
       <Link
         href="/"
         className="group flex items-center space-x-2"
@@ -57,21 +57,32 @@ export function Header() {
         </div>
         {/* <span className="text-xl font-semibold">fariz(s)</span> */}
       </Link>
-      <nav className="flex items-center gap-6 text-sm font-medium">
+      <nav className="flex items-center text-sm font-medium">
         {links.map((link) => (
           <Link
             key={link.path}
             href={link.path}
             className={cn(
-              'hover:text-primary underline-offset-4 transition-colors hover:underline',
+              'hover:text-primary mr-6 hidden underline-offset-4 transition-colors hover:underline xl:block',
               pathname.startsWith(link.path) &&
                 'text-primary underline underline-offset-4',
-              link.hideOnMobile && 'hidden md:block'
             )}>
             {link.label}
           </Link>
         ))}
-        <ThemeToggle />
+        <div className="flex items-center space-x-2">
+          <Link
+            href="/chat"
+            className={buttonVariants({
+              size: 'icon',
+
+              variant: pathname.startsWith('/chat') ? 'default' : 'ghost',
+            })}>
+            <Bot className="size-5" />
+          </Link>
+          <ThemeToggle />
+          <MobileNav rightSidebar={mobileRightSidebar} leftSidebar={mobileLeftSidebar} />
+        </div>
       </nav>
     </header>
   );

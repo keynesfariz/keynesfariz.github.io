@@ -6,7 +6,7 @@ const USERNAME = process.env.NEXT_USERNAME ?? '';
 
 export function Footer() {
   return (
-    <footer className="mx-auto w-full max-w-4xl p-8 md:p-12">
+    <footer className="mx-auto w-full max-w-4xl py-6 md:p-12">
       <Separator className="mb-8" />
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="text-muted-foreground text-sm">

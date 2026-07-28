@@ -1,6 +1,6 @@
 'use client';
 
-import { Bot, Clock, Database, Zap } from 'lucide-react';
+import { Bot } from 'lucide-react';
 import { Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 
@@ -10,7 +10,6 @@ import {
   useAiSystemInfo,
   useConversationExpiration,
 } from '@/hooks/chat';
-import { DateTime } from '@/components/ui/datetime';
 import { Button } from '@/components/ui/button';
 import { ChatMessage } from './chat-message';
 import { ChatInput } from './chat-input';
@@ -48,44 +47,7 @@ function ChatLandingPage({
           </p>
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4">
-            <Zap className="size-5 text-yellow-500" />
-            <div className="text-sm font-medium">Active LLMs</div>
-            <div className="text-muted-foreground text-xs">
-              {systemInfo?.llm_model || 'Loading...'}
-              {systemInfo?.embedding_model
-                ? ` | ${systemInfo.embedding_model}`
-                : '...'}
-            </div>
-          </div>
-          <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4">
-            <Database className="size-5 text-blue-500" />
-            <div className="text-sm font-medium">Knowledge Base</div>
-            <div className="text-muted-foreground text-xs">
-              Updated:{' '}
-              {systemInfo?.latest_ingestion_date &&
-              systemInfo.latest_ingestion_date !== 'Never' ? (
-                <DateTime
-                  dateTime={systemInfo.latest_ingestion_date as string}
-                />
-              ) : (
-                systemInfo?.latest_ingestion_date || 'Loading...'
-              )}
-            </div>
-          </div>
-          <div className="border-border/50 bg-muted/30 flex flex-col items-center gap-2 rounded-xl border p-4 sm:col-span-2 lg:col-span-1">
-            <Clock className="size-5 text-green-500" />
-            <div className="text-sm font-medium">Session TTL</div>
-            <div className="text-muted-foreground text-xs">
-              Conversation ends after{' '}
-              {systemInfo?.session_ttl
-                ? Math.round(systemInfo.session_ttl / 60)
-                : 1}{' '}
-              minute(s) of inactivity
-            </div>
-          </div>
-        </div>
+
 
         <div className="w-full max-w-xl">
           <ChatInput

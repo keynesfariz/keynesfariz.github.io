@@ -11,8 +11,6 @@ import { Markdown } from '@/components/ui/markdown';
 import { DateTime } from '@/components/ui/datetime';
 import { getWritings } from '@/lib/content.server';
 import { BackToWritingButton } from '../back-link';
-import { TableOfContents } from '../toc';
-import { generateTOC } from '@/lib/toc';
 import { getMetadata } from '@/lib/seo';
 import { TagList } from '../tag-list';
 
@@ -41,7 +39,6 @@ export default async function WritingDetail(
   }
 
   const hasTags = writing.tags && writing.tags.length > 0;
-  const toc = generateTOC(writing.content);
 
   return (
     <MainLayout>
@@ -79,12 +76,6 @@ export default async function WritingDetail(
 
           <Separator />
 
-          {toc.length > 0 && (
-            <div className="block xl:hidden">
-              <TableOfContents items={toc} />
-              <Separator className="mt-8" />
-            </div>
-          )}
           <div className="prose prose-neutral dark:prose-invert prose-a:text-primary max-w-none text-lg leading-relaxed underline-offset-[3px]">
             <Markdown
               content={writing.content}
@@ -131,12 +122,6 @@ export default async function WritingDetail(
             />
           </div>
         </article>
-
-        {toc.length > 0 && (
-          <aside className="fixed right-8 hidden max-w-52 shrink-0 pt-10 xl:block">
-            <TableOfContents items={toc} />
-          </aside>
-        )}
       </div>
     </MainLayout>
   );

@@ -45,7 +45,7 @@ export function TableOfContents({ items }: { items: TOCItem[] }) {
         {items.map((item) => (
           <li
             key={item.id}
-            style={{ paddingLeft: `${(item.level - minLevel) * 1}rem` }}
+            style={{ paddingLeft: `${(item.level - minLevel) * 0.5}rem` }}
             className="pt-0.5">
             <a
               href={`#${item.id}`}
