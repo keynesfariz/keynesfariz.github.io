@@ -2,18 +2,19 @@
 
 import { Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Bot, BedDouble } from 'lucide-react';
+import { BedDouble, Bot } from 'lucide-react';
 
 import {
   useAiChatMutation,
   useAiConversationMessages,
+  useAiHealth,
   useAiSystemInfo,
   useConversationExpiration,
-  useAiHealth,
 } from '@/hooks/chat';
 import { Button } from '@/components/ui/button';
 import { ChatMessage } from './chat-message';
 import { ChatInput } from './chat-input';
+import { cn } from '@/lib/utils';
 
 function ChatLandingPage({
   sendMessage,
@@ -42,17 +43,22 @@ function ChatLandingPage({
       <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
         <div className="bg-primary/10 text-primary flex size-20 items-center justify-center rounded-2xl">
           {isWakingUp || hasFailed ? (
-            <BedDouble className="size-10" />
+            <BedDouble
+              className={cn('size-10', isWakingUp ? 'animate-pulse' : '')}
+            />
           ) : (
             <Bot className="size-10" />
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className={cn('space-y-2', isWakingUp ? 'animate-pulse' : '')}>
           <h1 className="text-3xl font-bold tracking-tight">{botName}</h1>
           <p className="text-muted-foreground">
-            Your AI assistant for everything about {ownerName}. Ask me about his
-            projects, skills, or experience!
+            {hasFailed
+              ? `${botName} is currently unavailable. Please try again later.`
+              : isWakingUp
+                ? `${botName} is waking up right now... Hang tight!`
+                : `Your AI assistant for everything about ${ownerName}. Ask me about his projects, skills, or experience!`}
           </p>
         </div>
 
