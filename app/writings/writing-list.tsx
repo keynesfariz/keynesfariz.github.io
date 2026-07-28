@@ -70,8 +70,12 @@ export function WritingList() {
   const pathname = usePathname();
   const urlTag = searchParams.get('tag');
 
+  const [showAllTags, setShowAllTags] = useState(false);
+
   const allWritings = useMemo(() => getWritings() as Writing[], []);
   const popularTags = usePopularTags(allWritings);
+  const displayedTags = showAllTags ? popularTags : popularTags.slice(0, 5);
+
   const { searchQuery, setSearchQuery, filteredWritings } = useWritingsFilter(
     allWritings,
     urlTag,
@@ -107,8 +111,8 @@ export function WritingList() {
         </InputGroup>
 
         {popularTags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {popularTags.map((tag) => (
+          <div className="flex flex-wrap items-center gap-2">
+            {displayedTags.map((tag) => (
               <Badge
                 key={tag}
                 variant={urlTag === tag ? 'default' : 'secondary'}
@@ -117,6 +121,13 @@ export function WritingList() {
                 #{tag}
               </Badge>
             ))}
+            {popularTags.length > 5 && (
+              <button
+                onClick={() => setShowAllTags(!showAllTags)}
+                className="text-muted-foreground hover:text-foreground ml-1 text-xs font-medium underline-offset-4 hover:underline">
+                {showAllTags ? 'Show less' : 'Show all'}
+              </button>
+            )}
           </div>
         )}
       </div>

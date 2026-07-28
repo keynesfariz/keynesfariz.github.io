@@ -1,13 +1,13 @@
 'use client';
 
-import { Suspense } from 'react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import {
   MessageSquareDashed,
   MessageSquareDot,
   PlusCircle,
 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import Link from 'next/link';
 
 import { useAiConversations } from '@/hooks/chat';
 import { cn } from '@/lib/utils';
@@ -25,7 +25,7 @@ function ChatLeftSidebarContent() {
   const { data: chatData, isLoading: chatLoading } = useAiConversations();
 
   return (
-    <div className="flex flex-col gap-2 w-full max-w-75">
+    <div className="flex w-full flex-col gap-2">
       <h3 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wider uppercase">
         Recent Chats
       </h3>
@@ -75,7 +75,10 @@ function ChatLeftSidebarContent() {
 
 export default function LeftSidebarPage() {
   return (
-    <Suspense fallback={<div className="text-sm text-muted-foreground">Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="text-muted-foreground text-sm">Loading...</div>
+      }>
       <ChatLeftSidebarContent />
     </Suspense>
   );

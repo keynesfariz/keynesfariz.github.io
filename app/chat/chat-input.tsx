@@ -52,7 +52,7 @@ export function ChatInput({
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex items-center gap-2">
+    <form onSubmit={onSubmit} className="flex items-end gap-2">
       <Textarea
         ref={textareaRef}
         value={input}

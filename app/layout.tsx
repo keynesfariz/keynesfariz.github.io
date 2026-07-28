@@ -70,15 +70,15 @@ function LayoutWithSidebar({
   leftSidebar: React.ReactNode;
 }>) {
   return (
-    <div className="flex w-full">
+    <div className="relative grid grid-cols-1 xl:grid-cols-[1fr_56rem_1fr]">
       {leftSidebar && (
-        <aside className="bg fixed top-0 bottom-0 left-0 z-10 hidden w-60 flex-col overflow-y-auto pt-30 pr-3 pb-8 pl-6 xl:flex">
+        <aside className="hidden overflow-x-auto pl-8 xl:block">
           {leftSidebar}
         </aside>
       )}
-      <div className="grow">{children}</div>
+      <div className="mx-auto w-full max-w-4xl">{children}</div>
       {sidebar && (
-        <aside className="bg fixed top-0 right-0 bottom-0 z-10 hidden w-60 flex-col overflow-y-auto pt-30 pr-6 pb-8 pl-3 xl:flex">
+        <aside className="hidden overflow-x-auto pr-8 xl:block">
           {sidebar}
         </aside>
       )}

@@ -1,8 +1,8 @@
 'use client';
 
-import { Bot } from 'lucide-react';
 import { Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Bot } from 'lucide-react';
 
 import {
   useAiChatMutation,
@@ -33,7 +33,7 @@ function ChatLandingPage({
   ];
 
   return (
-    <div className="flex h-full flex-col items-center justify-center p-8">
+    <div className="flex h-full flex-col items-center justify-end p-4 md:p-8">
       <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
         <div className="bg-primary/10 text-primary flex size-20 items-center justify-center rounded-2xl">
           <Bot className="size-10" />
@@ -47,17 +47,7 @@ function ChatLandingPage({
           </p>
         </div>
 
-
-
-        <div className="w-full max-w-xl">
-          <ChatInput
-            sendMessage={sendMessage}
-            isLoading={isChatLoading}
-            botName={botName}
-          />
-        </div>
-
-        <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-2 text-sm">
+        <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-2 text-xs md:text-sm">
           {exampleQuestions.map((question) => (
             <Button
               key={question}
@@ -67,6 +57,14 @@ function ChatLandingPage({
               {question}
             </Button>
           ))}
+        </div>
+
+        <div className="w-full max-w-xl">
+          <ChatInput
+            sendMessage={sendMessage}
+            isLoading={isChatLoading}
+            botName={botName}
+          />
         </div>
       </div>
     </div>

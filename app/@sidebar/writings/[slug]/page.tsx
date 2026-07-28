@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 
 import { Writing } from '@/.content-collections/generated';
+import { TableOfContents } from '@/app/writings/toc';
 import { getWritings } from '@/lib/content.server';
 import { generateTOC } from '@/lib/toc';
-import { TableOfContents } from '../../../writings/toc';
 
 export default async function WritingSidebarPage(
   props: PageProps<'/writings/[slug]'>,

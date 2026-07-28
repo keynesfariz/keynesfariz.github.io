@@ -38,14 +38,14 @@ export function TableOfContents({ items }: { items: TOCItem[] }) {
 
   return (
     <div className="space-y-4">
-      <p className="text-foreground font-semibold tracking-tight">
+      <h3 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wider uppercase">
         On this page
-      </p>
+      </h3>
       <ul className="flex flex-col space-y-2 text-sm">
         {items.map((item) => (
           <li
             key={item.id}
-            style={{ paddingLeft: `${(item.level - minLevel) * 0.5}rem` }}
+            style={{ paddingLeft: `${(item.level - minLevel) * 0.75}rem` }}
             className="pt-0.5">
             <a
               href={`#${item.id}`}

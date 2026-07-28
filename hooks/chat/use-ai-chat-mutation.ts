@@ -199,13 +199,17 @@ export function useAiChatMutation(conversationId?: string | null) {
             old: { messages: Message[]; expiresAt: string | null } | undefined,
           ) => {
             if (!old || !old.messages.length) return old;
-            
+
             const newMessages = [...old.messages];
             const lastMessage = newMessages[newMessages.length - 1];
-            
-            const errorMessage = error.message || 'An error occurred. Please try again.';
-            
-            if (lastMessage.role === 'assistant' && lastMessage.content === '') {
+
+            const errorMessage =
+              error.message || 'An error occurred. Please try again.';
+
+            if (
+              lastMessage.role === 'assistant' &&
+              lastMessage.content === ''
+            ) {
               newMessages[newMessages.length - 1] = {
                 ...lastMessage,
                 content: errorMessage,

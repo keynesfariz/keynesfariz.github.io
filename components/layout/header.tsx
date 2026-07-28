@@ -81,7 +81,10 @@ export function Header({
             <Bot className="size-5" />
           </Link>
           <ThemeToggle />
-          <MobileNav rightSidebar={mobileRightSidebar} leftSidebar={mobileLeftSidebar} />
+          <MobileNav
+            rightSidebar={mobileRightSidebar}
+            leftSidebar={mobileLeftSidebar}
+          />
         </div>
       </nav>
     </header>

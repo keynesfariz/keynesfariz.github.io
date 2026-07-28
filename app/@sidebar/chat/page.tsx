@@ -1,22 +1,18 @@
 'use client';
 
+import { Clock, Database, Zap } from 'lucide-react';
 import { Suspense } from 'react';
-import {
-  Zap,
-  Database,
-  Clock,
-} from 'lucide-react';
 
-import { useAiSystemInfo } from '@/hooks/chat';
 import { DateTime } from '@/components/ui/datetime';
+import { useAiSystemInfo } from '@/hooks/chat';
 
 function ChatSidebarContent() {
   const { data: systemInfo } = useAiSystemInfo();
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-75">
+    <div className="flex w-full max-w-75 flex-col gap-4">
       <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-        System Info
+        Stats for Nerds
       </h3>
       <div className="flex items-center gap-3 text-sm">
         <Zap className="size-4 shrink-0 text-yellow-500" />
@@ -35,9 +31,7 @@ function ChatSidebarContent() {
             Updated:{' '}
             {systemInfo?.latest_ingestion_date &&
             systemInfo.latest_ingestion_date !== 'Never' ? (
-              <DateTime
-                dateTime={systemInfo.latest_ingestion_date as string}
-              />
+              <DateTime dateTime={systemInfo.latest_ingestion_date as string} />
             ) : (
               systemInfo?.latest_ingestion_date || 'Loading...'
             )}
@@ -62,7 +56,10 @@ function ChatSidebarContent() {
 
 export default function SidebarPage() {
   return (
-    <Suspense fallback={<div className="text-sm text-muted-foreground">Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="text-muted-foreground text-sm">Loading...</div>
+      }>
       <ChatSidebarContent />
     </Suspense>
   );
