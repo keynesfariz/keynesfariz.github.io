@@ -11,20 +11,24 @@ type NavLink = {
   label: string | React.ReactNode;
   path: string;
   exact?: boolean;
+  hideOnMobile?: boolean;
 };
 
 const links: NavLink[] = [
   {
     label: 'About',
     path: '/about',
+    hideOnMobile: true,
   },
   {
-    label: 'Resume',
+    label: 'History',
     path: '/resume',
+    hideOnMobile: true,
   },
   {
     label: 'Writings',
     path: '/writings',
+    hideOnMobile: true,
   },
   {
     label: <Bot className="size-5" />,
@@ -62,6 +66,7 @@ export function Header() {
               'hover:text-primary underline-offset-4 transition-colors hover:underline',
               pathname.startsWith(link.path) &&
                 'text-primary underline underline-offset-4',
+              link.hideOnMobile && 'hidden md:block'
             )}>
             {link.label}
           </Link>

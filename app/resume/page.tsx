@@ -15,7 +15,7 @@ import { getMetadata } from '@/lib/seo';
 import Skills from './skill';
 
 export function generateMetadata() {
-  return getMetadata({ title: 'Resume' });
+  return getMetadata({ title: 'History' });
 }
 
 export default async function Resume() {
@@ -26,9 +26,10 @@ export default async function Resume() {
     <MainLayout>
       <div className="flex flex-col gap-12">
         <section className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">Resume</h1>
+          <h1 className="text-4xl font-bold tracking-tight">History</h1>
           <p className="text-muted-foreground text-lg">
-            My professional background, education, and technical skills.
+            Timeline of my professional background, education, and technical
+            skills.
           </p>
         </section>
 

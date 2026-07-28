@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { QueryProvider } from '@/components/providers/query-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { BottomNav } from '@/components/layout/bottom-nav';
 import { getMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 import './globals.css';
@@ -39,6 +40,7 @@ export default function RootLayout({
               <ViewTransition>{children}</ViewTransition>
             </Suspense>
             <Footer />
+            <BottomNav />
           </ThemeProvider>
         </QueryProvider>
       </body>

@@ -1,4 +1,3 @@
-import { FileTextIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { Separator } from '@/components/ui/separator';
@@ -29,12 +28,12 @@ export function Footer() {
             className="text-muted-foreground hover:text-foreground transition-colors">
             <span>GitHub</span>
           </Link>
-          <Link
+          {/* <Link
             href="/resume"
             className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors">
             <FileTextIcon className="size-5" />
             <span className="text-sm font-medium">Resume</span>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </footer>

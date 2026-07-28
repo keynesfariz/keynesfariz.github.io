@@ -21,7 +21,6 @@ export default async function About() {
             {aboutData.intro.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
-
             <h3 className="text-foreground mt-4 text-2xl font-bold tracking-tight">
               Beyond the Screen
             </h3>
