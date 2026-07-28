@@ -2,13 +2,14 @@
 
 import { Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Bot } from 'lucide-react';
+import { Bot, BedDouble } from 'lucide-react';
 
 import {
   useAiChatMutation,
   useAiConversationMessages,
   useAiSystemInfo,
   useConversationExpiration,
+  useAiHealth,
 } from '@/hooks/chat';
 import { Button } from '@/components/ui/button';
 import { ChatMessage } from './chat-message';
@@ -18,11 +19,15 @@ function ChatLandingPage({
   sendMessage,
   isChatLoading,
   systemInfo,
+  isWakingUp,
+  hasFailed,
 }: {
   sendMessage: (msg: string) => void;
   isChatLoading: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   systemInfo: any;
+  isWakingUp: boolean;
+  hasFailed: boolean;
 }) {
   const botName = systemInfo?.bot_name || 'Farsisstant';
   const ownerName = systemInfo?.owner_name || 'Fariz';
@@ -36,7 +41,11 @@ function ChatLandingPage({
     <div className="flex h-full flex-col items-center justify-end p-4 md:p-8">
       <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
         <div className="bg-primary/10 text-primary flex size-20 items-center justify-center rounded-2xl">
-          <Bot className="size-10" />
+          {isWakingUp || hasFailed ? (
+            <BedDouble className="size-10" />
+          ) : (
+            <Bot className="size-10" />
+          )}
         </div>
 
         <div className="space-y-2">
@@ -62,7 +71,7 @@ function ChatLandingPage({
         <div className="w-full max-w-xl">
           <ChatInput
             sendMessage={sendMessage}
-            isLoading={isChatLoading}
+            isLoading={isChatLoading || isWakingUp || hasFailed}
             botName={botName}
           />
         </div>
@@ -76,12 +85,16 @@ function ConversationView({
   sendMessage,
   isChatLoading,
   systemInfo,
+  isWakingUp,
+  hasFailed,
 }: {
   conversationId: string | undefined;
   sendMessage: (msg: string) => void;
   isChatLoading: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   systemInfo: any;
+  isWakingUp: boolean;
+  hasFailed: boolean;
 }) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const { data } = useAiConversationMessages(conversationId);
@@ -123,7 +136,7 @@ function ConversationView({
           <div className="mx-auto max-w-3xl">
             <ChatInput
               sendMessage={sendMessage}
-              isLoading={isChatLoading}
+              isLoading={isChatLoading || isWakingUp || hasFailed}
               botName={systemInfo?.bot_name || 'Farsisstant'}
             />
           </div>
@@ -138,6 +151,7 @@ function ChatContent() {
   const conversationId = searchParams?.get('id') || undefined;
 
   const { data: systemInfo } = useAiSystemInfo();
+  const { isWakingUp, hasFailed } = useAiHealth();
   const { sendMessage, isLoading: isChatLoading } =
     useAiChatMutation(conversationId);
   const { data: optimisticData } = useAiConversationMessages(undefined);
@@ -147,23 +161,41 @@ function ChatContent() {
     optimisticData?.messages &&
     optimisticData.messages.length > 0;
 
-  if (conversationId || hasOptimisticMessages) {
-    return (
-      <ConversationView
-        conversationId={conversationId}
-        sendMessage={sendMessage}
-        isChatLoading={isChatLoading}
-        systemInfo={systemInfo}
-      />
-    );
-  }
+  const botName = systemInfo?.bot_name || 'Farsisstant';
 
   return (
-    <ChatLandingPage
-      sendMessage={sendMessage}
-      isChatLoading={isChatLoading}
-      systemInfo={systemInfo}
-    />
+    <div className="flex h-full flex-col">
+      {isWakingUp && (
+        <div className="bg-yellow-100 p-2 text-center text-sm font-medium text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200">
+          Backend is currently sleeping, waking it up...
+        </div>
+      )}
+      {hasFailed && (
+        <div className="bg-red-100 p-2 text-center text-sm font-medium text-red-800 dark:bg-red-900/50 dark:text-red-200">
+          {botName} isn&apos;t waking up, please try again later.
+        </div>
+      )}
+      <div className="grow overflow-hidden">
+        {conversationId || hasOptimisticMessages ? (
+          <ConversationView
+            conversationId={conversationId}
+            sendMessage={sendMessage}
+            isChatLoading={isChatLoading}
+            systemInfo={systemInfo}
+            isWakingUp={isWakingUp}
+            hasFailed={hasFailed}
+          />
+        ) : (
+          <ChatLandingPage
+            sendMessage={sendMessage}
+            isChatLoading={isChatLoading}
+            systemInfo={systemInfo}
+            isWakingUp={isWakingUp}
+            hasFailed={hasFailed}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
