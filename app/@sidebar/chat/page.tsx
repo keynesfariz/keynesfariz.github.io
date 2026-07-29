@@ -19,7 +19,9 @@ function ChatSidebarContent() {
         <div className="flex flex-col">
           <span className="font-medium">Active LLMs</span>
           <span className="text-muted-foreground text-xs">
-            {systemInfo?.llm_model || 'Loading...'}
+            {systemInfo?.llm_model && systemInfo.embedding_model
+              ? `${systemInfo?.llm_model} | ${systemInfo.embedding_model}`
+              : 'Loading...'}
           </span>
         </div>
       </div>
