@@ -156,11 +156,11 @@ function ChatContent() {
   const searchParams = useSearchParams();
   const conversationId = searchParams?.get('id') || undefined;
 
-  const { data: systemInfo } = useAiSystemInfo();
-  const { isWakingUp, hasFailed } = useAiHealth();
+  const { isAwake, isWakingUp, hasFailed } = useAiHealth();
+  const { data: systemInfo } = useAiSystemInfo(isAwake);
   const { sendMessage, isLoading: isChatLoading } =
     useAiChatMutation(conversationId);
-  const { data: optimisticData } = useAiConversationMessages(undefined);
+  const { data: optimisticData } = useAiConversationMessages(undefined, isAwake);
 
   const hasOptimisticMessages =
     !conversationId &&

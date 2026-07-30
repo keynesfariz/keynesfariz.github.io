@@ -2,7 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 
 import { API_URL } from '@/lib/env';
 
-export const useAiConversationMessages = (conversationId?: string | null) =>
+export const useAiConversationMessages = (
+  conversationId?: string | null,
+  isAwake: boolean = true,
+) =>
   useQuery({
     queryKey: ['conversation', conversationId],
     queryFn: async () => {
@@ -18,5 +21,5 @@ export const useAiConversationMessages = (conversationId?: string | null) =>
         expiresAt: data.expires_at || null,
       };
     },
-    enabled: !!conversationId,
+    enabled: !!conversationId && isAwake,
   });

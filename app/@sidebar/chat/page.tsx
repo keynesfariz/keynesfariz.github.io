@@ -4,10 +4,11 @@ import { Clock, Database, Zap } from 'lucide-react';
 import { Suspense } from 'react';
 
 import { DateTime } from '@/components/ui/datetime';
-import { useAiSystemInfo } from '@/hooks/chat';
+import { useAiSystemInfo, useAiHealth } from '@/hooks/chat';
 
 function ChatSidebarContent() {
-  const { data: systemInfo } = useAiSystemInfo();
+  const { isAwake } = useAiHealth();
+  const { data: systemInfo } = useAiSystemInfo(isAwake);
 
   return (
     <div className="flex w-full max-w-75 flex-col gap-4">

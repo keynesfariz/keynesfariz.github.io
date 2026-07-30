@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import Link from 'next/link';
 
-import { useAiConversations } from '@/hooks/chat';
+import { useAiConversations, useAiHealth } from '@/hooks/chat';
 import { cn } from '@/lib/utils';
 
 type Conversation = {
@@ -22,7 +22,8 @@ function ChatLeftSidebarContent() {
   const searchParams = useSearchParams();
   const id = searchParams?.get('id') || undefined;
 
-  const { data: chatData, isLoading: chatLoading } = useAiConversations();
+  const { isAwake } = useAiHealth();
+  const { data: chatData, isLoading: chatLoading } = useAiConversations(isAwake);
 
   return (
     <div className="flex w-full flex-col gap-2">

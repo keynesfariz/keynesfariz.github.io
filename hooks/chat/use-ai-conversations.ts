@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { API_URL } from '@/lib/env';
 
-export function useAiConversations() {
+export function useAiConversations(isAwake: boolean = true) {
   return useQuery({
     queryKey: ['conversations'],
     queryFn: async () => {
@@ -11,5 +11,6 @@ export function useAiConversations() {
       const data = await res.json();
       return data.conversations || [];
     },
+    enabled: isAwake,
   });
 }

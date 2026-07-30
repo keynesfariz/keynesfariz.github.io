@@ -16,7 +16,7 @@ export const useAiHealth = () => {
   });
 
   const isAwake = query.isSuccess;
-  const isWakingUp = query.isLoading && query.failureCount > 0;
+  const isWakingUp = query.isLoading && !query.isError;
   const hasFailed = query.isError;
 
   return {

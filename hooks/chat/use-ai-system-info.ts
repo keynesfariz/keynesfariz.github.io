@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { API_URL } from '@/lib/env';
 
-export const useAiSystemInfo = () =>
+export const useAiSystemInfo = (isAwake: boolean = true) =>
   useQuery({
     queryKey: ['system-info'],
     queryFn: async () => {
@@ -10,4 +10,5 @@ export const useAiSystemInfo = () =>
       return res.json();
     },
     staleTime: Infinity,
+    enabled: isAwake,
   });
