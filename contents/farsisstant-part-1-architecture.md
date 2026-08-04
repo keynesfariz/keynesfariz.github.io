@@ -1,6 +1,6 @@
 ---
 title: 'Farsisstant: Building a Free-Tier RAG Chatbot (Part 1)'
-created_at: '2026-08-04T15:15:00Z'
+created_at: '2026-08-04T15:42:00Z'
 description: 'How I built a fully functional RAG chatbot without spending a single dime, and named it after myself.'
 tags: ['rag', 'chatbot', 'free-tier', 'architecture', 'fastapi', 'nextjs']
 url: 'https://keynesfariz.github.io/chat'
