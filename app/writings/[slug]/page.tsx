@@ -1,6 +1,7 @@
 import { ExternalLinkIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
+import { marked } from 'marked';
 import Link from 'next/link';
 
 import { MainLayout } from '@/components/layout/main-layout';
@@ -44,10 +45,26 @@ export default async function WritingDetail(
 
   let content = writing.content;
   if (writing.medium_url) {
-    const paragraphs = content
-      .split(/\n\n+/)
-      .filter((p) => p.trim().length > 0);
-    content = paragraphs.slice(0, 2).join('\n\n');
+    const tokens = marked.lexer(content);
+    let truncatedContent = '';
+    let paragraphCount = 0;
+
+    for (const token of tokens) {
+      truncatedContent += token.raw;
+      if (token.type === 'paragraph') {
+        const isImageOnly =
+          token.tokens &&
+          token.tokens.length === 1 &&
+          token.tokens[0].type === 'image';
+        if (!isImageOnly) {
+          paragraphCount++;
+          if (paragraphCount === 4) {
+            break;
+          }
+        }
+      }
+    }
+    content = truncatedContent;
   }
 
   return (
@@ -136,13 +153,9 @@ export default async function WritingDetail(
                   href={writing.medium_url}
                   target="_blank"
                   rel="noreferrer"
-                  className={buttonVariants({
-                    size: 'lg',
-                    className:
-                      'rounded-full px-8 font-semibold no-underline shadow-md transition-transform duration-200 hover:scale-105',
-                  })}>
+                  className={buttonVariants({ variant: 'ghost' })}>
                   Continue reading on Medium
-                  <ExternalLinkIcon className="ml-2 size-4" />
+                  <ExternalLinkIcon data-icon="inline-end" />
                 </Link>
               </div>
             )}
