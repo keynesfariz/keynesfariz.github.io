@@ -3,6 +3,7 @@ title: 'Building My Personal Website: Stack, Decisions, and Lesson'
 created_at: '2026-04-13T08:42:00Z'
 description: "Eleven years of overthinking later, I finally built my personal website. Here's the stack, the AI-assisted design process, and what I'd do differently."
 url: 'https://github.com/keynesfariz/keynesfariz.github.io'
+medium_url: 'https://medium.com/@keynesfariz/building-my-personal-website-stack-decisions-and-lesson-66fc3f74e71a'
 tags:
   [
     'ai-assisted',

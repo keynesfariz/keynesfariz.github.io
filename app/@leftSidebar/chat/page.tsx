@@ -23,7 +23,8 @@ function ChatLeftSidebarContent() {
   const id = searchParams?.get('id') || undefined;
 
   const { isAwake } = useAiHealth();
-  const { data: chatData, isLoading: chatLoading } = useAiConversations(isAwake);
+  const { data: chatData, isLoading: chatLoading } =
+    useAiConversations(isAwake);
 
   return (
     <div className="flex w-full flex-col gap-2">

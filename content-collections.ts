@@ -12,6 +12,7 @@ const writings = defineCollection({
     created_at: z.iso.datetime(),
     description: z.string().optional(),
     url: z.string().optional(),
+    medium_url: z.string().optional(),
     tags: z.array(z.string()).optional(),
     content: z.string(),
   }),

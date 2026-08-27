@@ -3,8 +3,8 @@
 import { Clock, Database, Zap } from 'lucide-react';
 import { Suspense } from 'react';
 
-import { DateTime } from '@/components/ui/datetime';
 import { useAiSystemInfo, useAiHealth } from '@/hooks/chat';
+import { DateTime } from '@/components/ui/datetime';
 
 function ChatSidebarContent() {
   const { isAwake } = useAiHealth();
