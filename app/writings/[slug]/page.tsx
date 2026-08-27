@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 import Link from 'next/link';
@@ -5,6 +6,7 @@ import Link from 'next/link';
 import { MainLayout } from '@/components/layout/main-layout';
 import { getResponsiveImageProps } from '@/lib/image.server';
 import { Writing } from '@/.content-collections/generated';
+import { buttonVariants } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { extractImageDimensions } from '@/lib/image';
 import { Markdown } from '@/components/ui/markdown';
@@ -39,6 +41,14 @@ export default async function WritingDetail(
   }
 
   const hasTags = writing.tags && writing.tags.length > 0;
+
+  let content = writing.content;
+  if (writing.medium_url) {
+    const paragraphs = content
+      .split(/\n\n+/)
+      .filter((p) => p.trim().length > 0);
+    content = paragraphs.slice(0, 2).join('\n\n');
+  }
 
   return (
     <MainLayout>
@@ -78,7 +88,7 @@ export default async function WritingDetail(
 
           <div className="prose prose-neutral dark:prose-invert prose-a:text-primary max-w-none text-lg leading-relaxed underline-offset-[3px]">
             <Markdown
-              content={writing.content}
+              content={content}
               components={{
                 img: (props) => {
                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -120,6 +130,22 @@ export default async function WritingDetail(
                 },
               }}
             />
+            {writing.medium_url && (
+              <div className="mt-12 flex justify-center">
+                <Link
+                  href={writing.medium_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={buttonVariants({
+                    size: 'lg',
+                    className:
+                      'rounded-full px-8 font-semibold no-underline shadow-md transition-transform duration-200 hover:scale-105',
+                  })}>
+                  Continue reading on Medium
+                  <ExternalLinkIcon className="ml-2 size-4" />
+                </Link>
+              </div>
+            )}
           </div>
         </article>
       </div>

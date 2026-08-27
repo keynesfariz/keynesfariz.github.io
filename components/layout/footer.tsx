@@ -15,6 +15,13 @@ export function Footer() {
 
         <div className="flex items-center gap-6">
           <Link
+            href={`https://medium.com/@${USERNAME}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-muted-foreground hover:text-foreground transition-colors">
+            <span>Medium</span>
+          </Link>
+          <Link
             href={`https://linkedin.com/in/${USERNAME}`}
             target="_blank"
             rel="noreferrer"

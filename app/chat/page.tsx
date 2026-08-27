@@ -160,7 +160,10 @@ function ChatContent() {
   const { data: systemInfo } = useAiSystemInfo(isAwake);
   const { sendMessage, isLoading: isChatLoading } =
     useAiChatMutation(conversationId);
-  const { data: optimisticData } = useAiConversationMessages(undefined, isAwake);
+  const { data: optimisticData } = useAiConversationMessages(
+    undefined,
+    isAwake,
+  );
 
   const hasOptimisticMessages =
     !conversationId &&

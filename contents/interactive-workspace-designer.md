@@ -3,6 +3,7 @@ title: 'Interactive Workspace Designer: Claude Did Most of the Work'
 created_at: '2026-04-16T07:42:26.586Z'
 description: 'A coding challenge and leveraging AI to help build it, shipped a blueprint-style workspace configurator 8 hours'
 url: 'https://workspace-designer-chi.vercel.app'
+medium_url: 'https://keynesfariz.medium.com/interactive-workspace-designer-claude-did-most-of-the-work-04f6de0e961a'
 tags:
   [
     'coding-challenge',
